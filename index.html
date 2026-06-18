@@ -1,335 +1,493 @@
 <!DOCTYPE html>
-<html lang="es">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BubbleMesh — Infraestructura de IA especializada por sector</title>
-<meta name="description" content="Desplegamos infraestructura de IA especializada por sector. Entendemos los problemas de cada industria y construimos el arnés que hace que los agentes funcionen en producción, sin supervisión constante.">
-<meta name="theme-color" content="#0B0F1A">
-
-<!-- Open Graph -->
-<meta property="og:type" content="website">
-<meta property="og:title" content="BubbleMesh — Infraestructura de IA especializada por sector">
-<meta property="og:description" content="Las máquinas aprenden patrones. Los humanos rompemos los nuestros. Construimos el arnés que hace que los agentes de IA funcionen en producción.">
-<meta property="og:image" content="assets/images/hero-bubble-3d.webp">
-
-<link rel="icon" type="image/webp" href="assets/images/hero-bubble-3d.webp">
-
-<!-- Fonts -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
-
-<link rel="stylesheet" href="assets/css/styles.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
 </head>
 <body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="crossorigin">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&amp;family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: #0B0F1A; }
+  ::selection { background: rgba(236,72,153,0.35); color: #fff; }
+  a { text-decoration: none; }
+  @keyframes floatNode { 0% { transform: translate(0,0); } 50% { transform: translate(10px,-16px); } 100% { transform: translate(0,0); } }
+  @keyframes pulseGlow { 0%,100% { opacity: .35; } 50% { opacity: .8; } }
+  @keyframes bubbleFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-22px); } }
+  @keyframes haloPulse { 0%,100% { opacity: .45; transform: scale(1); } 50% { opacity: .85; transform: scale(1.07); } }
+  @keyframes btnSheen { 0% { background-position: 0% 50%; } 100% { background-position: 220% 50%; } }
+</style>
+</helmet>
 
-<!-- ═══════════ NAV ═══════════ -->
-<nav class="nav" id="nav">
-  <div class="nav-inner">
-    <a href="#hero" class="nav-logo logo-lockup" aria-label="BubbleMesh inicio">
-      <img src="assets/images/logo-symbol.webp" alt="" width="42" height="32">
-      <span class="logo-wordmark">Bubble<span class="mesh">Mesh</span></span>
-    </a>
-    <ul class="nav-links">
-      <li><a href="#como-funciona">Cómo funciona</a></li>
-      <li><a href="#bubbles">Las Bubbles</a></li>
-      <li><a href="#equipo">El equipo</a></li>
-      <li><a class="btn btn-secondary nav-cta" href="https://wa.me/5215531650560?text=Hola%2C%20me%20interesa%20saber%20m%C3%A1s%20sobre%20BubbleMesh" target="_blank" rel="noopener">Hablar con el equipo →</a></li>
-    </ul>
-    <button class="nav-toggle" id="navToggle" aria-label="Abrir menú">
-      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
-    </button>
-  </div>
-</nav>
+<div style="font-family: 'Inter', system-ui, sans-serif; background: #0B0F1A; color: #E2E8F0; position: relative; overflow-x: hidden; min-height: 100vh;">
 
-<!-- ═══════════ HERO ═══════════ -->
-<header class="hero" id="hero">
-  <video class="hero-video" autoplay muted loop playsinline poster="assets/video/hero-poster.webp">
-    <source src="assets/video/hero-bg-loop.mp4" type="video/mp4">
-  </video>
-  <div class="hero-overlay"></div>
-  <div class="hero-inner">
-    <div class="hero-copy">
-      <span class="eyebrow">BubbleMesh · Infraestructura de IA especializada por sector</span>
-      <h1>Las máquinas aprenden patrones. Los humanos <span class="gradient-text">rompemos los nuestros.</span></h1>
-      <p class="hero-sub">Somos un equipo que despliega infraestructura de IA especializada por sector. Entendemos los problemas de cada industria y construimos el arnés que hace que los agentes funcionen — de verdad, en producción, sin supervisión constante.</p>
-      <div class="hero-actions">
-        <a class="btn btn-primary" href="https://wa.me/5215531650560?text=Hola%2C%20me%20interesa%20saber%20m%C3%A1s%20sobre%20BubbleMesh" target="_blank" rel="noopener">Hablar con el equipo →</a>
-        <a class="btn btn-secondary" href="#como-funciona">Ver cómo funciona</a>
+  <div style="position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;">{{ meshNodes }}</div>
+
+  <!-- ===================== NAV ===================== -->
+  <nav style="position: fixed; top: 0; left: 0; right: 0; z-index: 50; height: 74px;">
+    <div style="{{ navOverlayStyle }}"></div>
+    <div style="position: relative; z-index: 1; max-width: 1180px; margin: 0 auto; height: 100%; padding: 0 32px; display: flex; align-items: center; justify-content: space-between; gap: 24px;">
+      <a href="#top" style="display: flex; align-items: center; gap: 11px;">
+        <img src="assets/logo-symbol.webp" alt="" style="width: 40px; height: auto; flex: none; filter: drop-shadow(0 0 10px rgba(168,85,247,0.35));">
+        <span style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.3rem; letter-spacing: -0.01em; color: #fff;">Bubble<span style="background: linear-gradient(120deg,#A855F7,#EC4899); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">Mesh</span></span>
+      </a>
+      <div style="display: flex; align-items: center; gap: 34px;">
+        <div style="display: flex; align-items: center; gap: 28px;">
+          <a href="#como-funciona" style="color: #E2E8F0; font-size: 0.92rem; font-weight: 500;" style-hover="color: #A855F7;">Cómo funciona</a>
+          <a href="#bubbles" style="color: #E2E8F0; font-size: 0.92rem; font-weight: 500;" style-hover="color: #A855F7;">Las Bubbles</a>
+          <a href="#equipo" style="color: #E2E8F0; font-size: 0.92rem; font-weight: 500;" style-hover="color: #A855F7;">El equipo</a>
+        </div>
+        <a href="https://wa.me/5215531650560?text=Hola%2C%20me%20interesa%20saber%20m%C3%A1s%20sobre%20BubbleMesh" target="_blank" rel="noopener" style="font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.9rem; color: #fff; padding: 10px 20px; border-radius: 9999px; border: 1px solid rgba(168,85,247,0.5); transition: all 0.3s cubic-bezier(0.4,0,0.2,1);" style-hover="border-color: rgba(168,85,247,0.95); background: rgba(168,85,247,0.1);">Hablar con el equipo →</a>
       </div>
     </div>
-    <div class="hero-visual">
-      <img class="hero-bubble" src="assets/images/hero-bubble-3d.webp" alt="Bubble — agente de IA de BubbleMesh" width="440" height="440">
-    </div>
-  </div>
-</header>
+  </nav>
 
-<main>
+  <main style="position: relative; z-index: 1;">
 
-<!-- ═══════════ CÓMO FUNCIONA ═══════════ -->
-<section class="section bg-radial" id="como-funciona">
-  <div class="container">
-    <span class="eyebrow eyebrow--brand reveal">Lo que construimos</span>
-    <h2 class="h2 reveal">Entendemos tu sector.<br>Construimos el arnés.<br><span class="gradient-text">Desplegamos los agentes.</span></h2>
-    <p class="section-intro reveal">Un agente de IA sin estructura es solo un modelo respondiendo preguntas. Lo que diferencia a un sistema que funciona en producción es el arnés: el entorno que rodea al modelo y le permite ejecutar tareas reales, de forma controlada, con memoria, con herramientas, y con verificación. Eso es lo que construimos — para cada sector, desde cero.</p>
+    <!-- ===================== HERO ===================== -->
+    <section id="top" style="position: relative; min-height: 100vh; display: flex; align-items: center; padding: 130px 0 90px; overflow: hidden;">
+      <video ref="{{ setVideo }}" autoPlay="autoPlay" loop="loop" playsInline="playsInline" muted="muted" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0;">
+        <source src="assets/hero-bg-loop.mp4" type="video/mp4">
+      </video>
+      <div style="position: absolute; inset: 0; z-index: 1; background: linear-gradient(to bottom, rgba(11,15,26,0.55) 0%, rgba(11,15,26,0.78) 55%, rgba(11,15,26,0.96) 100%);"></div>
+      <div style="position: absolute; inset: 0; z-index: 1; background: radial-gradient(ellipse 70% 55% at 70% 40%, rgba(124,58,237,0.22) 0%, transparent 60%);"></div>
 
-    <div class="grid grid-4">
-      <article class="glass-card card reveal">
-        <div class="icon-circle"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/></svg></div>
-        <span class="card-eyebrow">01 · Contexto</span>
-        <h3>El agente sabe dónde está</h3>
-        <p>Cada agente recibe información específica de tu operación — tus procesos, tus reglas, tu historial. No trabaja en el vacío. Trabaja en tu mundo.</p>
-      </article>
-      <article class="glass-card card reveal">
-        <div class="icon-circle"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17 17.25 21A2.652 2.652 0 0 0 21 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 1 1-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 0 0 4.486-6.336l-3.276 3.277a3.004 3.004 0 0 1-2.25-2.25l3.276-3.276a4.5 4.5 0 0 0-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437 1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008Z"/></svg></div>
-        <span class="card-eyebrow">02 · Herramientas</span>
-        <h3>El agente puede actuar</h3>
-        <p>Conectamos el agente a las herramientas que ya usas — CRMs, bases de datos, canales de comunicación, APIs externas. No es un chat. Es un operador.</p>
-      </article>
-      <article class="glass-card card reveal">
-        <div class="icon-circle"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75"/></svg></div>
-        <span class="card-eyebrow">03 · Memoria</span>
-        <h3>El agente recuerda</h3>
-        <p>Los agentes de BubbleMesh tienen memoria externa que persiste entre sesiones. Aprenden de la operación, acumulan contexto y mejoran con el tiempo — sin depender de la ventana de un solo modelo.</p>
-      </article>
-      <article class="glass-card card reveal">
-        <div class="icon-circle magenta"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"/></svg></div>
-        <span class="card-eyebrow">04 · Verificación</span>
-        <h3>El agente no alucina en producción</h3>
-        <p>Cada output pasa por un sistema de verificación antes de salir al mundo. Tests, revisores y agentes de QA detectan errores antes de que lleguen al cliente. El arnés garantiza la solidez del sistema aunque el modelo cambie.</p>
-      </article>
-    </div>
-
-    <div class="howto-layout">
-      <div class="howto-diagram reveal">
-        <img src="assets/images/diagrama-arnes.webp" alt="Diagrama del arnés: contexto, herramientas, memoria y verificación orbitando al agente" width="1200" height="900" loading="lazy">
+      <div style="position: relative; z-index: 2; max-width: 1180px; margin: 0 auto; padding: 0 32px; width: 100%; display: flex; flex-wrap: wrap; align-items: center; gap: 40px;">
+        <div style="flex: 1 1 480px; min-width: 320px;">
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: #94A3B8; margin-bottom: 26px;">BubbleMesh · Infraestructura de IA especializada por sector</div>
+          <h1 style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: clamp(2rem, 4.4vw, 3.6rem); line-height: 1.1; letter-spacing: -0.02em; color: #fff; margin: 0 0 26px; text-wrap: balance;">Las máquinas aprenden patrones. Los humanos <span style="background: linear-gradient(120deg,#A855F7 10%,#EC4899 90%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">rompemos los nuestros.</span></h1>
+          <p style="font-family: 'Inter', sans-serif; font-size: 1.125rem; line-height: 1.65; color: #E2E8F0; max-width: 560px; margin: 0 0 38px;">Somos un equipo que despliega infraestructura de IA especializada por sector. Entendemos los problemas de cada industria y construimos el arnés que hace que los agentes funcionen — de verdad, en producción, sin supervisión constante.</p>
+          <div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: center;">
+            <a href="https://wa.me/5215531650560?text=Hola%2C%20me%20interesa%20saber%20m%C3%A1s%20sobre%20BubbleMesh" target="_blank" rel="noopener" style="font-family: 'Inter', sans-serif; font-weight: 700; font-size: 1rem; color: #fff; padding: 15px 30px; border-radius: 9999px; background: linear-gradient(110deg,#EC4899,#A855F7,#7C3AED,#A855F7,#EC4899); background-size: 220% 100%; background-position: 0% 50%; box-shadow: 0 0 28px rgba(236,72,153,0.34); transition: all 0.3s cubic-bezier(0.4,0,0.2,1);" style-hover="box-shadow: 0 0 38px rgba(236,72,153,0.55); transform: translateY(-2px); animation: btnSheen 2s linear infinite;">Hablar con el equipo →</a>
+            <a href="#como-funciona" style="font-family: 'Inter', sans-serif; font-weight: 600; font-size: 1rem; color: #fff; padding: 14px 28px; border-radius: 9999px; border: 1px solid rgba(168,85,247,0.5); transition: all 0.3s cubic-bezier(0.4,0,0.2,1);" style-hover="border-color: rgba(168,85,247,0.95); background: rgba(168,85,247,0.08);">Ver cómo funciona</a>
+          </div>
+        </div>
+        <div style="flex: 1 1 360px; min-width: 280px; display: flex; justify-content: center; align-items: center; position: relative;">
+          <div style="position: absolute; width: 60%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle, rgba(168,85,247,0.4) 0%, transparent 65%); filter: blur(20px); animation: haloPulse 5s ease-in-out infinite;"></div>
+          <img src="assets/hero-bubble-3d.webp" alt="Bubble" style="position: relative; width: min(42vw, 460px); height: auto; animation: bubbleFloat 7s ease-in-out infinite; filter: drop-shadow(0 30px 70px rgba(124,58,237,0.4));">
+        </div>
       </div>
-      <div class="reveal">
-        <span class="eyebrow eyebrow--brand">El stack</span>
-        <h3 style="font-family:var(--font-display);font-weight:700;font-size:var(--size-h3);color:#fff;margin:.5rem 0 1rem;">Construido sobre los mejores modelos. No atado a ninguno.</h3>
-        <p style="color:var(--color-text-muted);">Usamos los proveedores líderes en cada capa del sistema. El arnés garantiza que si un modelo mejora o cambia, el sistema no se rompe — solo mejora.</p>
+    </section>
+
+    <!-- ===================== CÓMO FUNCIONA ===================== -->
+    <section id="como-funciona" style="position: relative; padding: 120px 0;">
+      <div style="max-width: 1180px; margin: 0 auto; padding: 0 32px;">
+        <div style="max-width: 760px;">
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: #A855F7; margin-bottom: 20px;">Lo que construimos</div>
+          <h2 style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: clamp(2rem,4.6vw,3.3rem); line-height: 1.08; letter-spacing: -0.02em; color: #fff; margin: 0 0 26px;">Entendemos tu sector. Construimos el arnés. Desplegamos los agentes.</h2>
+          <p style="font-family: 'Inter', sans-serif; font-size: 1.0625rem; line-height: 1.7; color: #94A3B8; margin: 0;">Un agente de IA sin estructura es solo un modelo respondiendo preguntas. Lo que diferencia a un sistema que funciona en producción es el arnés: el entorno que rodea al modelo y le permite ejecutar tareas reales, de forma controlada, con memoria, con herramientas, y con verificación. Eso es lo que construimos — para cada sector, desde cero.</p>
+        </div>
+
+        <div style="margin: 64px auto 64px; max-width: 880px;">
+          <img src="assets/diagrama-arnes.webp" alt="Diagrama del arnés: Contexto, Herramientas, Memoria, Verificación orbitando al agente" style="width: 100%; height: auto; display: block; border-radius: 20px;">
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 22px;">
+          <div style="background: rgba(255,255,255,0.045); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); border-top: 1px solid rgba(255,255,255,0.16); border-radius: 20px; box-shadow: 0 8px 40px rgba(0,0,0,0.5), 0 0 40px rgba(109,40,217,0.14); padding: 30px;">
+            <div style="width: 48px; height: 48px; border-radius: 50%; background: rgba(124,58,237,0.12); border: 1px solid rgba(168,85,247,0.22); display: flex; align-items: center; justify-content: center; color: #A855F7; margin-bottom: 22px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" style="width: 24px; height: 24px;"><path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"></path></svg></div>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.66rem; letter-spacing: 0.16em; color: #94A3B8; margin-bottom: 10px;">01 · CONTEXTO</div>
+            <h3 style="font-family: 'Inter', sans-serif; font-weight: 600; font-size: 1.15rem; color: #fff; margin: 0 0 12px;">El agente sabe dónde está</h3>
+            <p style="font-family: 'Inter', sans-serif; font-size: 0.92rem; line-height: 1.65; color: #94A3B8; margin: 0;">Cada agente recibe información específica de tu operación — tus procesos, tus reglas, tu historial. No trabaja en el vacío. Trabaja en tu mundo.</p>
+          </div>
+          <div style="background: rgba(255,255,255,0.045); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); border-top: 1px solid rgba(255,255,255,0.16); border-radius: 20px; box-shadow: 0 8px 40px rgba(0,0,0,0.5), 0 0 40px rgba(109,40,217,0.14); padding: 30px;">
+            <div style="width: 48px; height: 48px; border-radius: 50%; background: rgba(124,58,237,0.12); border: 1px solid rgba(168,85,247,0.22); display: flex; align-items: center; justify-content: center; color: #A855F7; margin-bottom: 22px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" style="width: 24px; height: 24px;"><path strokeLinecap="round" strokeLinejoin="round" d="M11.42 15.17 17.25 21A2.652 2.652 0 0 0 21 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 1 1-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 0 0 4.486-6.336l-3.276 3.277a3.004 3.004 0 0 1-2.25-2.25l3.276-3.276a4.5 4.5 0 0 0-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26"></path></svg></div>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.66rem; letter-spacing: 0.16em; color: #94A3B8; margin-bottom: 10px;">02 · HERRAMIENTAS</div>
+            <h3 style="font-family: 'Inter', sans-serif; font-weight: 600; font-size: 1.15rem; color: #fff; margin: 0 0 12px;">El agente puede actuar</h3>
+            <p style="font-family: 'Inter', sans-serif; font-size: 0.92rem; line-height: 1.65; color: #94A3B8; margin: 0;">Conectamos el agente a las herramientas que ya usas — CRMs, bases de datos, canales de comunicación, APIs externas. No es un chat. Es un operador.</p>
+          </div>
+          <div style="background: rgba(255,255,255,0.045); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); border-top: 1px solid rgba(255,255,255,0.16); border-radius: 20px; box-shadow: 0 8px 40px rgba(0,0,0,0.5), 0 0 40px rgba(109,40,217,0.14); padding: 30px;">
+            <div style="width: 48px; height: 48px; border-radius: 50%; background: rgba(124,58,237,0.12); border: 1px solid rgba(168,85,247,0.22); display: flex; align-items: center; justify-content: center; color: #A855F7; margin-bottom: 22px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" style="width: 24px; height: 24px;"><path strokeLinecap="round" strokeLinejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125"></path></svg></div>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.66rem; letter-spacing: 0.16em; color: #94A3B8; margin-bottom: 10px;">03 · MEMORIA</div>
+            <h3 style="font-family: 'Inter', sans-serif; font-weight: 600; font-size: 1.15rem; color: #fff; margin: 0 0 12px;">El agente recuerda</h3>
+            <p style="font-family: 'Inter', sans-serif; font-size: 0.92rem; line-height: 1.65; color: #94A3B8; margin: 0;">Los agentes de BubbleMesh tienen memoria externa que persiste entre sesiones. Aprenden de la operación, acumulan contexto y mejoran con el tiempo — sin depender de la ventana de un solo modelo.</p>
+          </div>
+          <div style="background: rgba(124,58,237,0.08); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(236,72,153,0.28); border-top: 1px solid rgba(236,72,153,0.4); border-radius: 20px; box-shadow: 0 8px 40px rgba(0,0,0,0.5), 0 0 44px rgba(236,72,153,0.16); padding: 30px;">
+            <div style="width: 48px; height: 48px; border-radius: 50%; background: rgba(236,72,153,0.14); border: 1px solid rgba(236,72,153,0.3); display: flex; align-items: center; justify-content: center; color: #EC4899; margin-bottom: 22px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" style="width: 24px; height: 24px;"><path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"></path></svg></div>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.66rem; letter-spacing: 0.16em; color: #EC4899; margin-bottom: 10px;">04 · VERIFICACIÓN</div>
+            <h3 style="font-family: 'Inter', sans-serif; font-weight: 600; font-size: 1.15rem; color: #fff; margin: 0 0 12px;">El agente no alucina en producción</h3>
+            <p style="font-family: 'Inter', sans-serif; font-size: 0.92rem; line-height: 1.65; color: #C9B6E8; margin: 0;">Cada output pasa por un sistema de verificación antes de salir al mundo. Tests, revisores y agentes de QA detectan errores antes de que lleguen al cliente. El arnés garantiza la solidez del sistema aunque el modelo cambie.</p>
+          </div>
+        </div>
+
+        <!-- Stack block -->
+        <div style="margin-top: 80px; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; align-items: start;">
+          <div>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: #A855F7; margin-bottom: 18px;">El stack</div>
+            <h3 style="font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: clamp(1.5rem,3vw,2.1rem); line-height: 1.16; color: #fff; margin: 0 0 18px; letter-spacing: -0.01em;">Construido sobre los mejores modelos. No atado a ninguno.</h3>
+            <p style="font-family: 'Inter', sans-serif; font-size: 1rem; line-height: 1.7; color: #94A3B8; margin: 0 0 28px;">Usamos los proveedores líderes en cada capa del sistema. El arnés garantiza que si un modelo mejora o cambia, el sistema no se rompe — solo mejora.</p>
+            <img src="assets/team-detalle-manos.webp" alt="Equipo trabajando sobre dashboards de agentes en producción" style="width: 100%; height: auto; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); display: block;">
+          </div>
+          <div style="background: rgba(255,255,255,0.03); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 28px; display: flex; flex-direction: column; gap: 20px;">
+            <div style="display: flex; flex-direction: column; gap: 9px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; letter-spacing: 0.14em; color: #64748B;">MODELOS DE IA</span><div style="display: flex; flex-wrap: wrap; gap: 8px;"><span style="font-family: 'Inter', sans-serif; font-size: 0.78rem; font-weight: 500; color: #E2E8F0; padding: 5px 12px; border-radius: 9999px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);">Claude</span><span style="font-family: 'Inter', sans-serif; font-size: 0.78rem; font-weight: 500; color: #E2E8F0; padding: 5px 12px; border-radius: 9999px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);">GPT-4o</span><span style="font-family: 'Inter', sans-serif; font-size: 0.78rem; font-weight: 500; color: #E2E8F0; padding: 5px 12px; border-radius: 9999px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);">Gemini</span></div></div>
+            <div style="display: flex; flex-direction: column; gap: 9px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; letter-spacing: 0.14em; color: #64748B;">AGENTES ORQUESTADORES<br></span><div style="display: flex; flex-wrap: wrap; gap: 8px;"><span style="font-family: 'Inter', sans-serif; font-size: 0.78rem; font-weight: 500; color: #E2E8F0; padding: 5px 12px; border-radius: 9999px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);">OpenClaw</span><span style="font-family: 'Inter', sans-serif; font-size: 0.78rem; font-weight: 500; color: #E2E8F0; padding: 5px 12px; border-radius: 9999px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);">Hermes-agent</span><span style="font-family: 'Inter', sans-serif; font-size: 0.78rem; font-weight: 500; color: #E2E8F0; padding: 5px 12px; border-radius: 9999px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);">NemoClaw</span></div></div>
+            <div style="display: flex; flex-direction: column; gap: 9px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; letter-spacing: 0.14em; color: #64748B;">AUTOMATIZACIÓN</span><div style="display: flex; flex-wrap: wrap; gap: 8px;"><span style="font-family: 'Inter', sans-serif; font-size: 0.78rem; font-weight: 500; color: #E2E8F0; padding: 5px 12px; border-radius: 9999px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);">GoHighLevel</span><span style="font-family: 'Inter', sans-serif; font-size: 0.78rem; font-weight: 500; color: #E2E8F0; padding: 5px 12px; border-radius: 9999px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);">Manychat</span><span style="font-family: 'Inter', sans-serif; font-size: 0.78rem; font-weight: 500; color: #E2E8F0; padding: 5px 12px; border-radius: 9999px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);">Respond.io</span><span style="font-family: 'Inter', sans-serif; font-size: 0.78rem; font-weight: 500; color: #E2E8F0; padding: 5px 12px; border-radius: 9999px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);">Instantly</span></div></div>
+            <div style="display: flex; flex-direction: column; gap: 9px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; letter-spacing: 0.14em; color: #64748B;">CRM Y DATOS</span><div style="display: flex; flex-wrap: wrap; gap: 8px;"><span style="font-family: 'Inter', sans-serif; font-size: 0.78rem; font-weight: 500; color: #E2E8F0; padding: 5px 12px; border-radius: 9999px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);">AirTable</span><span style="font-family: 'Inter', sans-serif; font-size: 0.78rem; font-weight: 500; color: #E2E8F0; padding: 5px 12px; border-radius: 9999px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);">Supabase</span><span style="font-family: 'Inter', sans-serif; font-size: 0.78rem; font-weight: 500; color: #E2E8F0; padding: 5px 12px; border-radius: 9999px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);">Apollo.io</span></div></div>
+            <div style="display: flex; flex-direction: column; gap: 9px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; letter-spacing: 0.14em; color: #64748B;">CONTENIDO IA · OPERACIÓN · INFRAESTRUCTURA</span><div style="display: flex; flex-wrap: wrap; gap: 8px;"><span style="font-family: 'Inter', sans-serif; font-size: 0.78rem; font-weight: 500; color: #E2E8F0; padding: 5px 12px; border-radius: 9999px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);">Higgsfield.ai</span><span style="font-family: 'Inter', sans-serif; font-size: 0.78rem; font-weight: 500; color: #E2E8F0; padding: 5px 12px; border-radius: 9999px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);">Notion</span><span style="font-family: 'Inter', sans-serif; font-size: 0.78rem; font-weight: 500; color: #E2E8F0; padding: 5px 12px; border-radius: 9999px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);">Google Workspace</span><span style="font-family: 'Inter', sans-serif; font-size: 0.78rem; font-weight: 500; color: #E2E8F0; padding: 5px 12px; border-radius: 9999px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);">VPS</span></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== BENEFICIOS ===================== -->
+    <section style="position: relative; padding: 120px 0; background: linear-gradient(to bottom, rgba(11,15,26,0.84), rgba(11,15,26,0.94)), url('assets/bg-beneficios.webp'); background-size: cover; background-position: center;">
+      <div style="max-width: 1180px; margin: 0 auto; padding: 0 32px;">
+        <div style="max-width: 680px; margin-bottom: 56px;">
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: #A855F7; margin-bottom: 20px;">Por qué BubbleMesh</div>
+          <h2 style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: clamp(2rem,4.6vw,3.3rem); line-height: 1.08; letter-spacing: -0.02em; color: #fff; margin: 0;">Infraestructura que entiende tu sector desde adentro.</h2>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(258px, 1fr)); gap: 22px;">
+          <div style="background: rgba(255,255,255,0.045); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); border-top: 1px solid rgba(255,255,255,0.16); border-radius: 20px; box-shadow: 0 8px 40px rgba(0,0,0,0.5); padding: 30px;">
+            <div style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.6rem; background: linear-gradient(120deg,#A855F7,#EC4899); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 16px;">01</div>
+            <h3 style="font-family: 'Inter', sans-serif; font-weight: 600; font-size: 1.18rem; color: #fff; margin: 0 0 12px;">Especialización real, no IA genérica</h3>
+            <p style="font-family: 'Inter', sans-serif; font-size: 0.92rem; line-height: 1.65; color: #94A3B8; margin: 0;">Cada Bubble se construye entendiendo los problemas específicos de su industria. No aplicamos la misma solución a todo — aprendemos tu sector primero y después construimos el arnés que lo resuelve.</p>
+          </div>
+          <div style="background: rgba(255,255,255,0.045); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); border-top: 1px solid rgba(255,255,255,0.16); border-radius: 20px; box-shadow: 0 8px 40px rgba(0,0,0,0.5); padding: 30px;">
+            <div style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.6rem; background: linear-gradient(120deg,#A855F7,#EC4899); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 16px;">02</div>
+            <h3 style="font-family: 'Inter', sans-serif; font-weight: 600; font-size: 1.18rem; color: #fff; margin: 0 0 12px;">El arnés que garantiza el sistema</h3>
+            <p style="font-family: 'Inter', sans-serif; font-size: 0.92rem; line-height: 1.65; color: #94A3B8; margin: 0;">Los modelos de IA cambian constantemente. Lo que garantiza la solidez de tu infraestructura no es el modelo — es el arnés que lo rodea. BubbleMesh construye lo que dura, no lo que está de moda.</p>
+          </div>
+          <div style="background: rgba(255,255,255,0.045); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); border-top: 1px solid rgba(255,255,255,0.16); border-radius: 20px; box-shadow: 0 8px 40px rgba(0,0,0,0.5); padding: 30px;">
+            <div style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.6rem; background: linear-gradient(120deg,#A855F7,#EC4899); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 16px;">03</div>
+            <h3 style="font-family: 'Inter', sans-serif; font-weight: 600; font-size: 1.18rem; color: #fff; margin: 0 0 12px;">Tu operación no depende de nosotros</h3>
+            <p style="font-family: 'Inter', sans-serif; font-size: 0.92rem; line-height: 1.65; color: #94A3B8; margin: 0;">Construimos para que no nos necesites. Cada sistema que desplegamos está diseñado para operar autónomamente. Cuando nos retiramos, tu infraestructura sigue corriendo sola.</p>
+          </div>
+          <div style="background: rgba(255,255,255,0.045); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); border-top: 1px solid rgba(255,255,255,0.16); border-radius: 20px; box-shadow: 0 8px 40px rgba(0,0,0,0.5); padding: 30px;">
+            <div style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.6rem; background: linear-gradient(120deg,#A855F7,#EC4899); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 16px;">04</div>
+            <h3 style="font-family: 'Inter', sans-serif; font-weight: 600; font-size: 1.18rem; color: #fff; margin: 0 0 12px;">Los mejores modelos, sin atarte a ninguno</h3>
+            <p style="font-family: 'Inter', sans-serif; font-size: 0.92rem; line-height: 1.65; color: #94A3B8; margin: 0;">Usamos Claude, GPT-4o, Gemini y los modelos más potentes de cada líder. El arnés garantiza que puedes cambiar de modelo en el futuro sin reescribir el sistema.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== LAS BUBBLES ===================== -->
+    <section id="bubbles" style="position: relative; padding: 120px 0;">
+      <div style="max-width: 1180px; margin: 0 auto; padding: 0 32px;">
+        <div style="max-width: 720px; margin-bottom: 56px;">
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: #A855F7; margin-bottom: 20px;">El ecosistema</div>
+          <h2 style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: clamp(2rem,4.6vw,3.3rem); line-height: 1.08; letter-spacing: -0.02em; color: #fff; margin: 0 0 24px;">Un arnés. Cada sector, su <span style="background: linear-gradient(120deg,#A855F7,#EC4899); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">Bubble.</span></h2>
+          <p style="font-family: 'Inter', sans-serif; font-size: 1.0625rem; line-height: 1.7; color: #94A3B8; margin: 0;">Cada Bubble es una infraestructura de IA construida específicamente para su industria. Su propio arnés, sus propias herramientas, su propio agente entrenado en el contexto del sector. No es la misma solución con otro nombre — es ingeniería desde adentro.</p>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 22px;">
+          <!-- Xperience -->
+          <div style="background: rgba(255,255,255,0.045); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(245,158,11,0.22); border-top: 1px solid rgba(245,158,11,0.32); border-radius: 20px; box-shadow: 0 8px 40px rgba(0,0,0,0.5), 0 0 44px rgba(196,98,45,0.16); padding: 32px; display: flex; flex-direction: column;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 26px;">
+              <div style="position: relative; width: 84px; height: 84px;">
+                <div style="position: absolute; inset: -10px; border-radius: 50%; background: radial-gradient(circle, rgba(245,158,11,0.45) 0%, transparent 68%); filter: blur(6px);"></div>
+                <div style="position: relative; width: 84px; height: 84px; border-radius: 50%; background: radial-gradient(circle at 34% 30%, rgba(255,255,255,0.5) 0%, transparent 24%), radial-gradient(circle at 65% 72%, #EC4899 0%, transparent 52%), radial-gradient(circle at 38% 62%, #C4622D 0%, transparent 60%), radial-gradient(circle at 50% 44%, #F59E0B 0%, #5a2a10 78%); box-shadow: inset -8px -10px 26px rgba(0,0,0,0.5), inset 6px 8px 22px rgba(255,200,120,0.3); border: 1px solid rgba(255,255,255,0.16);"></div>
+              </div>
+              <span style="font-family: 'Inter', sans-serif; font-weight: 700; font-size: 0.6rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 5px 11px; border-radius: 9999px; background: rgba(245,158,11,0.16); border: 1px solid rgba(245,158,11,0.34); color: #FBBF24;">Activa · Etapa 1</span>
+            </div>
+            <h3 style="font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1.3rem; color: #fff; margin: 0 0 6px;">BubbleMesh Xperience</h3>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.66rem; letter-spacing: 0.1em; color: #FBBF24; margin-bottom: 16px;">TURISMO Y EXPERIENCIAS · MÉXICO</div>
+            <p style="font-family: 'Inter', sans-serif; font-size: 0.9rem; line-height: 1.65; color: #94A3B8; margin: 0 0 22px; flex: 1;">Agencia de marketing especializada en operadores de experiencias turísticas. Combina Community Managers humanos con agentes de IA que atienden turistas en inglés 24/7, gestionan reservas y producen contenido.</p>
+            <a href="https://xperience.bubble-mesh.com" target="_blank" rel="noopener" style="font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.9rem; color: #FBBF24;" style-hover="color: #fff;">xperience.bubble-mesh.com →</a>
+          </div>
+          <!-- Construcción -->
+          <div style="background: rgba(255,255,255,0.04); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(37,99,235,0.22); border-top: 1px solid rgba(37,99,235,0.3); border-radius: 20px; box-shadow: 0 8px 40px rgba(0,0,0,0.5), 0 0 44px rgba(37,99,235,0.14); padding: 32px; display: flex; flex-direction: column;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 26px;">
+              <div style="position: relative; width: 84px; height: 84px;">
+                <div style="position: absolute; inset: -10px; border-radius: 50%; background: radial-gradient(circle, rgba(37,99,235,0.45) 0%, transparent 68%); filter: blur(6px);"></div>
+                <div style="position: relative; width: 84px; height: 84px; border-radius: 50%; background: radial-gradient(circle at 34% 30%, rgba(255,255,255,0.45) 0%, transparent 24%), radial-gradient(circle at 66% 74%, #7C3AED 0%, transparent 52%), radial-gradient(circle at 40% 60%, #2563EB 0%, transparent 60%), radial-gradient(circle at 50% 46%, #1E3A5F 0%, #0a1424 80%); box-shadow: inset -8px -10px 26px rgba(0,0,0,0.55), inset 6px 8px 22px rgba(120,160,255,0.25); border: 1px solid rgba(255,255,255,0.14);"></div>
+              </div>
+              <span style="font-family: 'Inter', sans-serif; font-weight: 700; font-size: 0.6rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 5px 11px; border-radius: 9999px; background: rgba(37,99,235,0.15); border: 1px solid rgba(37,99,235,0.32); color: #93C5FD;">Alianza estratégica</span>
+            </div>
+            <h3 style="font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1.3rem; color: #fff; margin: 0 0 6px;">BubbleMesh Prop</h3>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.66rem; letter-spacing: 0.1em; color: #93C5FD; margin-bottom: 16px;">GESTIÓN DE OBRA Y PROYECTOS</div>
+            <p style="font-family: 'Inter', sans-serif; font-size: 0.9rem; line-height: 1.65; color: #94A3B8; margin: 0 0 22px; flex: 1;">Agentes de IA para la gestión de proyectos de construcción: seguimiento de avance, coordinación de subcontratistas, control de materiales y reportes automáticos a dirección.</p>
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; letter-spacing: 0.08em; color: #64748B;">Próximamente</span>
+          </div>
+          <!-- Seguridad -->
+          <div style="background: rgba(255,255,255,0.04); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(124,58,237,0.22); border-top: 1px solid rgba(124,58,237,0.3); border-radius: 20px; box-shadow: 0 8px 40px rgba(0,0,0,0.5), 0 0 44px rgba(71,85,105,0.18); padding: 32px; display: flex; flex-direction: column;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 26px;">
+              <div style="position: relative; width: 84px; height: 84px;">
+                <div style="position: absolute; inset: -10px; border-radius: 50%; background: radial-gradient(circle, rgba(124,58,237,0.4) 0%, transparent 68%); filter: blur(6px);"></div>
+                <div style="position: relative; width: 84px; height: 84px; border-radius: 50%; background: radial-gradient(circle at 34% 30%, rgba(255,255,255,0.42) 0%, transparent 24%), radial-gradient(circle at 66% 74%, #7C3AED 0%, transparent 50%), radial-gradient(circle at 42% 60%, #475569 0%, transparent 62%), radial-gradient(circle at 50% 46%, #1F2937 0%, #0a0e16 82%); box-shadow: inset -8px -10px 26px rgba(0,0,0,0.6), inset 6px 8px 22px rgba(148,163,184,0.2); border: 1px solid rgba(255,255,255,0.12);"></div>
+              </div>
+              <span style="font-family: 'Inter', sans-serif; font-weight: 700; font-size: 0.6rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 5px 11px; border-radius: 9999px; background: rgba(124,58,237,0.15); border: 1px solid rgba(168,85,247,0.3); color: #C4B5FD;">Alianza estratégica</span>
+            </div>
+            <h3 style="font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1.3rem; color: #fff; margin: 0 0 6px;">BubbleMesh Security</h3>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.66rem; letter-spacing: 0.1em; color: #C4B5FD; margin-bottom: 16px;">SEGURIDAD PRIVADA Y CORPORATIVA</div>
+            <p style="font-family: 'Inter', sans-serif; font-size: 0.9rem; line-height: 1.65; color: #94A3B8; margin: 0 0 22px; flex: 1;">Orquestación de agentes para empresas de seguridad privada: coordinación de operativos, reportes de incidentes, protocolos de respuesta y comunicación con clientes corporativos.</p>
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; letter-spacing: 0.08em; color: #64748B;">Próximamente</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== FAQ ===================== -->
+    <section style="position: relative; padding: 120px 0;">
+      <div style="max-width: 880px; margin: 0 auto; padding: 0 32px;">
+        <div style="margin-bottom: 48px;">
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: #A855F7; margin-bottom: 20px;">Preguntas frecuentes</div>
+          <h2 style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: clamp(2rem,4.6vw,3.3rem); line-height: 1.08; letter-spacing: -0.02em; color: #fff; margin: 0;">Lo que probablemente estás pensando.</h2>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+          <div style="background: rgba(255,255,255,0.03); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 6px 26px;">
+            <div onClick="{{ f0.toggle }}" style="display: flex; align-items: center; justify-content: space-between; gap: 18px; cursor: pointer; padding: 20px 0;">
+              <span style="font-family: 'Inter', sans-serif; font-weight: 600; font-size: 1.06rem; color: #fff;">¿Esto es solo automatización de procesos?</span>
+              <span style="{{ f0.iconStyle }}">+</span>
+            </div>
+            <div style="{{ f0.ansStyle }}"><p style="font-family: 'Inter', sans-serif; font-size: 0.96rem; line-height: 1.7; color: #94A3B8; margin: 0 0 22px;">No. La automatización reemplaza pasos. Los agentes de BubbleMesh entienden contexto, toman decisiones dentro de límites definidos y aprenden de la operación. No automatizamos pasos — construimos sistemas que piensan dentro de su dominio.</p></div>
+          </div>
+          <div style="background: rgba(255,255,255,0.03); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 6px 26px;">
+            <div onClick="{{ f1.toggle }}" style="display: flex; align-items: center; justify-content: space-between; gap: 18px; cursor: pointer; padding: 20px 0;">
+              <span style="font-family: 'Inter', sans-serif; font-weight: 600; font-size: 1.06rem; color: #fff;">¿Los agentes van a reemplazar a mi equipo?</span>
+              <span style="{{ f1.iconStyle }}">+</span>
+            </div>
+            <div style="{{ f1.ansStyle }}"><p style="font-family: 'Inter', sans-serif; font-size: 0.96rem; line-height: 1.7; color: #94A3B8; margin: 0 0 22px;">Al contrario. Los agentes ejecutan lo que tu equipo no debería estar haciendo: responder el mismo mensaje por séptima vez, llenar una hoja de cálculo, confirmar una reserva a medianoche. Tu equipo recupera tiempo para el trabajo que ninguna máquina puede hacer.</p></div>
+          </div>
+          <div style="background: rgba(255,255,255,0.03); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 6px 26px;">
+            <div onClick="{{ f2.toggle }}" style="display: flex; align-items: center; justify-content: space-between; gap: 18px; cursor: pointer; padding: 20px 0;">
+              <span style="font-family: 'Inter', sans-serif; font-weight: 600; font-size: 1.06rem; color: #fff;">¿Cuánto tiempo tarda la implementación?</span>
+              <span style="{{ f2.iconStyle }}">+</span>
+            </div>
+            <div style="{{ f2.ansStyle }}"><p style="font-family: 'Inter', sans-serif; font-size: 0.96rem; line-height: 1.7; color: #94A3B8; margin: 0 0 22px;">Depende del diagnóstico. El proceso empieza siempre por entender el problema real — no por proponer soluciones. Una vez terminado el diagnóstico, el primer agente puede estar operativo en menos de dos semanas.</p></div>
+          </div>
+          <div style="background: rgba(255,255,255,0.03); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 6px 26px;">
+            <div onClick="{{ f3.toggle }}" style="display: flex; align-items: center; justify-content: space-between; gap: 18px; cursor: pointer; padding: 20px 0;">
+              <span style="font-family: 'Inter', sans-serif; font-weight: 600; font-size: 1.06rem; color: #fff;">¿Mis datos quedan seguros?</span>
+              <span style="{{ f3.iconStyle }}">+</span>
+            </div>
+            <div style="{{ f3.ansStyle }}"><p style="font-family: 'Inter', sans-serif; font-size: 0.96rem; line-height: 1.7; color: #94A3B8; margin: 0 0 22px;">Tu contexto es tuyo. La inteligencia que construimos para tu organización opera sobre tu infraestructura. No hay datos de tu operación viviendo en servidores de terceros sin tu consentimiento explícito. La arquitectura es segura por diseño.</p></div>
+          </div>
+          <div style="background: rgba(255,255,255,0.03); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 6px 26px;">
+            <div onClick="{{ f4.toggle }}" style="display: flex; align-items: center; justify-content: space-between; gap: 18px; cursor: pointer; padding: 20px 0;">
+              <span style="font-family: 'Inter', sans-serif; font-weight: 600; font-size: 1.06rem; color: #fff;">¿Qué pasa si algo falla?</span>
+              <span style="{{ f4.iconStyle }}">+</span>
+            </div>
+            <div style="{{ f4.ansStyle }}"><p style="font-family: 'Inter', sans-serif; font-size: 0.96rem; line-height: 1.7; color: #94A3B8; margin: 0 0 22px;">Cada sistema tiene un humano responsable que supervisa la operación. Los agentes no actúan sin límites definidos y sin aprobación del cliente. Si algo sale del rango esperado, el sistema escala a humano antes de actuar.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== PARA QUIÉN ES ===================== -->
+    <section style="position: relative; padding: 0 0 120px;">
+      <div style="position: relative; height: clamp(340px, 46vw, 520px); overflow: hidden;">
+        <img src="assets/team-grupal-principal.webp" alt="Equipo TheFirstBubble en una sesión de trabajo nocturna" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;">
+        <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(11,15,26,0.4) 0%, rgba(11,15,26,0.7) 60%, #0B0F1A 100%);"></div>
+        <div style="position: absolute; inset: 0; display: flex; align-items: center;">
+          <div style="max-width: 1180px; margin: 0 auto; padding: 0 32px; width: 100%;">
+            <div style="max-width: 640px;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: #A855F7; margin-bottom: 20px;">Para quién es BubbleMesh</div>
+              <h2 style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: clamp(2rem,5vw,3.6rem); line-height: 1.06; letter-spacing: -0.02em; color: #fff; margin: 0;">No somos para todos. Y eso está bien.</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="max-width: 1180px; margin: 0 auto; padding: 0 32px;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 22px; margin-top: 48px;">
+          <div style="background: rgba(255,255,255,0.045); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); border-top: 1px solid rgba(255,255,255,0.16); border-radius: 20px; box-shadow: 0 8px 40px rgba(0,0,0,0.5); padding: 32px;">
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: #A855F7; margin-bottom: 16px;">El Escalador</div>
+            <h3 style="font-family: 'Inter', sans-serif; font-weight: 600; font-size: 1.16rem; color: #fff; margin: 0 0 12px; line-height: 1.35;">Líderes que quieren crecer sin perder el control</h3>
+            <p style="font-family: 'Inter', sans-serif; font-size: 0.92rem; line-height: 1.65; color: #94A3B8; margin: 0;">Tu empresa tiene tracción. Tu operación empieza a romperse porque crece más rápido que tu capacidad de documentarla. Necesitas sistemas de ejecución que corran solos y datos reales para decidir rápido.</p>
+          </div>
+          <div style="background: rgba(255,255,255,0.045); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); border-top: 1px solid rgba(255,255,255,0.16); border-radius: 20px; box-shadow: 0 8px 40px rgba(0,0,0,0.5); padding: 32px;">
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: #A855F7; margin-bottom: 16px;">El Luchador</div>
+            <h3 style="font-family: 'Inter', sans-serif; font-weight: 600; font-size: 1.16rem; color: #fff; margin: 0 0 12px; line-height: 1.35;">Fundadores atrapados en su propia operación</h3>
+            <p style="font-family: 'Inter', sans-serif; font-size: 0.92rem; line-height: 1.65; color: #94A3B8; margin: 0;">Eres el cuello de botella de tu empresa. Cada decisión pasa por ti. Cada proceso depende de que estés presente. Necesitas agentes que operen sin tu intervención constante para poder hacer lo que solo tú puedes hacer.</p>
+          </div>
+          <div style="background: rgba(255,255,255,0.045); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); border-top: 1px solid rgba(255,255,255,0.16); border-radius: 20px; box-shadow: 0 8px 40px rgba(0,0,0,0.5); padding: 32px;">
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: #A855F7; margin-bottom: 16px;">El Artesano</div>
+            <h3 style="font-family: 'Inter', sans-serif; font-weight: 600; font-size: 1.16rem; color: #fff; margin: 0 0 12px; line-height: 1.35;">Expertos que quieren proteger su tiempo creativo</h3>
+            <p style="font-family: 'Inter', sans-serif; font-size: 0.92rem; line-height: 1.65; color: #94A3B8; margin: 0;">Tu talento es lo que diferencia tu negocio. Tu tiempo lo consumen tareas comerciales y operativas. Necesitas automatización que proteja tu espacio creativo y haga el trabajo comercial por ti.</p>
+          </div>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 22px; margin-top: 44px;">
+          <span style="font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: clamp(1.2rem,2.4vw,1.6rem); color: #fff;">¿Te identificas? Hablemos.</span>
+          <a href="https://wa.me/5215531650560?text=Hola%2C%20me%20interesa%20saber%20m%C3%A1s%20sobre%20BubbleMesh" target="_blank" rel="noopener" style="font-family: 'Inter', sans-serif; font-weight: 700; font-size: 1rem; color: #fff; padding: 14px 28px; border-radius: 9999px; background: linear-gradient(110deg,#EC4899,#A855F7,#7C3AED,#A855F7,#EC4899); background-size: 220% 100%; background-position: 0% 50%; box-shadow: 0 0 24px rgba(236,72,153,0.3); transition: all 0.3s cubic-bezier(0.4,0,0.2,1);" style-hover="box-shadow: 0 0 36px rgba(236,72,153,0.52); transform: translateY(-2px); animation: btnSheen 2s linear infinite;">Contactar al equipo →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== EQUIPO ===================== -->
+    <section id="equipo" style="position: relative; padding: 110px 0 120px; background: linear-gradient(to bottom, rgba(11,15,26,0.5), #0B0F1A 70%), url('assets/team-grupal-alternativa.webp'); background-size: cover; background-position: center top;">
+      <div style="max-width: 1180px; margin: 0 auto; padding: 0 32px;">
+        <div style="max-width: 680px; margin-bottom: 52px;">
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: #A855F7; margin-bottom: 20px;">The First Bubble</div>
+          <h2 style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: clamp(2rem,4.6vw,3.3rem); line-height: 1.08; letter-spacing: -0.02em; color: #fff; margin: 0 0 24px;">El equipo detrás de la metodología.</h2>
+          <p style="font-family: 'Inter', sans-serif; font-size: 1.0625rem; line-height: 1.7; color: #94A3B8; margin: 0;">Somos cinco. Cada uno con un rol específico, ninguno intercambiable. TheFirstBubble es el piloto — el equipo que valida la metodología en el terreno antes de que BubbleMesh escale a las siguientes verticales.</p>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px;">
+          <div style="background: rgba(255,255,255,0.045); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); border-top: 1px solid rgba(255,255,255,0.16); border-radius: 20px; box-shadow: 0 8px 40px rgba(0,0,0,0.5); padding: 26px;">
+            <div style="width: 92px; height: 92px; border-radius: 50%; padding: 2px; background: linear-gradient(135deg,#A855F7,#EC4899); margin-bottom: 18px;"><img src="assets/avatar-elias-rico.webp" alt="Elías Rico" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover; display: block;"></div>
+            <h3 style="font-family: 'Inter', sans-serif; font-weight: 600; font-size: 1.02rem; color: #fff; margin: 0 0 4px;">Elías Oscar Rico Contreras</h3>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.64rem; letter-spacing: 0.08em; color: #A855F7; margin-bottom: 14px;">LÍDER DE VENTAS Y OPERACIONES</div>
+            <p style="font-family: 'Inter', sans-serif; font-size: 0.85rem; line-height: 1.6; color: #94A3B8; margin: 0 0 14px;">Arquitecto del ecosistema BubbleMesh. Consultor en metodologías ImpactX y Scaling Up. Lidera la estrategia, el modelo de negocio y la relación con clientes.</p>
+            <a href="mailto:elias.rico@bubble-mesh.com" style="font-family: 'Inter', sans-serif; font-size: 0.8rem; color: #64748B;" style-hover="color: #A855F7;" data-om-label="Link">@27eorc27</a>
+          </div>
+          <div style="background: rgba(255,255,255,0.045); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); border-top: 1px solid rgba(255,255,255,0.16); border-radius: 20px; box-shadow: 0 8px 40px rgba(0,0,0,0.5); padding: 26px;">
+            <div style="width: 92px; height: 92px; border-radius: 50%; padding: 2px; background: linear-gradient(135deg,#A855F7,#EC4899); margin-bottom: 18px;"><img src="assets/avatar-jesus-mostalac.webp" alt="Jesús Mostalac" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover; display: block;"></div>
+            <h3 style="font-family: 'Inter', sans-serif; font-weight: 600; font-size: 1.02rem; color: #fff; margin: 0 0 4px;">Jesús Mostalac Sánchez</h3>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.64rem; letter-spacing: 0.08em; color: #A855F7; margin-bottom: 14px;">LÍDER DE MARKETING Y RR. PP.</div>
+            <p style="font-family: 'Inter', sans-serif; font-size: 0.85rem; line-height: 1.6; color: #94A3B8; margin: 0 0 14px;">Define la estrategia de posicionamiento de BubbleMesh y sus verticales. Responsable de la identidad de marca, la comunicación externa y las alianzas estratégicas.</p>
+            <a href="mailto:jesus.mostalac@bubble-mesh.com" style="font-family: 'Inter', sans-serif; font-size: 0.8rem; color: #64748B" style-hover="color: #A855F7;" data-om-label="Link">@mostalac.0</a>
+          </div>
+          <div style="background: rgba(255,255,255,0.045); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); border-top: 1px solid rgba(255,255,255,0.16); border-radius: 20px; box-shadow: 0 8px 40px rgba(0,0,0,0.5); padding: 26px;">
+            <div style="width: 92px; height: 92px; border-radius: 50%; padding: 2px; background: linear-gradient(135deg,#A855F7,#EC4899); margin-bottom: 18px;"><img src="assets/avatar-raul-reyes.webp" alt="Raúl Reyes" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover; display: block;"></div>
+            <h3 style="font-family: 'Inter', sans-serif; font-weight: 600; font-size: 1.02rem; color: #fff; margin: 0 0 4px;">Raúl Fernando Reyes Vargas</h3>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.64rem; letter-spacing: 0.08em; color: #A855F7; margin-bottom: 14px;">LÍDER DE FINANZAS Y LEGALIDAD</div>
+            <p style="font-family: 'Inter', sans-serif; font-size: 0.85rem; line-height: 1.6; color: #94A3B8; margin: 0 0 14px;">Estructura los contratos, el modelo financiero y el cumplimiento legal de la operación. Garantiza que BubbleMesh crezca con base sólida.</p>
+            <a href="mailto:raul.reyes@bubble-mesh.com" style="font-family: 'Inter', sans-serif; font-size: 0.8rem; color: #64748B;" style-hover="color: #A855F7;">@budf0x1</a>
+          </div>
+          <div style="background: rgba(255,255,255,0.045); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); border-top: 1px solid rgba(255,255,255,0.16); border-radius: 20px; box-shadow: 0 8px 40px rgba(0,0,0,0.5); padding: 26px;">
+            <div style="width: 92px; height: 92px; border-radius: 50%; padding: 2px; background: linear-gradient(135deg,#A855F7,#EC4899); margin-bottom: 18px;"><img src="assets/avatar-emily-sisalima.webp" alt="Emily Sisalima" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover; display: block;"></div>
+            <h3 style="font-family: 'Inter', sans-serif; font-weight: 600; font-size: 1.02rem; color: #fff; margin: 0 0 4px;">Emily Sisalima Maldonado</h3>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.64rem; letter-spacing: 0.08em; color: #A855F7; margin-bottom: 14px;">SR &amp; ACCOUNT MANAGER</div>
+            <p style="font-family: 'Inter', sans-serif; font-size: 0.85rem; line-height: 1.6; color: #94A3B8; margin: 0 0 14px;">Primer punto de contacto con clientes nuevos y responsable de la relación continua con cuentas activas. Combina venta consultiva con gestión de cuenta.</p>
+            <a href="mailto:emily@bubble-mesh.com" style="font-family: 'Inter', sans-serif; font-size: 0.8rem; color: #64748B;" style-hover="color: #A855F7;">@milysisalima</a>
+          </div>
+          <div style="background: rgba(255,255,255,0.045); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); border-top: 1px solid rgba(255,255,255,0.16); border-radius: 20px; box-shadow: 0 8px 40px rgba(0,0,0,0.5); padding: 26px;">
+            <div style="width: 92px; height: 92px; border-radius: 50%; padding: 2px; background: linear-gradient(135deg,#A855F7,#EC4899); margin-bottom: 18px;"><img src="assets/avatar-aranza-contreras.webp" alt="Aranza Contreras" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover; display: block;"></div>
+            <h3 style="font-family: 'Inter', sans-serif; font-weight: 600; font-size: 1.02rem; color: #fff; margin: 0 0 4px;">Aranza Contreras Cortés</h3>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.64rem; letter-spacing: 0.08em; color: #A855F7; margin-bottom: 14px;">CONTENT &amp; COMMUNITY INTERN</div>
+            <p style="font-family: 'Inter', sans-serif; font-size: 0.85rem; line-height: 1.6; color: #94A3B8; margin: 0 0 14px;">Produce el contenido que da vida a las cuentas de clientes y a la presencia digital de BubbleMesh. Supervisa la calidad del output de los agentes de IA en el día a día.</p>
+            <a href="mailto:aranza.contreras@bubble-mesh.com" style="font-family: 'Inter', sans-serif; font-size: 0.8rem; color: #64748B;" style-hover="color: #A855F7;"><span style="font-size: 12.8px;">@aranzaa_cont</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer style="position: relative; z-index: 1; padding: 80px 0 48px; background: linear-gradient(to bottom, #0B0F1A 0%, rgba(6,9,17,0.85) 40%), url('assets/footer-bg.webp'); background-size: cover; background-position: center; border-top: 1px solid rgba(255,255,255,0.06);">
+    <div style="max-width: 1180px; margin: 0 auto; padding: 0 32px;">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 44px;">
+        <div>
+          <div style="display: flex; align-items: center; gap: 11px; margin-bottom: 22px;">
+            <img src="assets/logo-symbol.webp" alt="" style="width: 38px; height: auto; flex: none; filter: drop-shadow(0 0 10px rgba(168,85,247,0.35));">
+            <span style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.2rem; color: #fff;">Bubble<span style="background: linear-gradient(120deg,#A855F7,#EC4899); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">Mesh</span></span>
+          </div>
+          <p style="font-family: 'Inter', sans-serif; font-size: 0.95rem; line-height: 1.6; color: #94A3B8; margin: 0 0 22px; max-width: 300px;">Tecnología que libera a las personas para hacer lo que solo ellas pueden hacer.</p>
+          <p style="font-family: 'Inter', sans-serif; font-size: 0.78rem; color: #64748B; margin: 0;">© 2026 BubbleMesh · LHIIS · Todos los derechos reservados.</p>
+        </div>
+        <div>
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.66rem; letter-spacing: 0.16em; text-transform: uppercase; color: #64748B; margin-bottom: 18px;">Navegación</div>
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            <a href="#como-funciona" style="font-family: 'Inter', sans-serif; font-size: 0.95rem; color: #E2E8F0;" style-hover="color: #A855F7;">Cómo funciona</a>
+            <a href="#bubbles" style="font-family: 'Inter', sans-serif; font-size: 0.95rem; color: #E2E8F0;" style-hover="color: #A855F7;">Las Bubbles</a>
+            <a href="#equipo" style="font-family: 'Inter', sans-serif; font-size: 0.95rem; color: #E2E8F0;" style-hover="color: #A855F7;">El equipo</a>
+            <a href="https://xperience.bubble-mesh.com" target="_blank" rel="noopener" style="font-family: 'Inter', sans-serif; font-size: 0.95rem; color: #E2E8F0;" style-hover="color: #A855F7;">BubbleMesh Xperience ↗</a>
+          </div>
+        </div>
+        <div>
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.66rem; letter-spacing: 0.16em; text-transform: uppercase; color: #64748B; margin-bottom: 18px;">Contacto</div>
+          <p style="font-family: 'Inter', sans-serif; font-size: 0.95rem; color: #E2E8F0; margin: 0 0 18px;">¿Quieres trabajar con nosotros?</p>
+          <a href="https://wa.me/5215531650560?text=Hola%2C%20me%20interesa%20saber%20m%C3%A1s%20sobre%20BubbleMesh" target="_blank" rel="noopener" style="display: inline-block; font-family: 'Inter', sans-serif; font-weight: 700; font-size: 0.92rem; color: #fff; padding: 12px 24px; border-radius: 9999px; background: linear-gradient(110deg,#EC4899,#A855F7,#7C3AED,#A855F7,#EC4899); background-size: 220% 100%; background-position: 0% 50%; box-shadow: 0 0 22px rgba(236,72,153,0.28); margin-bottom: 20px; transition: all 0.3s cubic-bezier(0.4,0,0.2,1);" style-hover="box-shadow: 0 0 32px rgba(236,72,153,0.5); transform: translateY(-2px); animation: btnSheen 2s linear infinite;">Hablar por WhatsApp →</a>
+          <div style="font-family: 'Inter', sans-serif; font-size: 0.9rem; color: #94A3B8; line-height: 1.7;">(55) 3165 0560<div><div>Ciudad de México · México</div></div></div>
+        </div>
       </div>
     </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;animateBackground&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;meshDensity&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;dense&quot;,&quot;options&quot;:[&quot;minimal&quot;,&quot;balanced&quot;,&quot;dense&quot;],&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  state = { scrolled: false, faq: -1 };
 
-    <div class="stack-grid" style="margin-top:var(--space-2xl);">
-      <span class="stack-pill"><b>Modelos:</b> Claude · GPT-4o · Gemini</span>
-      <span class="stack-pill"><b>Agentes:</b> OpenClaw · Hermes-agent · NemoClaw</span>
-      <span class="stack-pill"><b>Automatización:</b> GoHighLevel · ManyChat · Respond.io · Instantly</span>
-      <span class="stack-pill"><b>CRM y datos:</b> AirTable · Supabase · Apollo.io</span>
-      <span class="stack-pill"><b>Contenido IA:</b> Higgsfield.ai</span>
-      <span class="stack-pill"><b>Operación:</b> Notion · Google Workspace</span>
-      <span class="stack-pill"><b>Infraestructura:</b> Hosting propio · VPS</span>
-    </div>
-  </div>
-</section>
+  componentDidMount() {
+    this._onScroll = () => {
+      const s = window.scrollY > 30;
+      if (s !== this.state.scrolled) this.setState({ scrolled: s });
+    };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+  }
 
-<!-- ═══════════ BENEFICIOS ═══════════ -->
-<section class="section beneficios">
-  <div class="container">
-    <span class="eyebrow eyebrow--brand reveal">Por qué BubbleMesh</span>
-    <h2 class="h2 reveal">Infraestructura que entiende<br>tu sector desde adentro.</h2>
-    <div class="grid grid-2">
-      <article class="glass-card card reveal">
-        <h3>Especialización real, no IA genérica</h3>
-        <p>Cada Bubble se construye entendiendo los problemas específicos de su industria. No aplicamos la misma solución a todo — aprendemos tu sector primero y después construimos el arnés que lo resuelve.</p>
-      </article>
-      <article class="glass-card card reveal">
-        <h3>El arnés que garantiza el sistema</h3>
-        <p>Los modelos de IA cambian constantemente. Lo que garantiza la solidez de tu infraestructura no es el modelo — es el arnés que lo rodea. BubbleMesh construye lo que dura, no lo que está de moda.</p>
-      </article>
-      <article class="glass-card card reveal">
-        <h3>Tu operación no depende de nosotros</h3>
-        <p>Construimos para que no nos necesites. Cada sistema que desplegamos está diseñado para operar autónomamente. Cuando nos retiramos, tu infraestructura sigue corriendo sola.</p>
-      </article>
-      <article class="glass-card card reveal">
-        <h3>Los mejores modelos, sin atarte a ninguno</h3>
-        <p>Usamos Claude, GPT-4o, Gemini y los modelos más potentes de cada líder. El arnés garantiza que puedes cambiar de modelo en el futuro sin reescribir el sistema.</p>
-      </article>
-    </div>
-  </div>
-</section>
+  componentWillUnmount() {
+    if (this._onScroll) window.removeEventListener('scroll', this._onScroll);
+  }
 
-<!-- ═══════════ LAS BUBBLES ═══════════ -->
-<section class="section section--alt" id="bubbles">
-  <div class="container">
-    <span class="eyebrow eyebrow--brand reveal">El ecosistema</span>
-    <h2 class="h2 reveal">Un arnés.<br><span class="gradient-text">Cada sector, su Bubble.</span></h2>
-    <p class="section-intro reveal">Cada Bubble es una infraestructura de IA construida específicamente para su industria. Su propio arnés, sus propias herramientas, su propio agente entrenado en el contexto del sector. No es la misma solución con otro nombre — es ingeniería desde adentro.</p>
+  toggleFaq(i) {
+    this.setState(s => ({ faq: s.faq === i ? -1 : i }));
+  }
 
-    <div class="verticals-trio reveal">
-      <img src="assets/images/verticales-bubbles-trio.webp" alt="Las tres Bubbles: Xperience, Construcción y Seguridad" width="1200" height="600" loading="lazy">
-    </div>
+  renderVals() {
+    const animate = this.props.animateBackground !== false;
+    const density = this.props.meshDensity || 'balanced';
 
-    <div class="grid grid-3">
-      <article class="glass-card vert-card reveal">
-        <div class="vert-bubble vert-xperience"></div>
-        <span class="badge badge-active">Activa · Etapa 1</span>
-        <h3>BubbleMesh Xperience</h3>
-        <span class="vert-industry">Turismo y experiencias · México</span>
-        <p>Agencia de marketing especializada en operadores de experiencias turísticas. Combina Community Managers humanos con agentes de IA que atienden turistas en inglés 24/7, gestionan reservas y producen contenido.</p>
-        <span class="vert-link">xperience.bubble-mesh.com →</span>
-      </article>
-      <article class="glass-card vert-card reveal">
-        <div class="vert-bubble vert-construccion"></div>
-        <span class="badge badge-brand">Alianza estratégica</span>
-        <h3>BubbleMesh Construcción</h3>
-        <span class="vert-industry">Gestión de obra y proyectos</span>
-        <p>Agentes de IA para la gestión de proyectos de construcción: seguimiento de avance, coordinación de subcontratistas, control de materiales y reportes automáticos a dirección.</p>
-        <span class="vert-status">Próximamente</span>
-      </article>
-      <article class="glass-card vert-card reveal">
-        <div class="vert-bubble vert-seguridad"></div>
-        <span class="badge badge-brand">Alianza estratégica</span>
-        <h3>BubbleMesh Seguridad</h3>
-        <span class="vert-industry">Seguridad privada y corporativa</span>
-        <p>Orquestación de agentes para empresas de seguridad privada: coordinación de operativos, reportes de incidentes, protocolos de respuesta y comunicación con clientes corporativos.</p>
-        <span class="vert-status">Próximamente</span>
-      </article>
-    </div>
-  </div>
-</section>
+    const base = [
+      { t: 12, l: 8,  s: 10, c: '#A855F7', g: 'rgba(168,85,247,0.7)',  d: 9,  dl: 0,   pd: 4 },
+      { t: 22, l: 78, s: 8,  c: '#EC4899', g: 'rgba(236,72,153,0.7)',  d: 11, dl: 1,   pd: 5 },
+      { t: 38, l: 30, s: 6,  c: '#7C3AED', g: 'rgba(124,58,237,0.6)',  d: 8,  dl: 2,   pd: 3.5 },
+      { t: 60, l: 14, s: 9,  c: '#A855F7', g: 'rgba(168,85,247,0.6)',  d: 12, dl: 0.5, pd: 4.5 },
+      { t: 72, l: 62, s: 7,  c: '#EC4899', g: 'rgba(236,72,153,0.6)',  d: 10, dl: 1.5, pd: 5 },
+      { t: 15, l: 52, s: 5,  c: '#A855F7', g: 'rgba(168,85,247,0.5)',  d: 9,  dl: 2.5, pd: 4 },
+      { t: 45, l: 88, s: 8,  c: '#7C3AED', g: 'rgba(124,58,237,0.6)',  d: 13, dl: 0.8, pd: 3.8 },
+      { t: 85, l: 35, s: 6,  c: '#A855F7', g: 'rgba(168,85,247,0.5)',  d: 11, dl: 1.2, pd: 4.2 },
+      { t: 30, l: 94, s: 5,  c: '#EC4899', g: 'rgba(236,72,153,0.5)',  d: 10, dl: 2,   pd: 5 },
+      { t: 8,  l: 40, s: 7,  c: '#7C3AED', g: 'rgba(124,58,237,0.5)',  d: 12, dl: 1,   pd: 4 },
+      { t: 55, l: 48, s: 5,  c: '#A855F7', g: 'rgba(168,85,247,0.45)', d: 9,  dl: 2.2, pd: 3.6 },
+      { t: 90, l: 72, s: 8,  c: '#A855F7', g: 'rgba(168,85,247,0.5)',  d: 13, dl: 0.4, pd: 4.4 },
+      { t: 48, l: 68, s: 6,  c: '#EC4899', g: 'rgba(236,72,153,0.5)',  d: 11, dl: 1.8, pd: 5 },
+      { t: 18, l: 20, s: 5,  c: '#A855F7', g: 'rgba(168,85,247,0.4)',  d: 10, dl: 2.6, pd: 4 },
+      { t: 68, l: 86, s: 6,  c: '#7C3AED', g: 'rgba(124,58,237,0.5)',  d: 12, dl: 0.9, pd: 3.9 },
+      { t: 78, l: 6,  s: 7,  c: '#EC4899', g: 'rgba(236,72,153,0.45)', d: 11, dl: 1.6, pd: 4.6 },
+      { t: 35, l: 60, s: 4,  c: '#A855F7', g: 'rgba(168,85,247,0.4)',  d: 9,  dl: 2.1, pd: 3.5 },
+      { t: 5,  l: 66, s: 6,  c: '#7C3AED', g: 'rgba(124,58,237,0.45)', d: 13, dl: 1.3, pd: 4.8 }
+    ];
+    const count = density === 'minimal' ? 8 : density === 'dense' ? base.length : 13;
+    const meshNodes = base.slice(0, count).map((n, i) => React.createElement('div', {
+      key: i,
+      style: {
+        position: 'absolute', top: n.t + '%', left: n.l + '%',
+        width: n.s + 'px', height: n.s + 'px', borderRadius: '50%',
+        background: n.c, boxShadow: '0 0 ' + (n.s * 2.4) + 'px ' + n.g,
+        opacity: 0.6,
+        animation: animate
+          ? ('floatNode ' + n.d + 's ease-in-out ' + n.dl + 's infinite, pulseGlow ' + n.pd + 's ease-in-out ' + n.dl + 's infinite')
+          : 'none'
+      }
+    }));
 
-<!-- ═══════════ FAQ ═══════════ -->
-<section class="section bg-radial">
-  <div class="container">
-    <span class="eyebrow eyebrow--brand reveal">Preguntas frecuentes</span>
-    <h2 class="h2 reveal">Lo que probablemente<br>estás pensando.</h2>
-    <div class="faq-list">
-      <div class="glass-card-subtle faq-item reveal">
-        <button class="faq-q">¿Esto es solo automatización de procesos?<span class="faq-icon">+</span></button>
-        <div class="faq-a"><p>No. La automatización reemplaza pasos. Los agentes de BubbleMesh entienden contexto, toman decisiones dentro de límites definidos y aprenden de la operación. No automatizamos pasos — construimos sistemas que piensan dentro de su dominio.</p></div>
-      </div>
-      <div class="glass-card-subtle faq-item reveal">
-        <button class="faq-q">¿Los agentes van a reemplazar a mi equipo?<span class="faq-icon">+</span></button>
-        <div class="faq-a"><p>Al contrario. Los agentes ejecutan lo que tu equipo no debería estar haciendo: responder el mismo mensaje por séptima vez, llenar una hoja de cálculo, confirmar una reserva a medianoche. Tu equipo recupera tiempo para el trabajo que ninguna máquina puede hacer.</p></div>
-      </div>
-      <div class="glass-card-subtle faq-item reveal">
-        <button class="faq-q">¿Cuánto tiempo tarda la implementación?<span class="faq-icon">+</span></button>
-        <div class="faq-a"><p>Depende del diagnóstico. El proceso empieza siempre por entender el problema real — no por proponer soluciones. Una vez terminado el diagnóstico, el primer agente puede estar operativo en menos de dos semanas.</p></div>
-      </div>
-      <div class="glass-card-subtle faq-item reveal">
-        <button class="faq-q">¿Mis datos quedan seguros?<span class="faq-icon">+</span></button>
-        <div class="faq-a"><p>Tu contexto es tuyo. La inteligencia que construimos para tu organización opera sobre tu infraestructura. No hay datos de tu operación viviendo en servidores de terceros sin tu consentimiento explícito. La arquitectura es segura por diseño.</p></div>
-      </div>
-      <div class="glass-card-subtle faq-item reveal">
-        <button class="faq-q">¿Qué pasa si algo falla?<span class="faq-icon">+</span></button>
-        <div class="faq-a"><p>Cada sistema tiene un humano responsable que supervisa la operación. Los agentes no actúan sin límites definidos y sin aprobación del cliente. Si algo sale del rango esperado, el sistema escala a humano antes de actuar.</p></div>
-      </div>
-    </div>
-  </div>
-</section>
+    const setVideo = (el) => {
+      if (el) {
+        el.muted = true;
+        el.defaultMuted = true;
+        const p = el.play();
+        if (p && p.catch) p.catch(() => {});
+      }
+    };
 
-<!-- ═══════════ PARA QUIÉN ═══════════ -->
-<section class="section section--alt">
-  <div class="container">
-    <span class="eyebrow eyebrow--brand reveal">Para quién es BubbleMesh</span>
-    <h2 class="h2 reveal">No somos para todos.<br><span class="gradient-text">Y eso está bien.</span></h2>
-    <div class="grid grid-3">
-      <article class="glass-card arch-card reveal">
-        <span class="arch-num">01 · El Escalador</span>
-        <h3>Líderes que quieren crecer sin perder el control</h3>
-        <p>Tu empresa tiene tracción. Tu operación empieza a romperse porque crece más rápido que tu capacidad de documentarla. Necesitas sistemas de ejecución que corran solos y datos reales para decidir rápido.</p>
-      </article>
-      <article class="glass-card arch-card reveal">
-        <span class="arch-num">02 · El Luchador</span>
-        <h3>Fundadores atrapados en su propia operación</h3>
-        <p>Eres el cuello de botella de tu empresa. Cada decisión pasa por ti. Cada proceso depende de que estés presente. Necesitas agentes que operen sin tu intervención constante para poder hacer lo que solo tú puedes hacer.</p>
-      </article>
-      <article class="glass-card arch-card reveal">
-        <span class="arch-num">03 · El Artesano</span>
-        <h3>Expertos que quieren proteger su tiempo creativo</h3>
-        <p>Tu talento es lo que diferencia tu negocio. Tu tiempo lo consumen tareas comerciales y operativas. Necesitas automatización que proteja tu espacio creativo y haga el trabajo comercial por ti.</p>
-      </article>
-    </div>
-    <div class="archetypes-cta reveal">
-      <p>¿Te identificas? Hablemos.</p>
-      <a class="btn btn-primary" href="https://wa.me/5215531650560?text=Hola%2C%20me%20identifico%20con%20BubbleMesh%20y%20quiero%20hablar%20con%20el%20equipo" target="_blank" rel="noopener">Contactar al equipo →</a>
-    </div>
-  </div>
-</section>
+    const navOverlayStyle = {
+      position: 'absolute', inset: 0,
+      background: 'rgba(11,15,26,0.82)',
+      backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)',
+      borderBottom: '1px solid rgba(255,255,255,0.07)',
+      opacity: this.state.scrolled ? 1 : 0,
+      transition: 'opacity .35s ease', pointerEvents: 'none'
+    };
 
-<!-- ═══════════ EQUIPO ═══════════ -->
-<section class="section bg-radial" id="equipo">
-  <div class="container">
-    <span class="eyebrow eyebrow--brand reveal">The First Bubble</span>
-    <h2 class="h2 reveal">El equipo detrás<br>de la metodología.</h2>
-    <p class="section-intro reveal">Somos cinco. Cada uno con un rol específico, ninguno intercambiable. TheFirstBubble es el piloto — el equipo que valida la metodología en el terreno antes de que BubbleMesh escale a las siguientes verticales.</p>
+    const faq = this.state.faq;
+    const mk = (i) => ({
+      toggle: () => this.toggleFaq(i),
+      ansStyle: {
+        maxHeight: faq === i ? '340px' : '0px',
+        opacity: faq === i ? 1 : 0,
+        overflow: 'hidden',
+        transition: 'max-height .45s cubic-bezier(.4,0,.2,1), opacity .35s ease'
+      },
+      iconStyle: {
+        transform: faq === i ? 'rotate(45deg)' : 'rotate(0deg)',
+        transition: 'transform .3s ease',
+        color: faq === i ? '#EC4899' : '#94A3B8',
+        fontFamily: "'JetBrains Mono', monospace",
+        fontSize: '22px', lineHeight: 1, fontWeight: 400, flex: 'none', display: 'inline-block'
+      }
+    });
 
-    <div class="team-photo-wrap reveal">
-      <img src="assets/images/team-thefirstbubble.webp" alt="Equipo TheFirstBubble" width="1400" height="876" loading="lazy">
-    </div>
-
-    <div class="team-grid">
-      <article class="glass-card-subtle member reveal">
-        <img class="member-avatar" src="assets/team/avatar-elias-rico.webp" alt="Elías Rico" width="96" height="96" loading="lazy">
-        <h4>Elías Oscar Rico Contreras</h4>
-        <div class="role">Líder de Ventas y Operaciones</div>
-        <p>Arquitecto del ecosistema BubbleMesh. Consultor en metodologías ImpactX y Scaling Up. Lidera la estrategia, el modelo de negocio y la relación con clientes.</p>
-      </article>
-      <article class="glass-card-subtle member reveal">
-        <img class="member-avatar" src="assets/team/avatar-emily-sisalima.webp" alt="Emily Sisalima" width="96" height="96" loading="lazy">
-        <h4>Emily Sisalima Maldonado</h4>
-        <div class="role">SR & Account Manager</div>
-        <p>Primer punto de contacto con clientes nuevos y responsable de la relación continua con cuentas activas. Combina venta consultiva con gestión de cuenta.</p>
-      </article>
-      <article class="glass-card-subtle member reveal">
-        <img class="member-avatar" src="assets/team/avatar-jesus-mostalac.webp" alt="Jesús Mostalac" width="96" height="96" loading="lazy">
-        <h4>Jesús Mostalac Sánchez</h4>
-        <div class="role">Líder de Marketing y RP</div>
-        <p>Define la estrategia de posicionamiento de BubbleMesh y sus verticales. Responsable de la identidad de marca, la comunicación externa y las alianzas estratégicas.</p>
-      </article>
-      <article class="glass-card-subtle member reveal">
-        <img class="member-avatar" src="assets/team/avatar-raul-reyes.webp" alt="Raúl Reyes" width="96" height="96" loading="lazy">
-        <h4>Raúl Fernando Reyes Vargas</h4>
-        <div class="role">Líder de Finanzas y Legalidad</div>
-        <p>Estructura los contratos, el modelo financiero y el cumplimiento legal de la operación. Garantiza que BubbleMesh crezca con base sólida.</p>
-      </article>
-      <article class="glass-card-subtle member reveal">
-        <img class="member-avatar" src="assets/team/avatar-aranza-contreras.webp" alt="Aranza Contreras" width="96" height="96" loading="lazy">
-        <h4>Aranza Contreras Cortés</h4>
-        <div class="role">Content & Community Intern</div>
-        <p>Produce el contenido que da vida a las cuentas de clientes y a la presencia digital de BubbleMesh. Supervisa la calidad del output de los agentes de IA en el día a día.</p>
-      </article>
-    </div>
-  </div>
-</section>
-
-</main>
-
-<!-- ═══════════ FOOTER ═══════════ -->
-<footer class="footer">
-  <div class="container">
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <a class="footer-logo logo-lockup" href="#hero" aria-label="BubbleMesh">
-          <img src="assets/images/logo-symbol.webp" alt="" width="46" height="35">
-          <span class="logo-wordmark" style="font-size:1.4rem;">Bubble<span class="mesh">Mesh</span></span>
-        </a>
-        <p>Tecnología que libera a las personas para hacer lo que solo ellas pueden hacer.</p>
-        <p class="footer-copy">© 2026 BubbleMesh · LHIIS · Todos los derechos reservados.</p>
-      </div>
-      <div>
-        <h5>Navegación</h5>
-        <ul class="footer-nav">
-          <li><a href="#como-funciona">Cómo funciona</a></li>
-          <li><a href="#bubbles">Las Bubbles</a></li>
-          <li><a href="#equipo">El equipo</a></li>
-          <li><a href="https://xperience.bubble-mesh.com" target="_blank" rel="noopener">BubbleMesh Xperience ↗</a></li>
-        </ul>
-      </div>
-      <div class="footer-contact">
-        <h5>Contacto</h5>
-        <p style="color:var(--color-text-secondary);font-size:.9375rem;">¿Quieres trabajar con nosotros?</p>
-        <a class="btn btn-primary" style="margin-top:var(--space-md);" href="https://wa.me/5215531650560?text=Hola%2C%20me%20interesa%20saber%20m%C3%A1s%20sobre%20BubbleMesh" target="_blank" rel="noopener">Hablar por WhatsApp →</a>
-        <a class="mail" href="mailto:hola@bubble-mesh.com">hola@bubble-mesh.com</a>
-        <div class="loc">Ciudad de México · México</div>
-      </div>
-    </div>
-  </div>
-  <div class="footer-bottom">Las máquinas aprenden patrones. Los humanos rompemos los nuestros.</div>
-</footer>
-
-<script src="assets/js/main.js"></script>
+    return {
+      meshNodes, setVideo, navOverlayStyle,
+      f0: mk(0), f1: mk(1), f2: mk(2), f3: mk(3), f4: mk(4)
+    };
+  }
+}
+</script>
 </body>
 </html>
