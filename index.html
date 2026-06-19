@@ -23,6 +23,32 @@
   @keyframes haloPulse { 0%,100% { opacity: .45; transform: scale(1); } 50% { opacity: .85; transform: scale(1.07); } }
   @keyframes btnSheen { 0% { background-position: 0% 50%; } 100% { background-position: 220% 50%; } }
 </style>
+<style>
+  /* ===================== RESPONSIVIDAD ===================== */
+  /* Espaciado de secciones — base (desktop) */
+  .sec { padding-top: 92px !important; padding-bottom: 92px !important; }
+  .sec-bottom { padding-bottom: 92px !important; }
+
+  /* ---------- Tablet (≤ 1024px) ---------- */
+  @media (max-width: 1024px) {
+    .sec { padding-top: 72px !important; padding-bottom: 72px !important; }
+    .sec-bottom { padding-bottom: 72px !important; }
+    .hero-sec { padding-top: 116px !important; padding-bottom: 64px !important; }
+    .team-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+  }
+
+  /* ---------- Móvil (≤ 640px) ---------- */
+  @media (max-width: 640px) {
+    .sec { padding-top: 56px !important; padding-bottom: 56px !important; }
+    .sec-bottom { padding-bottom: 56px !important; }
+    .hero-sec { min-height: auto !important; padding-top: 100px !important; padding-bottom: 56px !important; }
+    .team-grid { grid-template-columns: 1fr !important; }
+    .nav-links { display: none !important; }
+    .nav-cta { padding: 9px 15px !important; font-size: 0.8rem !important; }
+    .nav-inner { padding-left: 18px !important; padding-right: 18px !important; }
+    .wrap { padding-left: 20px !important; padding-right: 20px !important; }
+  }
+</style>
 </helmet>
 
 <div style="font-family: 'Inter', system-ui, sans-serif; background: #0B0F1A; color: #E2E8F0; position: relative; overflow-x: hidden; min-height: 100vh;">
@@ -32,18 +58,18 @@
   <!-- ===================== NAV ===================== -->
   <nav style="position: fixed; top: 0; left: 0; right: 0; z-index: 50; height: 74px;">
     <div style="{{ navOverlayStyle }}"></div>
-    <div style="position: relative; z-index: 1; max-width: 1180px; margin: 0 auto; height: 100%; padding: 0 32px; display: flex; align-items: center; justify-content: space-between; gap: 24px;">
+    <div class="nav-inner" style="position: relative; z-index: 1; max-width: 1180px; margin: 0 auto; height: 100%; padding: 0 32px; display: flex; align-items: center; justify-content: space-between; gap: 24px;">
       <a href="#top" style="display: flex; align-items: center; gap: 11px;">
         <img src="assets/logo-symbol.webp" alt="" style="width: 40px; height: auto; flex: none; filter: drop-shadow(0 0 10px rgba(168,85,247,0.35));">
         <span style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.3rem; letter-spacing: -0.01em; color: #fff;">Bubble<span style="background: linear-gradient(120deg,#A855F7,#EC4899); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">Mesh</span></span>
       </a>
       <div style="display: flex; align-items: center; gap: 34px;">
-        <div style="display: flex; align-items: center; gap: 28px;">
+        <div class="nav-links" style="display: flex; align-items: center; gap: 28px;">
           <a href="#como-funciona" style="color: #E2E8F0; font-size: 0.92rem; font-weight: 500;" style-hover="color: #A855F7;">Cómo funciona</a>
           <a href="#bubbles" style="color: #E2E8F0; font-size: 0.92rem; font-weight: 500;" style-hover="color: #A855F7;">Las Bubbles</a>
           <a href="#equipo" style="color: #E2E8F0; font-size: 0.92rem; font-weight: 500;" style-hover="color: #A855F7;">El equipo</a>
         </div>
-        <a href="https://wa.me/5215531650560?text=Hola%2C%20me%20interesa%20saber%20m%C3%A1s%20sobre%20BubbleMesh" target="_blank" rel="noopener" style="font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.9rem; color: #fff; padding: 10px 20px; border-radius: 9999px; border: 1px solid rgba(168,85,247,0.5); transition: all 0.3s cubic-bezier(0.4,0,0.2,1);" style-hover="border-color: rgba(168,85,247,0.95); background: rgba(168,85,247,0.1);">Hablar con el equipo →</a>
+        <a class="nav-cta" href="https://wa.me/5215531650560?text=Hola%2C%20me%20interesa%20saber%20m%C3%A1s%20sobre%20BubbleMesh" target="_blank" rel="noopener" style="font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.9rem; color: #fff; padding: 10px 20px; border-radius: 9999px; border: 1px solid rgba(168,85,247,0.5); transition: all 0.3s cubic-bezier(0.4,0,0.2,1);" style-hover="border-color: rgba(168,85,247,0.95); background: rgba(168,85,247,0.1);">Hablar con el equipo →</a>
       </div>
     </div>
   </nav>
@@ -51,7 +77,7 @@
   <main style="position: relative; z-index: 1;">
 
     <!-- ===================== HERO ===================== -->
-    <section id="top" style="position: relative; min-height: 100vh; display: flex; align-items: center; padding: 130px 0 90px; overflow: hidden;">
+    <section id="top" class="hero-sec" style="position: relative; min-height: 100vh; display: flex; align-items: center; padding: 130px 0 90px; overflow: hidden;">
       <video ref="{{ setVideo }}" autoPlay="autoPlay" loop="loop" playsInline="playsInline" muted="muted" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0;">
         <source src="assets/hero-bg-loop.mp4" type="video/mp4">
       </video>
@@ -76,8 +102,8 @@
     </section>
 
     <!-- ===================== CÓMO FUNCIONA ===================== -->
-    <section id="como-funciona" style="position: relative; padding: 120px 0;">
-      <div style="max-width: 1180px; margin: 0 auto; padding: 0 32px;">
+    <section id="como-funciona" class="sec" style="position: relative; padding: 120px 0;">
+      <div class="wrap" style="max-width: 1180px; margin: 0 auto; padding: 0 32px;">
         <div style="max-width: 760px;">
           <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: #A855F7; margin-bottom: 20px;">Lo que construimos</div>
           <h2 style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: clamp(2rem,4.6vw,3.3rem); line-height: 1.08; letter-spacing: -0.02em; color: #fff; margin: 0 0 26px;">Entendemos tu sector. Construimos el arnés. Desplegamos los agentes.</h2>
@@ -135,8 +161,8 @@
     </section>
 
     <!-- ===================== BENEFICIOS ===================== -->
-    <section style="position: relative; padding: 120px 0; background: linear-gradient(to bottom, rgba(11,15,26,0.84), rgba(11,15,26,0.94)), url('assets/bg-beneficios.webp'); background-size: cover; background-position: center;">
-      <div style="max-width: 1180px; margin: 0 auto; padding: 0 32px;">
+    <section class="sec" style="position: relative; padding: 120px 0; background: linear-gradient(to bottom, rgba(11,15,26,0.84), rgba(11,15,26,0.94)), url('assets/bg-beneficios.webp'); background-size: cover; background-position: center;">
+      <div class="wrap" style="max-width: 1180px; margin: 0 auto; padding: 0 32px;">
         <div style="max-width: 680px; margin-bottom: 56px;">
           <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: #A855F7; margin-bottom: 20px;">Por qué BubbleMesh</div>
           <h2 style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: clamp(2rem,4.6vw,3.3rem); line-height: 1.08; letter-spacing: -0.02em; color: #fff; margin: 0;">Infraestructura que entiende tu sector desde adentro.</h2>
@@ -167,8 +193,8 @@
     </section>
 
     <!-- ===================== LAS BUBBLES ===================== -->
-    <section id="bubbles" style="position: relative; padding: 120px 0;">
-      <div style="max-width: 1180px; margin: 0 auto; padding: 0 32px;">
+    <section id="bubbles" class="sec" style="position: relative; padding: 120px 0;">
+      <div class="wrap" style="max-width: 1180px; margin: 0 auto; padding: 0 32px;">
         <div style="max-width: 720px; margin-bottom: 56px;">
           <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: #A855F7; margin-bottom: 20px;">El ecosistema</div>
           <h2 style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: clamp(2rem,4.6vw,3.3rem); line-height: 1.08; letter-spacing: -0.02em; color: #fff; margin: 0 0 24px;">Un arnés. Cada sector, su <span style="background: linear-gradient(120deg,#A855F7,#EC4899); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">Bubble.</span></h2>
@@ -222,7 +248,7 @@
     </section>
 
     <!-- ===================== FAQ ===================== -->
-    <section style="position: relative; padding: 120px 0;">
+    <section class="sec" style="position: relative; padding: 120px 0;">
       <div style="max-width: 880px; margin: 0 auto; padding: 0 32px;">
         <div style="margin-bottom: 48px;">
           <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: #A855F7; margin-bottom: 20px;">Preguntas frecuentes</div>
@@ -269,12 +295,12 @@
     </section>
 
     <!-- ===================== PARA QUIÉN ES ===================== -->
-    <section style="position: relative; padding: 0 0 120px;">
+    <section class="sec-bottom" style="position: relative; padding: 0 0 120px;">
       <div style="position: relative; height: clamp(340px, 46vw, 520px); overflow: hidden;">
         <img src="assets/team-grupal-principal.webp" alt="Equipo TheFirstBubble en una sesión de trabajo nocturna" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;">
         <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(11,15,26,0.4) 0%, rgba(11,15,26,0.7) 60%, #0B0F1A 100%);"></div>
         <div style="position: absolute; inset: 0; display: flex; align-items: center;">
-          <div style="max-width: 1180px; margin: 0 auto; padding: 0 32px; width: 100%;">
+          <div class="wrap" style="max-width: 1180px; margin: 0 auto; padding: 0 32px; width: 100%;">
             <div style="max-width: 640px;">
               <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: #A855F7; margin-bottom: 20px;">Para quién es BubbleMesh</div>
               <h2 style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: clamp(2rem,5vw,3.6rem); line-height: 1.06; letter-spacing: -0.02em; color: #fff; margin: 0;">No somos para todos. Y eso está bien.</h2>
@@ -282,7 +308,7 @@
           </div>
         </div>
       </div>
-      <div style="max-width: 1180px; margin: 0 auto; padding: 0 32px;">
+      <div class="wrap" style="max-width: 1180px; margin: 0 auto; padding: 0 32px;">
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 22px; margin-top: 48px;">
           <div style="background: rgba(255,255,255,0.045); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); border-top: 1px solid rgba(255,255,255,0.16); border-radius: 20px; box-shadow: 0 8px 40px rgba(0,0,0,0.5); padding: 32px;">
             <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: #A855F7; margin-bottom: 16px;">El Escalador</div>
@@ -308,14 +334,14 @@
     </section>
 
     <!-- ===================== EQUIPO ===================== -->
-    <section id="equipo" style="position: relative; padding: 110px 0 120px; background: linear-gradient(to bottom, rgba(11,15,26,0.5), #0B0F1A 70%), url('assets/team-grupal-alternativa.webp'); background-size: cover; background-position: center top;">
-      <div style="max-width: 1180px; margin: 0 auto; padding: 0 32px;">
+    <section id="equipo" class="sec" style="position: relative; padding: 110px 0 120px; background: linear-gradient(to bottom, rgba(11,15,26,0.5), #0B0F1A 70%), url('assets/team-grupal-alternativa.webp'); background-size: cover; background-position: center top;">
+      <div class="wrap" style="max-width: 1180px; margin: 0 auto; padding: 0 32px;">
         <div style="max-width: 680px; margin-bottom: 52px;">
           <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: #A855F7; margin-bottom: 20px;">The First Bubble</div>
           <h2 style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: clamp(2rem,4.6vw,3.3rem); line-height: 1.08; letter-spacing: -0.02em; color: #fff; margin: 0 0 24px;">El equipo detrás de la metodología.</h2>
           <p style="font-family: 'Inter', sans-serif; font-size: 1.0625rem; line-height: 1.7; color: #94A3B8; margin: 0;">Somos cinco. Cada uno con un rol específico, ninguno intercambiable. TheFirstBubble es el piloto — el equipo que valida la metodología en el terreno antes de que BubbleMesh escale a las siguientes verticales.</p>
         </div>
-        <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px;">
+        <div class="team-grid" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px;">
           <div style="background: rgba(255,255,255,0.045); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); border-top: 1px solid rgba(255,255,255,0.16); border-radius: 20px; box-shadow: 0 8px 40px rgba(0,0,0,0.5); padding: 26px;">
             <div style="width: 92px; height: 92px; border-radius: 50%; padding: 2px; background: linear-gradient(135deg,#A855F7,#EC4899); margin-bottom: 18px;"><img src="assets/avatar-elias-rico.webp" alt="Elías Rico" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover; display: block;"></div>
             <h3 style="font-family: 'Inter', sans-serif; font-weight: 600; font-size: 1.02rem; color: #fff; margin: 0 0 4px;">Elías Oscar Rico Contreras</h3>
@@ -358,7 +384,7 @@
 
   <!-- ===================== FOOTER ===================== -->
   <footer style="position: relative; z-index: 1; padding: 80px 0 48px; background: linear-gradient(to bottom, #0B0F1A 0%, rgba(6,9,17,0.85) 40%), url('assets/footer-bg.webp'); background-size: cover; background-position: center; border-top: 1px solid rgba(255,255,255,0.06);">
-    <div style="max-width: 1180px; margin: 0 auto; padding: 0 32px;">
+    <div class="wrap" style="max-width: 1180px; margin: 0 auto; padding: 0 32px;">
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 44px;">
         <div>
           <div style="display: flex; align-items: center; gap: 11px; margin-bottom: 22px;">
