@@ -29,6 +29,15 @@
   .sec { padding-top: 92px !important; padding-bottom: 92px !important; }
   .sec-bottom { padding-bottom: 92px !important; }
 
+  /* El stack — herramientas a la izquierda, narrativa + imagen a la derecha */
+  .stack-tools { order: 0; }
+  .stack-narr  { order: 1; }
+  @media (max-width: 768px) {
+    .stack-grid  { grid-template-columns: 1fr !important; }
+    .stack-narr  { order: 0; }   /* en móvil: encabezado primero (lectura natural) */
+    .stack-tools { order: 1; }
+  }
+
   /* ---------- Tablet (≤ 1024px) ---------- */
   @media (max-width: 1024px) {
     .sec { padding-top: 72px !important; padding-bottom: 72px !important; }
@@ -142,14 +151,14 @@
         </div>
 
         <!-- Stack block -->
-        <div style="margin-top: 80px; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; align-items: start;">
-          <div>
+        <div class="stack-grid" style="margin-top: 80px; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; align-items: start;">
+          <div class="stack-narr">
             <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: #A855F7; margin-bottom: 18px;">El stack</div>
             <h3 style="font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: clamp(1.5rem,3vw,2.1rem); line-height: 1.16; color: #fff; margin: 0 0 18px; letter-spacing: -0.01em;">Construido sobre los mejores modelos. No atado a ninguno.</h3>
             <p style="font-family: 'Inter', sans-serif; font-size: 1rem; line-height: 1.7; color: #94A3B8; margin: 0 0 28px;">Usamos los proveedores líderes en cada capa del sistema. El arnés garantiza que si un modelo mejora o cambia, el sistema no se rompe — solo mejora.</p>
             <img src="assets/team-detalle-manos.webp" alt="Equipo trabajando sobre dashboards de agentes en producción" style="width: 100%; height: auto; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); display: block;">
           </div>
-          <div style="background: rgba(255,255,255,0.03); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 28px; display: flex; flex-direction: column; gap: 20px;">
+          <div class="stack-tools" style="background: rgba(255,255,255,0.03); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 28px; display: flex; flex-direction: column; gap: 20px;">
             <div style="display: flex; flex-direction: column; gap: 9px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; letter-spacing: 0.14em; color: #64748B;">MODELOS DE IA</span><div style="display: flex; flex-wrap: wrap; gap: 8px;"><span style="font-family: 'Inter', sans-serif; font-size: 0.78rem; font-weight: 500; color: #E2E8F0; padding: 5px 12px; border-radius: 9999px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);">Claude</span><span style="font-family: 'Inter', sans-serif; font-size: 0.78rem; font-weight: 500; color: #E2E8F0; padding: 5px 12px; border-radius: 9999px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);">GPT-4o</span><span style="font-family: 'Inter', sans-serif; font-size: 0.78rem; font-weight: 500; color: #E2E8F0; padding: 5px 12px; border-radius: 9999px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);">Gemini</span></div></div>
             <div style="display: flex; flex-direction: column; gap: 9px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; letter-spacing: 0.14em; color: #64748B;">AGENTES ORQUESTADORES<br></span><div style="display: flex; flex-wrap: wrap; gap: 8px;"><span style="font-family: 'Inter', sans-serif; font-size: 0.78rem; font-weight: 500; color: #E2E8F0; padding: 5px 12px; border-radius: 9999px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);">OpenClaw</span><span style="font-family: 'Inter', sans-serif; font-size: 0.78rem; font-weight: 500; color: #E2E8F0; padding: 5px 12px; border-radius: 9999px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);">Hermes-agent</span><span style="font-family: 'Inter', sans-serif; font-size: 0.78rem; font-weight: 500; color: #E2E8F0; padding: 5px 12px; border-radius: 9999px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);">NemoClaw</span></div></div>
             <div style="display: flex; flex-direction: column; gap: 9px;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; letter-spacing: 0.14em; color: #64748B;">AUTOMATIZACIÓN</span><div style="display: flex; flex-wrap: wrap; gap: 8px;"><span style="font-family: 'Inter', sans-serif; font-size: 0.78rem; font-weight: 500; color: #E2E8F0; padding: 5px 12px; border-radius: 9999px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);">GoHighLevel</span><span style="font-family: 'Inter', sans-serif; font-size: 0.78rem; font-weight: 500; color: #E2E8F0; padding: 5px 12px; border-radius: 9999px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);">Manychat</span><span style="font-family: 'Inter', sans-serif; font-size: 0.78rem; font-weight: 500; color: #E2E8F0; padding: 5px 12px; border-radius: 9999px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);">Respond.io</span><span style="font-family: 'Inter', sans-serif; font-size: 0.78rem; font-weight: 500; color: #E2E8F0; padding: 5px 12px; border-radius: 9999px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);">Instantly</span></div></div>
