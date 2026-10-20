@@ -40,6 +40,7 @@ h1,h2,h3{overflow-wrap:break-word;hyphens:auto}
   [data-r="burger"]{display:inline-flex!important}
   [data-r="mobnav"]{display:flex!important}
   [data-r="nav"]{flex-wrap:nowrap!important}
+  [data-r="logo"]{height:30px!important}
 }
 @media (max-width:640px){
   :root{--nw:normal}
@@ -55,8 +56,7 @@ h1,h2,h3{overflow-wrap:break-word;hyphens:auto}
 <header style="position:sticky;top:0;z-index:40;background:rgba(11,15,26,0.72);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,0.08)">
   <nav data-r="nav" style="max-width:1280px;margin:0 auto;padding:14px clamp(20px,4vw,32px);display:flex;align-items:center;gap:20px;flex-wrap:wrap">
     <a href="#" aria-label="BubbleMesh Studio, inicio" style="display:flex;align-items:baseline;gap:10px;color:#fff;margin-right:auto">
-      <span style="font-family:Montserrat,sans-serif;font-weight:800;font-size:20px;letter-spacing:-0.01em">Bubble<span style="background:linear-gradient(90deg,#A855F7,#EC4899);-webkit-background-clip:text;background-clip:text;color:transparent">Mesh</span></span>
-      <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#94A3B8">Studio</span>
+<img data-r="logo" src="assets/logo-studio.webp" alt="BubbleMesh Studio" width="159" height="36" style="display:block;height:36px;width:auto;object-fit:contain">
     </a>
     <div data-r="navlinks" style="display:flex;align-items:center;gap:4px;flex-wrap:wrap">
       <div style="position:relative">
@@ -455,7 +455,7 @@ h1,h2,h3{overflow-wrap:break-word;hyphens:auto}
   <div style="max-width:1280px;margin:0 auto;padding:64px clamp(20px,4vw,32px) 32px;display:grid;gap:48px">
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:40px">
       <div style="display:flex;flex-direction:column;gap:14px;grid-column:span 1">
-        <span style="font-family:Montserrat,sans-serif;font-weight:800;font-size:20px">Bubble<span style="background:linear-gradient(90deg,#A855F7,#EC4899);-webkit-background-clip:text;background-clip:text;color:transparent">Mesh</span> <span style="font-family:'JetBrains Mono',monospace;font-weight:400;font-size:11px;letter-spacing:0.12em;color:#94A3B8">STUDIO</span></span>
+        <img src="assets/logo-studio.webp" alt="BubbleMesh Studio" width="194" height="44" style="display:block;height:44px;width:auto;align-self:flex-start;object-fit:contain">
         <p style="margin:0;font-size:14px;line-height:1.6;color:#94A3B8;max-width:32ch">Estudio de producción de video, VFX y transformación digital en Ciudad de México</p>
         <span style="font-size:13px;color:#94A3B8">Parte de BubbleMesh, agencia de IA</span>
       </div>
