@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>Radio en vivo, podcasts y contenido digital | BubbleMesh Studio</title>
+<meta name="description" content="Radio en vivo, podcasts, clips verticales y piezas patrocinables con un proceso que tu equipo sostiene cada semana.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="canonical" href="https://bubble-mesh.com/studio/radio.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Radio en vivo, podcasts y contenido digital | BubbleMesh Studio">
+<meta property="og:description" content="Radio en vivo, podcasts, clips verticales y piezas patrocinables con un proceso que tu equipo sostiene cada semana.">
+<meta property="og:url" content="https://bubble-mesh.com/studio/radio.html">
+<meta property="og:image" content="https://bubble-mesh.com/assets/favicon-192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/favicon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;background:#0B0F1A;color:#fff;font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+a{color:#A855F7;text-decoration:none}
+a:hover{color:#EC4899}
+details>summary{list-style:none;cursor:pointer}
+details>summary::-webkit-details-marker{display:none}
+input,select,textarea,button{font-family:inherit}
+</style>
+
+<style>
+html,body{overflow-x:clip}
+img,video,iframe,svg{max-width:100%}
+h1,h2,h3{overflow-wrap:break-word;hyphens:auto}
+@media (max-width:900px){
+  [data-r="navlinks"],[data-r="navcta"]{display:none!important}
+  [data-r="burger"]{display:inline-flex!important}
+  [data-r="mobnav"]{display:flex!important}
+  [data-r="nav"]{flex-wrap:nowrap!important}
+}
+@media (max-width:640px){
+  :root{--nw:normal}
+  main section{padding-left:16px!important;padding-right:16px!important}
+  main section>div{padding-left:0!important;padding-right:0!important}
+  [data-r="nav"]{padding-left:16px!important;padding-right:16px!important}
+  footer>div{padding-left:16px!important;padding-right:16px!important}
+  input,select,textarea{font-size:16px!important}
+}
+</style>
+</helmet>
+
+<header style="position:sticky;top:0;z-index:40;background:rgba(11,15,26,0.72);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,0.08)">
+  <nav data-r="nav" style="max-width:1280px;margin:0 auto;padding:14px clamp(20px,4vw,32px);display:flex;align-items:center;gap:20px;flex-wrap:wrap">
+    <a href="index.html" aria-label="BubbleMesh Studio, inicio" style="display:flex;align-items:baseline;gap:10px;color:#fff;margin-right:auto">
+      <span style="font-family:Montserrat,sans-serif;font-weight:800;font-size:20px;letter-spacing:-0.01em">Bubble<span style="background:linear-gradient(90deg,#A855F7,#EC4899);-webkit-background-clip:text;background-clip:text;color:transparent">Mesh</span></span>
+      <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#94A3B8">Studio</span>
+    </a>
+    <div data-r="navlinks" style="display:flex;align-items:center;gap:4px;flex-wrap:wrap">
+      <div style="position:relative">
+        <button onClick="{{ toggleMenu }}" style="background:none;border:none;color:#E2E8F0;font-family:Inter,system-ui,sans-serif;font-weight:500;font-size:15px;line-height:inherit;padding:10px 14px;cursor:pointer;display:flex;align-items:center;gap:6px" style-hover="color:#fff">Soluciones <span style="font-size:10px;color:#94A3B8">▾</span></button>
+        <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+          <div style="position:absolute;top:calc(100% + 8px);left:0;min-width:220px;background:rgba(17,24,39,0.96);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.10);border-radius:12px;padding:8px;display:flex;flex-direction:column;box-shadow:0 8px 40px rgba(0,0,0,0.5)">
+            <sc-for list="{{ personas }}" as="p" hint-placeholder-count="6">
+              <a href="{{ p.href }}" onClick="{{ closeMenu }}" style="color:#E2E8F0;padding:10px 12px;border-radius:8px;font-size:15px" style-hover="background:rgba(168,85,247,0.10);color:#fff">{{ p.nombre }}</a>
+            </sc-for>
+          </div>
+        </sc-if>
+      </div>
+      <a href="trabajo.html" style="color:#E2E8F0;font-weight:500;font-size:15px;padding:10px 14px" style-hover="color:#fff">Trabajo</a>
+      <a href="estudio.html" style="color:#E2E8F0;font-weight:500;font-size:15px;padding:10px 14px" style-hover="color:#fff">Estudio</a>
+    </div>
+    <a data-r="navcta" href="#cta-final" style="background:linear-gradient(135deg,#EC4899,#7C3AED);color:#fff;font-weight:700;font-size:15px;padding:11px 22px;border-radius:9999px;box-shadow:0 0 24px rgba(236,72,153,0.30);white-space:var(--nw,nowrap)" style-hover="color:#fff;box-shadow:0 0 32px rgba(236,72,153,0.5)">Cotiza tu producción</a>
+  
+    <button data-r="burger" onClick="{{ toggleMenu }}" aria-label="Abrir menú" style="display:none;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:10px;width:44px;height:44px;align-items:center;justify-content:center;cursor:pointer;color:#fff;padding:0">
+      <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></sc-if>
+      <sc-if value="{{ menuClosed }}" hint-placeholder-val="{{ true }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></sc-if>
+    </button>
+  </nav>
+  <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+    <div data-r="mobnav" style="display:none;flex-direction:column;gap:4px;padding:8px clamp(20px,4vw,32px) 20px;border-top:1px solid rgba(255,255,255,0.08);max-height:calc(100vh - 72px);overflow-y:auto">
+      <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#64748B;padding:12px 4px 6px">Soluciones</span>
+      <sc-for list="{{ personas }}" as="p" hint-placeholder-count="6">
+        <a href="{{ p.href }}" onClick="{{ closeMenu }}" style="color:#E2E8F0;font-size:17px;font-weight:500;padding:12px 4px;border-bottom:1px solid rgba(255,255,255,0.06)">{{ p.nombre }}</a>
+      </sc-for>
+      <a href="trabajo.html" onClick="{{ closeMenu }}" style="color:#E2E8F0;font-size:17px;font-weight:500;padding:12px 4px;border-bottom:1px solid rgba(255,255,255,0.06)">Trabajo</a>
+      <a href="estudio.html" onClick="{{ closeMenu }}" style="color:#E2E8F0;font-size:17px;font-weight:500;padding:12px 4px;border-bottom:1px solid rgba(255,255,255,0.06)">Estudio</a>
+      <a href="#cta-final" onClick="{{ closeMenu }}" style="margin-top:16px;text-align:center;background:linear-gradient(135deg,#EC4899,#7C3AED);color:#fff;font-weight:700;font-size:16px;padding:14px 22px;border-radius:9999px">Cotiza tu producción</a>
+    </div>
+  </sc-if>
+
+</header>
+
+<main>
+<!-- 1 HERO -->
+<section id="hero" data-screen-label="01 Hero Radio" onClick="{{ openReel }}" style="position:relative;min-height:min(92vh,880px);display:flex;align-items:flex-end;overflow:hidden;cursor:pointer;background:repeating-linear-gradient(135deg,#0F1525 0 14px,#111a2e 14px 28px)">
+  <div style="position:absolute;top:24px;right:clamp(20px,4vw,32px);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#64748B;text-align:right;line-height:1.7">hero-loop · clips de cabina<br>12 a 20 s · sin audio</div>
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 70% 20%,rgba(124,58,237,0.22),transparent 70%),linear-gradient(to bottom,rgba(11,15,26,0.15) 0%,rgba(11,15,26,0.55) 55%,rgba(11,15,26,0.96) 100%)"></div>
+  <div style="position:relative;max-width:1280px;width:100%;margin:0 auto;padding:clamp(96px,12vw,160px) clamp(20px,4vw,32px) clamp(48px,8vw,96px);display:grid;gap:28px">
+    <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#A855F7">Soluciones · Radiodifusoras y conductores</span>
+    <sc-if value="{{ heroA }}" hint-placeholder-val="{{ true }}">
+      <h1 style="margin:0;font-family:Montserrat,sans-serif;font-weight:800;font-size:clamp(2.25rem,4.4vw + 1.6rem,5.5rem);line-height:0.98;letter-spacing:-0.025em;max-width:11ch;text-wrap:balance">Tu radio, en todas partes</h1>
+      <p style="margin:0;font-size:clamp(1.05rem,1.6vw,1.25rem);line-height:1.55;color:#E2E8F0;max-width:58ch;text-wrap:pretty">Transmitimos tu señal en tu página, convertimos programas en podcasts y videos, y los distribuimos en las plataformas donde está tu audiencia.</p>
+    </sc-if>
+    <sc-if value="{{ heroB }}" hint-placeholder-val="{{ false }}">
+      <h1 style="margin:0;font-family:Montserrat,sans-serif;font-weight:800;font-size:clamp(2.25rem,4.4vw + 1.6rem,5.5rem);line-height:0.98;letter-spacing:-0.025em;max-width:11ch;text-wrap:balance">Tu cabina, en todas partes</h1>
+      <p style="margin:0;font-size:clamp(1.05rem,1.6vw,1.25rem);line-height:1.55;color:#E2E8F0;max-width:58ch;text-wrap:pretty">Convertimos tus entrevistas y emisiones en podcast, video y clips que se comparten, para que tu programación viva más días y abra espacios nuevos para patrocinadores.</p>
+    </sc-if>
+    <sc-if value="{{ heroC }}" hint-placeholder-val="{{ false }}">
+      <h1 style="margin:0;font-family:Montserrat,sans-serif;font-weight:800;font-size:clamp(2.25rem,4.4vw + 1.6rem,5.5rem);line-height:0.98;letter-spacing:-0.025em;max-width:12ch;text-wrap:balance">Más inventario de cada emisión</h1>
+      <p style="margin:0;font-size:clamp(1.05rem,1.6vw,1.25rem);line-height:1.55;color:#E2E8F0;max-width:58ch;text-wrap:pretty">Cada programa que ya produces puede convertirse en piezas digitales que tu fuerza comercial vende, con un flujo semanal que no le quita horas a tu equipo.</p>
+    </sc-if>
+    <div style="display:flex;flex-wrap:wrap;align-items:center;gap:14px 20px">
+      <a href="#cta-final" onClick="{{ stop }}" style="background:linear-gradient(135deg,#EC4899,#7C3AED);color:#fff;font-weight:700;font-size:16px;padding:15px 30px;border-radius:9999px;box-shadow:0 0 24px rgba(236,72,153,0.35)" style-hover="color:#fff;box-shadow:0 0 36px rgba(236,72,153,0.55)">Prueba con un programa</a>
+      <button onClick="{{ openReelBtn }}" aria-label="Reproducir el demo reel completo con sonido" style="display:flex;align-items:center;gap:12px;background:rgba(11,15,26,0.55);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.18);color:#fff;font-weight:600;font-size:15px;padding:8px 20px 8px 8px;border-radius:9999px;cursor:pointer" style-hover="border-color:rgba(168,85,247,0.9)">
+        <span style="width:36px;height:36px;border-radius:50%;background:#fff;color:#0B0F1A;display:flex;align-items:center;justify-content:center;font-size:12px;padding-left:2px">▶</span>
+        <span style="white-space:var(--nw,nowrap)">Ver reel completo (1:30)</span>
+        <sc-if value="{{ sup }}" hint-placeholder-val="{{ true }}"><span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.08em;color:#FBBF24">[SUPUESTO]</span></sc-if>
+      </button>
+    </div>
+    <a href="https://wa.me/525531650560?text=Hola,%20quiero%20cotizar%20una%20producción" onClick="{{ stop }}" style="font-size:14px;color:#94A3B8;text-decoration:underline;text-underline-offset:3px;width:fit-content" style-hover="color:#fff">o escríbenos por WhatsApp</a>
+  </div>
+</section>
+
+<section id="te-reconoces" data-screen-label="02 Te reconoces" style="max-width:1280px;margin:0 auto;padding:clamp(72px,10vw,128px) clamp(20px,4vw,32px) 0">
+  <div style="display:grid;gap:14px;margin-bottom:48px;max-width:760px">
+    <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#94A3B8">02 · Te reconoces</span>
+    <sc-if value="{{ tA }}" hint-placeholder-val="{{ true }}"><h2 style="margin:0;font-family:Montserrat,sans-serif;font-weight:700;font-size:clamp(2rem,4.5vw,3.2rem);letter-spacing:-0.02em;line-height:1.05;text-wrap:balance">Esto es para tu radio si...</h2></sc-if>
+    <sc-if value="{{ tB }}" hint-placeholder-val="{{ false }}"><h2 style="margin:0;font-family:Montserrat,sans-serif;font-weight:700;font-size:clamp(2rem,4.5vw,3.2rem);letter-spacing:-0.02em;line-height:1.05;text-wrap:balance">Mucha programación, poca vida digital</h2></sc-if>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:20px">
+    <sc-for list="{{ situaciones }}" as="s" hint-placeholder-count="5">
+      <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:32px 28px;display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:start">
+        <span style="font-family:Montserrat,sans-serif;font-weight:800;font-size:28px;line-height:1;background:linear-gradient(135deg,#7C3AED,#EC4899);-webkit-background-clip:text;background-clip:text;color:transparent">{{ s.n }}</span>
+        <div style="display:grid;gap:10px">
+          <h3 style="margin:0;font-size:19px;font-weight:600;line-height:1.3;text-wrap:balance">{{ s.titulo }}</h3>
+          <p style="margin:0;font-size:15px;line-height:1.65;color:#94A3B8;text-wrap:pretty">{{ s.texto }}</p>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+  <div style="margin-top:40px"><a href="#cta-final" style="display:inline-block;width:fit-content;background:linear-gradient(135deg,#EC4899,#7C3AED);color:#fff;font-weight:700;font-size:16px;padding:15px 30px;border-radius:9999px;box-shadow:0 0 24px rgba(236,72,153,0.30);white-space:var(--nw,nowrap)" style-hover="color:#fff;box-shadow:0 0 32px rgba(236,72,153,0.5)">Prueba con un programa</a></div>
+</section>
+
+<section id="oferta" data-screen-label="03 Oferta" style="margin-top:clamp(72px,10vw,128px);background:radial-gradient(ellipse 60% 50% at 50% 0%,rgba(124,58,237,0.16),transparent 70%),#0F1525;border-top:1px solid rgba(255,255,255,0.06);border-bottom:1px solid rgba(255,255,255,0.06)">
+  <div style="max-width:1280px;margin:0 auto;padding:clamp(72px,10vw,128px) clamp(20px,4vw,32px);display:grid;gap:64px">
+    <div style="display:grid;gap:14px;max-width:760px">
+      <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#94A3B8">03 · La oferta</span>
+      <sc-if value="{{ tA }}" hint-placeholder-val="{{ true }}"><h2 style="margin:0;font-family:Montserrat,sans-serif;font-weight:700;font-size:clamp(2rem,4.5vw,3.2rem);letter-spacing:-0.02em;line-height:1.05;text-wrap:balance">Radio Multiplataforma</h2></sc-if>
+    <sc-if value="{{ tB }}" hint-placeholder-val="{{ false }}"><h2 style="margin:0;font-family:Montserrat,sans-serif;font-weight:700;font-size:clamp(2rem,4.5vw,3.2rem);letter-spacing:-0.02em;line-height:1.05;text-wrap:balance">Un programa, todos los formatos</h2></sc-if>
+    </div>
+    <div style="position:relative;background:rgba(255,255,255,0.05);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.10);border-top-color:rgba(255,255,255,0.16);border-radius:24px;box-shadow:0 8px 40px rgba(0,0,0,0.5),0 0 60px rgba(109,40,217,0.22);padding:clamp(28px,5vw,56px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:48px">
+      <div style="display:flex;flex-direction:column;gap:20px">
+        <span style="width:fit-content;white-space:var(--nw,nowrap);background:rgba(124,58,237,0.15);border:1px solid rgba(168,85,247,0.30);color:#C4B5FD;border-radius:9999px;padding:5px 14px;font-size:11px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase">Por episodio o mensualidad</span>
+        <p style="margin:0;font-family:Montserrat,sans-serif;font-weight:700;font-size:clamp(1.4rem,2.6vw,1.9rem);letter-spacing:-0.01em;line-height:1.25;text-wrap:pretty">Reutilizar tu programación con un proceso repetible que tu equipo puede sostener cada semana.</p>
+        <div style="margin-top:auto;padding-top:24px;border-top:1px solid rgba(255,255,255,0.08);display:grid;gap:8px">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#A855F7">Cómo se mide</span>
+          <p style="margin:0;font-size:15px;line-height:1.65;color:#94A3B8">Horas ahorradas al equipo, alcance e interacción por formato, número de piezas patrocinables creadas. No prometemos nuevos anunciantes; te damos inventario para venderles.</p>
+        </div>
+        <a href="#cta-final" style="display:inline-block;width:fit-content;background:linear-gradient(135deg,#EC4899,#7C3AED);color:#fff;font-weight:700;font-size:16px;padding:15px 30px;border-radius:9999px;box-shadow:0 0 24px rgba(236,72,153,0.30);white-space:var(--nw,nowrap)" style-hover="color:#fff;box-shadow:0 0 32px rgba(236,72,153,0.5)">Prueba con un programa</a>
+      </div>
+      <div style="display:grid;gap:14px;align-content:start">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#94A3B8">Incluye</span>
+        <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column">
+          <sc-for list="{{ incluye }}" as="i" hint-placeholder-count="8">
+            <li style="display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start;padding:13px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:15px;line-height:1.5;color:#E2E8F0"><span style="color:#14B8A6;font-weight:700">✓</span><span>{{ i }}</span></li>
+          </sc-for>
+        </ul>
+        <p style="margin:0;font-size:13px;line-height:1.6;color:#94A3B8">Por episodio o mensualidad; cantidades ajustables.</p>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;background:rgba(124,58,237,0.06);border:1px solid rgba(168,85,247,0.18);border-radius:16px;padding:24px 28px">
+      <span style="width:8px;height:8px;margin-top:8px;border-radius:50%;background:#A855F7;box-shadow:0 0 12px rgba(168,85,247,0.8)"></span>
+      <div style="display:grid;gap:6px">
+        <span style="font-size:17px;font-weight:600">Servicios complementarios con alcance y cotización independientes</span>
+        <span style="font-size:15px;line-height:1.6;color:#94A3B8">Desarrollo de plataforma web de radio; streaming de audio 24/7; streaming de video y realización multicámara. No forman parte automáticamente del piloto de edición.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="distribucion" data-screen-label="04 Distribución" style="max-width:1280px;margin:0 auto;padding:clamp(72px,10vw,128px) clamp(20px,4vw,32px) 0">
+  <div style="display:grid;gap:14px;margin-bottom:40px;max-width:860px">
+    <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#94A3B8">04 · Tu programa, donde tu audiencia está</span>
+    <h2 style="margin:0;font-family:Montserrat,sans-serif;font-weight:700;font-size:clamp(2rem,4.5vw,3.2rem);letter-spacing:-0.02em;line-height:1.05;text-wrap:balance">Distribuimos tu programa en todas las plataformas de audio y video.</h2>
+    <p style="margin:0;font-size:17px;line-height:1.6;color:#94A3B8;text-wrap:pretty">Nos encargamos de adaptar, organizar y publicar tus episodios para que puedan escucharse o verse cuando quieran. Tú haces el programa; nosotros nos ocupamos del trabajo de edición y distribución.</p>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px">
+    <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:24px;display:grid;gap:16px;align-content:start">
+      <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#A855F7">Audio / podcast</span>
+      <div style="display:flex;flex-wrap:wrap;gap:8px"><span style="white-space:var(--nw,nowrap);display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:10px 14px;font-size:14px;font-weight:600;color:#E2E8F0"><span style="width:22px;height:22px;border-radius:6px;border:1px dashed rgba(255,255,255,0.25)"></span>Spotify</span><span style="white-space:var(--nw,nowrap);display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:10px 14px;font-size:14px;font-weight:600;color:#E2E8F0"><span style="width:22px;height:22px;border-radius:6px;border:1px dashed rgba(255,255,255,0.25)"></span>Apple Podcasts</span><span style="white-space:var(--nw,nowrap);display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:10px 14px;font-size:14px;font-weight:600;color:#E2E8F0"><span style="width:22px;height:22px;border-radius:6px;border:1px dashed rgba(255,255,255,0.25)"></span>Amazon Music</span><span style="white-space:var(--nw,nowrap);display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:10px 14px;font-size:14px;font-weight:600;color:#E2E8F0"><span style="width:22px;height:22px;border-radius:6px;border:1px dashed rgba(255,255,255,0.25)"></span>Podimo*</span></div>
+    </div>
+    <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:24px;display:grid;gap:16px;align-content:start">
+      <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#A855F7">Video</span>
+      <div style="display:flex;flex-wrap:wrap;gap:8px"><span style="white-space:var(--nw,nowrap);display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:10px 14px;font-size:14px;font-weight:600;color:#E2E8F0"><span style="width:22px;height:22px;border-radius:6px;border:1px dashed rgba(255,255,255,0.25)"></span>YouTube</span><span style="white-space:var(--nw,nowrap);display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:10px 14px;font-size:14px;font-weight:600;color:#E2E8F0"><span style="width:22px;height:22px;border-radius:6px;border:1px dashed rgba(255,255,255,0.25)"></span>YouTube Music*</span></div>
+    </div>
+    <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:24px;display:grid;gap:16px;align-content:start">
+      <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#A855F7">Redes y formatos breves</span>
+      <div style="display:flex;flex-wrap:wrap;gap:8px"><span style="white-space:var(--nw,nowrap);display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:10px 14px;font-size:14px;font-weight:600;color:#E2E8F0"><span style="width:22px;height:22px;border-radius:6px;border:1px dashed rgba(255,255,255,0.25)"></span>YouTube Shorts</span><span style="white-space:var(--nw,nowrap);display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:10px 14px;font-size:14px;font-weight:600;color:#E2E8F0"><span style="width:22px;height:22px;border-radius:6px;border:1px dashed rgba(255,255,255,0.25)"></span>Instagram Reels</span><span style="white-space:var(--nw,nowrap);display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:10px 14px;font-size:14px;font-weight:600;color:#E2E8F0"><span style="width:22px;height:22px;border-radius:6px;border:1px dashed rgba(255,255,255,0.25)"></span>TikTok</span></div>
+    </div>
+  </div>
+  <p style="margin:16px 0 0;font-size:12px;line-height:1.6;color:#94A3B8;max-width:900px;font-style:italic">*La disponibilidad del programa en cada destino depende de sus políticas, mercados, modalidad de publicación y requisitos técnicos. YouTube Music puede recibir podcasts publicados mediante los mecanismos compatibles de YouTube; Podimo requiere confirmar acceso y condiciones aplicables. La distribución no implica que las plataformas acepten automáticamente cualquier emisión.</p>
+  <sc-if value="{{ sup }}" hint-placeholder-val="{{ true }}"><span style="display:block;margin-top:8px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.08em;color:#FBBF24">[SUPUESTO: SUSTITUIR CUADROS PUNTEADOS POR LOGOTIPOS OFICIALES, CADA UNO ENLAZADO A SU SERVICIO]</span></sc-if>
+  <div style="margin-top:48px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:32px 56px">
+    <div style="display:grid;gap:16px;align-content:start">
+      <h3 style="margin:0;font-size:20px;font-weight:600">Cómo funciona</h3>
+      <ol style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column">
+        <sc-for list="{{ distPasos }}" as="d" hint-placeholder-count="4">
+          <li style="display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start;padding:12px 0;border-top:1px solid rgba(255,255,255,0.06)">
+            <span style="width:26px;height:26px;border-radius:50%;background:rgba(124,58,237,0.15);border:1px solid rgba(168,85,247,0.35);color:#C4B5FD;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700">{{ d.n }}</span>
+            <span style="font-size:15px;line-height:1.6;color:#E2E8F0">{{ d.t }}</span>
+          </li>
+        </sc-for>
+      </ol>
+    </div>
+    <div style="display:grid;gap:20px;align-content:start">
+      <div style="display:grid;gap:8px">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#A855F7">Entregables</span>
+        <p style="margin:0;font-size:15px;line-height:1.65;color:#E2E8F0">Episodios a la carta, videopodcast cuando existe video, metadatos, miniaturas, calendario de publicación, clips verticales y registro de enlaces publicados.</p>
+      </div>
+      <p style="margin:0;padding:14px 18px;border-radius:12px;background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.30);font-size:14px;line-height:1.6;color:#FDE68A"><strong style="font-weight:600">Nota editorial y de derechos:</strong> la emisión de radio puede incluir música, anuncios, llamadas o materiales cuya retransmisión y explotación como podcast requieran autorizaciones distintas de las de AM/FM. Se revisa cada pieza antes de publicarla.</p>
+    </div>
+  </div>
+</section>
+
+<section id="plataforma-propia" data-screen-label="05 Plataforma propia" style="margin-top:clamp(72px,10vw,128px);background:radial-gradient(ellipse 60% 50% at 50% 0%,rgba(124,58,237,0.16),transparent 70%),#0F1525;border-top:1px solid rgba(255,255,255,0.06);border-bottom:1px solid rgba(255,255,255,0.06)">
+  <div style="max-width:1280px;margin:0 auto;padding:clamp(72px,10vw,128px) clamp(20px,4vw,32px);display:grid;gap:56px">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:48px;align-items:center">
+      <div style="display:grid;gap:18px">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#94A3B8">05 · Sitio web + radio en vivo + videoteca</span>
+        <h2 style="margin:0;font-family:Montserrat,sans-serif;font-weight:700;font-size:clamp(2rem,4.5vw,3.2rem);letter-spacing:-0.02em;line-height:1.05;text-wrap:balance">Tu radio en vivo, tus programas siempre disponibles.</h2>
+        <p style="margin:0;font-size:17px;line-height:1.6;color:#E2E8F0;text-wrap:pretty">Creamos una plataforma web propia para que tu audiencia escuche la estación en tiempo real, vea los programas que se transmiten desde el estudio y encuentre cada episodio guardado en un solo lugar. Compatible con una emisora que ya opera en AM/FM: aprovechamos la señal existente y añadimos la experiencia digital.</p>
+        <a href="#cta-final" onClick="{{ onPlataforma }}" style="font-weight:600;font-size:15px;color:#fff;border:1px solid rgba(168,85,247,0.5);padding:12px 24px;border-radius:9999px;white-space:var(--nw,nowrap);width:fit-content" style-hover="border-color:rgba(168,85,247,0.9);background:rgba(168,85,247,0.08);color:#fff">Quiero mi plataforma de radio</a>
+      </div>
+      <div aria-hidden="true" style="background:#0B0F1A;border:1px solid rgba(255,255,255,0.12);border-radius:16px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.5),0 0 60px rgba(109,40,217,0.2)">
+        <div style="display:flex;align-items:center;gap:6px;padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.08);background:#0F1525"><span style="width:8px;height:8px;border-radius:50%;background:#334155"></span><span style="width:8px;height:8px;border-radius:50%;background:#334155"></span><span style="width:8px;height:8px;border-radius:50%;background:#334155"></span><span style="margin-left:10px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#64748B">mockup · web de radio</span></div>
+        <div style="padding:16px;display:grid;gap:14px">
+          <div style="display:flex;align-items:center;gap:12px;background:rgba(124,58,237,0.12);border:1px solid rgba(168,85,247,0.3);border-radius:12px;padding:12px">
+            <span style="width:40px;height:40px;flex-shrink:0;border-radius:50%;background:#fff;color:#0B0F1A;display:flex;align-items:center;justify-content:center;font-size:13px;padding-left:2px">▶</span>
+            <div style="display:grid;gap:2px;min-width:0;flex:1"><span style="display:flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#F87171"><span style="width:6px;height:6px;border-radius:50%;background:#EF4444"></span>En vivo</span><span style="font-size:14px;font-weight:600;white-space:var(--nw,nowrap);overflow:hidden;text-overflow:ellipsis">Programa al aire · Conductor</span></div>
+          </div>
+          <div style="display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:12px">
+            <div style="aspect-ratio:16/10;border-radius:10px;background:repeating-linear-gradient(135deg,#111827 0 8px,#151d30 8px 16px);display:flex;align-items:flex-end;padding:10px"><span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#94A3B8;background:rgba(11,15,26,0.7);padding:4px 8px;border-radius:6px">Ver en vivo</span></div>
+            <div style="display:grid;gap:6px;align-content:start">
+              <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#64748B">Parrilla</span>
+              <div style="display:grid;gap:4px">
+                <div style="display:flex;justify-content:space-between;gap:6px;font-size:11px;padding:6px 8px;border-radius:6px;background:rgba(255,255,255,0.06)"><span style="color:#fff">Ahora</span><span style="color:#94A3B8">10:00</span></div>
+                <div style="display:flex;justify-content:space-between;gap:6px;font-size:11px;padding:6px 8px;border-radius:6px;background:rgba(255,255,255,0.03)"><span style="color:#CBD5E1">Siguiente</span><span style="color:#94A3B8">12:00</span></div>
+                <div style="display:flex;justify-content:space-between;gap:6px;font-size:11px;padding:6px 8px;border-radius:6px;background:rgba(255,255,255,0.03)"><span style="color:#CBD5E1">Después</span><span style="color:#94A3B8">14:00</span></div>
+              </div>
+            </div>
+          </div>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#64748B">Últimos episodios</span>
+          <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px">
+            <div style="aspect-ratio:1/1;border-radius:8px;background:repeating-linear-gradient(135deg,#111827 0 8px,#151d30 8px 16px)"></div>
+            <div style="aspect-ratio:1/1;border-radius:8px;background:repeating-linear-gradient(135deg,#111827 0 8px,#151d30 8px 16px)"></div>
+            <div style="aspect-ratio:1/1;border-radius:8px;background:repeating-linear-gradient(135deg,#111827 0 8px,#151d30 8px 16px)"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="display:grid;gap:20px">
+      <h3 style="margin:0;font-size:22px;font-weight:600">Módulos que puede incluir</h3>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,280px),1fr));gap:16px">
+        <sc-for list="{{ modulosPlat }}" as="m" hint-placeholder-count="8">
+          <div style="background:rgba(11,15,26,0.5);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:22px;display:grid;gap:10px;align-content:start">
+            <span style="font-size:16px;font-weight:600">{{ m.nombre }}</span>
+            <span style="font-size:14px;line-height:1.55;color:#E2E8F0">{{ m.exp }}</span>
+            <span style="font-size:13px;line-height:1.55;color:#94A3B8;padding-top:10px;border-top:1px solid rgba(255,255,255,0.06)">{{ m.tec }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    <details style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:0 24px">
+      <summary style="display:flex;justify-content:space-between;align-items:center;gap:16px;padding:20px 0;font-size:16px;font-weight:600">Alcance y consideraciones<span style="color:#A855F7;font-size:22px;font-weight:400;line-height:1">+</span></summary>
+      <ul style="margin:0 0 24px;padding-left:20px;display:grid;gap:10px;font-size:14px;line-height:1.65;color:#CBD5E1">
+        <sc-for list="{{ consideraciones }}" as="c" hint-placeholder-count="6"><li>{{ c }}</li></sc-for>
+      </ul>
+    </details>
+    <div style="display:grid;gap:8px;max-width:900px">
+      <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#A855F7">Indicadores</span>
+      <p style="margin:0;font-size:15px;line-height:1.65;color:#94A3B8">Escuchas en vivo, reproducciones de video, episodios consumidos, tiempo de visualización, usuarios recurrentes, disponibilidad de la señal, biblioteca publicada y conversiones a contenidos de patrocinadores (cuando puedan medirse).</p>
+    </div>
+  </div>
+</section>
+
+<section id="beneficios" data-screen-label="06 Beneficios" style="max-width:1280px;margin:0 auto;padding:clamp(72px,10vw,128px) clamp(20px,4vw,32px) 0">
+  <div style="display:grid;gap:14px;margin-bottom:48px">
+    <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#94A3B8">06 · Beneficios</span>
+    <h2 style="margin:0;font-family:Montserrat,sans-serif;font-weight:700;font-size:clamp(2rem,4.5vw,3.2rem);letter-spacing:-0.02em;line-height:1.05;text-wrap:balance">Lo que ganas</h2>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:40px">
+    <sc-for list="{{ beneficios }}" as="b" hint-placeholder-count="5">
+      <div style="display:flex;flex-direction:column;gap:14px;padding-top:24px;border-top:1px solid rgba(168,85,247,0.35)">
+        <span style="font-family:Montserrat,sans-serif;font-weight:800;font-size:44px;line-height:1;background:linear-gradient(135deg,#7C3AED,#A855F7,#EC4899);-webkit-background-clip:text;background-clip:text;color:transparent">{{ b.n }}</span>
+        <h3 style="margin:0;font-size:21px;font-weight:600;line-height:1.3">{{ b.titulo }}</h3>
+        <p style="margin:0;font-size:15px;line-height:1.65;color:#94A3B8;text-wrap:pretty">{{ b.texto }}</p>
+      </div>
+    </sc-for>
+  </div>
+</section>
+
+<section id="conductores" data-screen-label="07 Conductores" style="max-width:1280px;margin:0 auto;padding:clamp(72px,10vw,128px) clamp(20px,4vw,32px) 0">
+  <div style="position:relative;border-radius:24px;overflow:hidden;min-height:clamp(420px,52vw,600px);display:flex;align-items:flex-end;background:radial-gradient(ellipse 50% 60% at 75% 35%,rgba(236,72,153,0.30),transparent 70%),radial-gradient(ellipse 45% 55% at 55% 60%,rgba(124,58,237,0.40),transparent 70%),#0d0820;border:1px solid rgba(255,255,255,0.08)">
+    <span style="position:absolute;top:24px;right:24px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#C4B5FD;text-align:right;line-height:1.7">retrato de conductor en cabina</span>
+    <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(11,15,26,0.92) 0%,rgba(11,15,26,0.55) 50%,transparent 100%)"></div>
+    <div style="position:relative;padding:clamp(28px,5vw,56px);display:grid;gap:18px;max-width:560px">
+      <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#C4B5FD">07 · ¿Eres conductor?</span>
+      <h2 style="margin:0;font-family:Montserrat,sans-serif;font-weight:700;font-size:clamp(2rem,4.5vw,3.2rem);letter-spacing:-0.02em;line-height:1.05;text-wrap:balance">Tu voz merece una audiencia propia</h2>
+      <p style="margin:0;font-size:17px;line-height:1.6;color:#E2E8F0;text-wrap:pretty">Armamos tu podcast, videoentrevistas, retratos profesionales y perfiles para que tu público te siga en cualquier formato. Antes de empezar aclaramos quién posee los derechos y archivos del programa.</p>
+      <div style="display:grid;gap:8px">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#C4B5FD">Incluye</span>
+        <p style="margin:0;font-size:15px;line-height:1.6;color:#E2E8F0">Podcast con identidad propia, clipping de tus mejores momentos, sesión de retratos, optimización de perfiles y estrategia de distribución.</p>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px">
+        <a href="#cta-final" onClick="{{ onConductor }}" style="font-weight:600;font-size:15px;color:#fff;border:1px solid rgba(168,85,247,0.5);padding:12px 24px;border-radius:9999px;white-space:var(--nw,nowrap)" style-hover="border-color:rgba(168,85,247,0.9);background:rgba(168,85,247,0.08);color:#fff">Quiero mi marca como conductor</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="trabajo" data-screen-label="08 Trabajo" style="max-width:1280px;margin:0 auto;padding:clamp(72px,10vw,128px) clamp(20px,4vw,32px) 0">
+  <div style="display:grid;gap:14px;margin-bottom:48px;max-width:760px">
+    <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#94A3B8">08 · Trabajo</span>
+<h2 style="margin:0;font-family:Montserrat,sans-serif;font-weight:700;font-size:clamp(2rem,4.5vw,3.2rem);letter-spacing:-0.02em;line-height:1.05;text-wrap:balance">Programas que ya viven en más formatos</h2>
+    <sc-if value="{{ sup }}"</sc-if>
+    <sc-if value="{{ sup }}" hint-placeholder-val="{{ true }}"><span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.08em;color:#FBBF24">[SUPUESTO: SIN CASOS PROPIOS DE RADIO TODAVÍA. PUBLICAR CON EL PRIMER PILOTO DOCUMENTADO]</span></sc-if>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:20px">
+    <div style="aspect-ratio:4/3;border-radius:16px;background:repeating-linear-gradient(135deg,#0F1525 0 10px,#131b2e 10px 20px);border:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;padding:0 24px"><span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#64748B;text-align:center">Demostración con una entrevista pública · con permiso</span></div>
+    <div style="aspect-ratio:4/3;border-radius:16px;background:repeating-linear-gradient(135deg,#0F1525 0 10px,#131b2e 10px 20px);border:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;padding:0 24px"><span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#64748B;text-align:center">Clips verticales de la demostración</span></div>
+    <div style="aspect-ratio:4/3;border-radius:16px;background:repeating-linear-gradient(135deg,#0F1525 0 10px,#131b2e 10px 20px);border:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;padding:0 24px"><span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#64748B;text-align:center">Episodio de podcast de la demostración</span></div>
+  </div>
+
+</section>
+
+<section id="como-funciona" data-screen-label="09 Cómo funciona" style="max-width:1280px;margin:0 auto;padding:clamp(72px,10vw,128px) clamp(20px,4vw,32px) 0">
+  <div style="display:grid;gap:14px;margin-bottom:48px">
+    <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#94A3B8">09 · Cómo funciona</span>
+    <h2 style="margin:0;font-family:Montserrat,sans-serif;font-weight:700;font-size:clamp(2rem,4.5vw,3.2rem);letter-spacing:-0.02em;line-height:1.05;text-wrap:balance">Así arrancamos con tu radio</h2>
+  </div>
+  <h3 style="margin:0 0 20px;font-size:18px;font-weight:600;color:#C4B5FD">Ruta A · Contenido multiplataforma (piloto)</h3>
+  <ol style="list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:20px">
+    <sc-for list="{{ etapas }}" as="e" hint-placeholder-count="3">
+      <li style="display:flex;flex-direction:column;gap:14px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:28px">
+        <div style="display:flex;align-items:center;gap:12px">
+          <span style="width:32px;height:32px;border-radius:50%;background:rgba(124,58,237,0.15);border:1px solid rgba(168,85,247,0.35);color:#C4B5FD;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700">{{ e.n }}</span>
+          <span style="flex:1;height:4px;border-radius:2px;background:rgba(255,255,255,0.06);overflow:hidden"><span style="display:block;height:100%;width:{{ e.w }};background:linear-gradient(90deg,#7C3AED,#EC4899)"></span></span>
+        </div>
+        <h3 style="margin:0;font-size:19px;font-weight:600;line-height:1.3">{{ e.titulo }}</h3>
+        <p style="margin:0;font-size:15px;line-height:1.65;color:#94A3B8;text-wrap:pretty">{{ e.texto }}</p>
+      </li>
+    </sc-for>
+  </ol>
+  <div style="margin-top:32px;display:grid;gap:10px;background:rgba(124,58,237,0.06);border:1px solid rgba(168,85,247,0.18);border-radius:16px;padding:24px 28px">
+    <h3 style="margin:0;font-size:18px;font-weight:600;color:#C4B5FD">Ruta B · Plataforma propia (diagnóstico técnico)</h3>
+    <p style="margin:0;font-size:15px;line-height:1.65;color:#E2E8F0;max-width:900px">Revisamos señal de streaming existente, equipos del estudio, conectividad, volumen esperado, programación, políticas de archivo y derechos. Después definimos una implementación por módulos y un costo de infraestructura según uso.</p>
+  </div>
+</section>
+
+<!-- 8 OBJECIONES -->
+<section id="objeciones" data-screen-label="10 Objeciones" style="max-width:1280px;margin:0 auto;padding:clamp(72px,10vw,128px) clamp(20px,4vw,32px) 0">
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:48px 64px;align-items:start">
+    <div style="display:grid;gap:14px;position:sticky;top:96px">
+      <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#94A3B8">10 · Sí, pero...</span>
+      <h2 style="margin:0;font-family:Montserrat,sans-serif;font-weight:700;font-size:clamp(2rem,4.5vw,3.2rem);letter-spacing:-0.02em;line-height:1.05">Lo que suelen preguntar las radios</h2>
+    </div>
+    <div style="display:flex;flex-direction:column">
+      <sc-for list="{{ objeciones }}" as="o" hint-placeholder-count="4">
+        <div style="display:grid;gap:10px;padding:28px 0;border-bottom:1px solid rgba(255,255,255,0.08)">
+          <h3 style="margin:0;font-size:20px;font-weight:600;line-height:1.3">{{ o.titulo }}</h3>
+          <p style="margin:0;font-size:15px;line-height:1.65;color:#94A3B8;text-wrap:pretty">{{ o.texto }}</p>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<!-- 9 FAQ -->
+<section id="faq" data-screen-label="11 FAQ" style="max-width:880px;margin:0 auto;padding:clamp(72px,10vw,128px) clamp(20px,4vw,32px) 0">
+  <div style="display:grid;gap:14px;margin-bottom:32px">
+    <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#94A3B8">11 · Preguntas frecuentes</span>
+    <h2 style="margin:0;font-family:Montserrat,sans-serif;font-weight:700;font-size:clamp(2rem,4.5vw,3.2rem);letter-spacing:-0.02em;line-height:1.05">Preguntas frecuentes</h2>
+  </div>
+  <div style="display:flex;flex-direction:column">
+    <sc-for list="{{ faq }}" as="f" hint-placeholder-count="10">
+      <details style="border-bottom:1px solid rgba(255,255,255,0.08)">
+        <summary style="display:flex;justify-content:space-between;align-items:center;gap:20px;padding:22px 0;font-size:17px;font-weight:600">{{ f.q }}<span style="color:#A855F7;font-size:22px;font-weight:400;line-height:1">+</span></summary>
+        <div style="padding:0 0 24px;display:grid;gap:8px">
+          <p style="margin:0;font-size:15px;line-height:1.65;color:#94A3B8;max-width:68ch">{{ f.a }}</p>
+          <sc-if value="{{ f.flag }}" hint-placeholder-val="{{ false }}"><span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.08em;color:#FBBF24">{{ f.sup }}</span></sc-if>
+        </div>
+      </details>
+    </sc-for>
+  </div>
+</section>
+
+<!-- 10 CTA FINAL -->
+<section id="cta-final" data-screen-label="12 Cierre" style="max-width:1280px;margin:0 auto;padding:clamp(72px,10vw,128px) clamp(20px,4vw,32px)">
+  <div style="position:relative;background:rgba(255,255,255,0.05);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.10);border-top-color:rgba(255,255,255,0.16);border-radius:24px;box-shadow:0 8px 40px rgba(0,0,0,0.5),0 0 60px rgba(109,40,217,0.22);padding:clamp(28px,5vw,64px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:48px">
+    <div style="display:flex;flex-direction:column;gap:18px">
+      <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#A855F7">12 · Piloto</span>
+      <h2 style="margin:0;font-family:Montserrat,sans-serif;font-weight:800;font-size:clamp(2.2rem,5vw,3.6rem);letter-spacing:-0.025em;line-height:1.02;text-wrap:balance">Tu próximo programa, en todas partes</h2>
+      <p style="margin:0;font-size:17px;line-height:1.6;color:#E2E8F0;max-width:44ch">Mándanos una entrevista y te mostramos cómo llevarla a podcast, video y redes.</p>
+      <a href="https://wa.me/525531650560?text=Hola,%20quiero%20cotizar%20una%20producción" style="margin-top:auto;font-size:14px;color:#94A3B8;text-decoration:underline;text-underline-offset:3px;width:fit-content" style-hover="color:#fff">¿Prefieres escribirnos directo? WhatsApp</a>
+    </div>
+
+    <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
+    <form onSubmit="{{ onSubmit }}" novalidate style="display:flex;flex-direction:column;gap:18px">
+      <label style="display:grid;gap:8px">
+        <span style="font-size:13px;font-weight:600;color:#E2E8F0">Tu nombre</span>
+        <input name="nombre" autocomplete="name" placeholder="Nombre y apellido" value="{{ form.nombre }}" onChange="{{ onNombre }}" style="background:rgba(11,15,26,0.6);border:1px solid rgba(255,255,255,0.14);border-radius:12px;padding:14px 16px;color:#fff;font-size:15px;outline:none" style-focus="border-color:#A855F7;box-shadow:0 0 0 3px rgba(168,85,247,0.25)">
+        <sc-if value="{{ errNombre }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;color:#F87171">Escribe tu nombre para saber cómo dirigirnos a ti.</span></sc-if>
+      </label>
+      <sc-if value="{{ usePhone }}" hint-placeholder-val="{{ true }}">
+        <label style="display:grid;gap:8px">
+          <span style="font-size:13px;font-weight:600;color:#E2E8F0">WhatsApp</span>
+          <input type="tel" name="contacto" autocomplete="tel" placeholder="55 1234 5678" value="{{ form.contacto }}" onChange="{{ onContacto }}" style="background:rgba(11,15,26,0.6);border:1px solid rgba(255,255,255,0.14);border-radius:12px;padding:14px 16px;color:#fff;font-size:15px;outline:none" style-focus="border-color:#A855F7;box-shadow:0 0 0 3px rgba(168,85,247,0.25)">
+          <sc-if value="{{ errContacto }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;color:#F87171">Escribe un número de 10 dígitos, por ejemplo 55 1234 5678.</span></sc-if>
+        </label>
+      </sc-if>
+      <sc-if value="{{ useEmail }}" hint-placeholder-val="{{ false }}">
+        <label style="display:grid;gap:8px">
+          <span style="font-size:13px;font-weight:600;color:#E2E8F0">Correo</span>
+          <input type="email" name="correo" autocomplete="email" placeholder="nombre@correo.com" value="{{ form.correo }}" onChange="{{ onCorreo }}" style="background:rgba(11,15,26,0.6);border:1px solid rgba(255,255,255,0.14);border-radius:12px;padding:14px 16px;color:#fff;font-size:15px;outline:none" style-focus="border-color:#A855F7;box-shadow:0 0 0 3px rgba(168,85,247,0.25)">
+          <sc-if value="{{ errCorreo }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;color:#F87171">Escribe un correo válido, por ejemplo nombre@correo.com.</span></sc-if>
+        </label>
+      </sc-if>
+      <button type="button" onClick="{{ toggleEmail }}" style="background:none;border:none;padding:0;margin-top:-8px;color:#A855F7;font-size:13px;font-weight:600;cursor:pointer;width:fit-content;text-decoration:underline;text-underline-offset:3px">{{ emailToggleLabel }}</button>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:18px">
+        <label style="display:grid;gap:8px;align-content:start">
+          <span style="font-size:13px;font-weight:600;color:#E2E8F0">¿Qué produces?</span>
+          <select name="persona" value="{{ form.persona }}" onChange="{{ onPersona }}" style="background:rgba(11,15,26,0.6);border:1px solid rgba(255,255,255,0.14);border-radius:12px;padding:14px 16px;color:#fff;font-size:15px;outline:none" style-focus="border-color:#A855F7">
+            <option value="">Elige una opción</option>
+            <option>Artista o agrupación</option>
+            <option>Radio o podcast</option>
+            <option>Evento</option>
+            <option>Recinto o restaurante</option>
+            <option>Marca o patrocinio</option>
+            <option>Desarrollo o propiedad</option>
+            <option>Otro</option>
+          </select>
+          <sc-if value="{{ errPersona }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;color:#F87171">Elige qué quieres producir para mandarte lo correcto.</span></sc-if>
+        </label>
+        <label style="display:grid;gap:8px;align-content:start">
+          <span style="font-size:13px;font-weight:600;color:#E2E8F0">¿Para cuándo lo necesitas?</span>
+          <select name="plazo" value="{{ form.plazo }}" onChange="{{ onPlazo }}" style="background:rgba(11,15,26,0.6);border:1px solid rgba(255,255,255,0.14);border-radius:12px;padding:14px 16px;color:#fff;font-size:15px;outline:none" style-focus="border-color:#A855F7">
+            <option value="">Elige una opción</option>
+            <option>Este mes</option>
+            <option>En 1 a 3 meses</option>
+            <option>Todavía no tengo fecha</option>
+          </select>
+        </label>
+      </div>
+      <label style="display:grid;gap:8px;align-content:start">
+          <span style="font-size:13px;font-weight:600;color:#E2E8F0">¿Qué te interesa?</span>
+          <select name="interes" value="{{ form.interes }}" onChange="{{ onInteres }}" style="background:rgba(11,15,26,0.6);border:1px solid rgba(255,255,255,0.14);border-radius:12px;padding:14px 16px;color:#fff;font-size:15px;outline:none" style-focus="border-color:#A855F7">
+            <option value="">Elige una opción</option>
+            <option>Edición y distribución</option><option>Plataforma web y streaming</option><option>Ambos</option>
+          </select>
+        </label>
+      <sc-if value="{{ showPlat }}" hint-placeholder-val="{{ false }}">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:18px">
+          <label style="display:grid;gap:8px;align-content:start">
+          <span style="font-size:13px;font-weight:600;color:#E2E8F0">¿Ya tienen streaming de audio?</span>
+          <select name="stream" value="{{ form.stream }}" onChange="{{ onStream }}" style="background:rgba(11,15,26,0.6);border:1px solid rgba(255,255,255,0.14);border-radius:12px;padding:14px 16px;color:#fff;font-size:15px;outline:none" style-focus="border-color:#A855F7">
+            <option value="">Elige una opción</option>
+            <option>Sí</option><option>No</option><option>No sé</option>
+          </select>
+        </label>
+          <label style="display:grid;gap:8px;align-content:start">
+          <span style="font-size:13px;font-weight:600;color:#E2E8F0">¿Quieren video desde el estudio?</span>
+          <select name="video" value="{{ form.video }}" onChange="{{ onVideo }}" style="background:rgba(11,15,26,0.6);border:1px solid rgba(255,255,255,0.14);border-radius:12px;padding:14px 16px;color:#fff;font-size:15px;outline:none" style-focus="border-color:#A855F7">
+            <option value="">Elige una opción</option>
+            <option>Sí</option><option>No</option><option>Tal vez</option>
+          </select>
+        </label>
+        </div>
+      </sc-if>
+      <label style="display:grid;gap:8px">
+        <span style="font-size:13px;font-weight:600;color:#E2E8F0">Nombre de la emisora o del programa <span style="color:#94A3B8;font-weight:400">(opcional)</span></span>
+        <input name="emisora" value="{{ form.emisora }}" onChange="{{ onEmisora }}" style="background:rgba(11,15,26,0.6);border:1px solid rgba(255,255,255,0.14);border-radius:12px;padding:14px 16px;color:#fff;font-size:15px;outline:none" style-focus="border-color:#A855F7;box-shadow:0 0 0 3px rgba(168,85,247,0.25)">
+      </label>
+      <sc-if value="{{ msgClosed }}" hint-placeholder-val="{{ true }}">
+        <button type="button" onClick="{{ openMsg }}" style="background:none;border:1px dashed rgba(255,255,255,0.18);border-radius:12px;padding:14px 16px;color:#94A3B8;font-size:14px;text-align:left;cursor:pointer" style-hover="border-color:rgba(168,85,247,0.6);color:#fff">+ Cuéntanos más (opcional)</button>
+      </sc-if>
+      <sc-if value="{{ msgOpen }}" hint-placeholder-val="{{ false }}">
+        <label style="display:grid;gap:8px">
+          <span style="font-size:13px;font-weight:600;color:#E2E8F0">Cuéntanos más (opcional)</span>
+          <textarea name="mensaje" rows="4" placeholder="Fecha, lugar, idea o lo que tengas en mente" value="{{ form.mensaje }}" onChange="{{ onMensaje }}" style="background:rgba(11,15,26,0.6);border:1px solid rgba(255,255,255,0.14);border-radius:12px;padding:14px 16px;color:#fff;font-size:15px;outline:none;resize:vertical" style-focus="border-color:#A855F7;box-shadow:0 0 0 3px rgba(168,85,247,0.25)"></textarea>
+        </label>
+      </sc-if>
+      <button type="submit" style="margin-top:6px;background:linear-gradient(135deg,#EC4899,#7C3AED);color:#fff;border:none;font-weight:700;font-size:16px;padding:16px 30px;border-radius:9999px;cursor:pointer;box-shadow:0 0 24px rgba(236,72,153,0.30)" style-hover="box-shadow:0 0 32px rgba(236,72,153,0.5)">{{ submitLabel }}</button>
+      <p style="margin:0;font-size:12px;line-height:1.6;color:#94A3B8">Al enviar aceptas nuestro <a href="aviso-de-privacidad.html" style="text-decoration:underline">aviso de privacidad</a>. Usamos tus datos solo para responder a tu solicitud.</p>
+    </form>
+    </sc-if>
+
+    <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-direction:column;gap:24px">
+        <h3 style="margin:0;font-size:22px;font-weight:600">Qué pasa después de enviar</h3>
+        <sc-for list="{{ queSigue }}" as="q" hint-placeholder-count="3">
+          <div style="display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start">
+            <span style="width:32px;height:32px;border-radius:50%;background:rgba(20,184,166,0.12);border:1px solid rgba(20,184,166,0.4);color:#14B8A6;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700">{{ q.n }}</span>
+            <div style="display:grid;gap:4px">
+              <span style="font-weight:600;font-size:16px">{{ q.titulo }}</span>
+              <span style="font-size:14px;line-height:1.6;color:#94A3B8">{{ q.texto }}</span>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </sc-if>
+  </div>
+</section>
+</main>
+
+<footer style="background:#060911;border-top:1px solid rgba(255,255,255,0.06)">
+  <div style="max-width:1280px;margin:0 auto;padding:64px clamp(20px,4vw,32px) 32px;display:grid;gap:48px">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:40px">
+      <div style="display:flex;flex-direction:column;gap:14px;grid-column:span 1">
+        <span style="font-family:Montserrat,sans-serif;font-weight:800;font-size:20px">Bubble<span style="background:linear-gradient(90deg,#A855F7,#EC4899);-webkit-background-clip:text;background-clip:text;color:transparent">Mesh</span> <span style="font-family:'JetBrains Mono',monospace;font-weight:400;font-size:11px;letter-spacing:0.12em;color:#94A3B8">STUDIO</span></span>
+        <p style="margin:0;font-size:14px;line-height:1.6;color:#94A3B8;max-width:32ch">Estudio de producción de video, VFX y transformación digital en Ciudad de México</p>
+        <span style="font-size:13px;color:#94A3B8">Parte de BubbleMesh, agencia de IA</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#64748B;margin-bottom:4px">Soluciones</span>
+        <sc-for list="{{ personas }}" as="p" hint-placeholder-count="6"><a href="{{ p.href }}" style="color:#E2E8F0;font-size:14px" style-hover="color:#fff">{{ p.nombre }}</a></sc-for>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#64748B;margin-bottom:4px">Estudio</span>
+        <a href="trabajo.html" style="color:#E2E8F0;font-size:14px">Trabajo</a>
+        <a href="estudio.html" style="color:#E2E8F0;font-size:14px">Estudio</a>
+        <a href="#cta-final" style="color:#E2E8F0;font-size:14px">Contacto</a>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#64748B;margin-bottom:4px">Contacto</span>
+        <a href="mailto:contacto@bubble-mesh.com" style="color:#E2E8F0;font-size:14px">contacto@bubble-mesh.com</a>
+        <a href="tel:+525531650560" style="color:#E2E8F0;font-size:14px">+52 55 3165 0560</a>
+        <sc-if value="{{ sup }}" hint-placeholder-val="{{ true }}"><span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.08em;color:#FBBF24">[SUPUESTO: DATOS DE STUDIO]</span></sc-if>
+      </div>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.06);font-size:13px;color:#94A3B8">
+      <span>Producción técnica en alianza con Mädi Films y R3State</span>
+      <div style="display:flex;gap:20px;flex-wrap:wrap"><a href="aviso-de-privacidad.html" style="color:#94A3B8">Aviso de privacidad</a><span>© 2026 BubbleMesh Studio</span></div>
+    </div>
+  </div>
+</footer>
+
+<sc-if value="{{ reelOpen }}" hint-placeholder-val="{{ false }}">
+  <div role="dialog" aria-modal="true" aria-label="Demo reel" onClick="{{ closeReel }}" style="position:fixed;inset:0;z-index:100;background:rgba(6,9,17,0.92);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;padding:clamp(16px,4vw,48px)">
+    <div onClick="{{ stop }}" style="position:relative;width:min(100%,1280px);aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:repeating-linear-gradient(135deg,#0F1525 0 14px,#131b2e 14px 28px);border:1px solid rgba(255,255,255,0.12);box-shadow:0 0 80px rgba(109,40,217,0.35);display:flex;align-items:center;justify-content:center">
+      <span style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:#94A3B8;text-align:center;line-height:1.8">reel-completo · HLS con audio y controles<br>proveedor por definir</span>
+    </div>
+    <button onClick="{{ closeReel }}" style="position:absolute;top:20px;right:20px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.16);color:#fff;font-weight:600;font-size:14px;padding:10px 18px;border-radius:9999px;cursor:pointer" style-hover="background:rgba(255,255,255,0.14)">Cerrar reel ✕</button>
+  </div>
+</sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;heroVariant&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;A&quot;,&quot;B&quot;,&quot;C&quot;],&quot;default&quot;:&quot;A&quot;,&quot;tsType&quot;:&quot;'A'|'B'|'C'&quot;,&quot;section&quot;:&quot;Copy&quot;},&quot;sectionTitles&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;A&quot;,&quot;B&quot;],&quot;default&quot;:&quot;A&quot;,&quot;tsType&quot;:&quot;'A'|'B'&quot;,&quot;section&quot;:&quot;Copy&quot;},&quot;showSupuestos&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Borrador&quot;}}">
+class Component extends DCLogic {
+  state = { reel: false, menu: false, pos: 50, useEmail: false, msg: false, status: 'idle', errors: {},
+    form: { nombre: '', contacto: '', correo: '', persona: 'Radio o podcast', plazo: '', mensaje: '', emisora: '', interes: '', stream: '', video: '' } };
+
+  componentDidMount() {
+    this.onKey = (e) => { if (e.key === 'Escape') { this.closeReel(); this.setState({ menu: false }); } };
+    window.addEventListener('keydown', this.onKey);
+  }
+  componentWillUnmount() { window.removeEventListener('keydown', this.onKey); document.body.style.overflow = ''; }
+
+  openReel = () => { this.lastFocus = document.activeElement; document.body.style.overflow = 'hidden'; this.setState({ reel: true }); };
+  closeReel = () => {
+    if (!this.state.reel) return;
+    document.body.style.overflow = '';
+    this.setState({ reel: false }, () => this.lastFocus && this.lastFocus.focus && this.lastFocus.focus());
+  };
+  setField = (k) => (e) => { const v = e.target.value; this.setState(s => ({ form: { ...s.form, [k]: v }, errors: { ...s.errors, [k]: false } })); };
+
+  validate() {
+    const f = this.state.form, e = {};
+    if (!f.nombre.trim()) e.nombre = true;
+    if (this.state.useEmail) { if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.correo)) e.correo = true; }
+    else if (f.contacto.replace(/\D/g, '').length !== 10) e.contacto = true;
+    if (!f.persona) e.persona = true;
+    return e;
+  }
+  onSubmit = (ev) => {
+    ev.preventDefault();
+    const e = this.validate();
+    this.setState({ errors: e });
+    if (Object.keys(e).length) return;
+    this.setState({ status: 'sending' });
+    setTimeout(() => this.setState({ status: 'sent' }), 1200);
+  };
+
+  renderVals() {
+    const v = this.props.heroVariant ?? 'A';
+    const titles = this.props.sectionTitles ?? 'A';
+    const sup = this.props.showSupuestos ?? false;
+    const s = this.state, er = s.errors;
+    return {
+      heroA: v === 'A', heroB: v === 'B', heroC: v === 'C',
+      tA: titles === 'A', tB: titles === 'B', sup,
+      menuOpen: s.menu, menuClosed: !s.menu,
+      toggleMenu: () => this.setState(x => ({ menu: !x.menu })),
+      closeMenu: () => this.setState({ menu: false }),
+      stop: (e) => e.stopPropagation(),
+      openReel: this.openReel,
+      openReelBtn: (e) => { e.stopPropagation(); this.openReel(); },
+      closeReel: this.closeReel, reelOpen: s.reel,
+      pos: s.pos, clipRight: 100 - s.pos,
+      onPos: (e) => this.setState({ pos: Number(e.target.value) }),
+      form: s.form,
+      onNombre: this.setField('nombre'), onContacto: this.setField('contacto'), onCorreo: this.setField('correo'),
+      onPersona: this.setField('persona'), onPlazo: this.setField('plazo'), onMensaje: this.setField('mensaje'), onEmisora: this.setField('emisora'),
+      onInteres: this.setField('interes'), onStream: this.setField('stream'), onVideo: this.setField('video'),
+      showPlat: s.form.interes === 'Plataforma web y streaming' || s.form.interes === 'Ambos',
+      onPlataforma: () => this.setState(x => ({ form: { ...x.form, persona: 'Radio o podcast', interes: 'Plataforma web y streaming' } })),
+      onConductor: () => this.setState(x => ({ msg: true, form: { ...x.form, persona: 'Radio o podcast', mensaje: x.form.mensaje || 'Conductor' } })),
+      useEmail: s.useEmail, usePhone: !s.useEmail,
+      toggleEmail: () => this.setState(x => ({ useEmail: !x.useEmail, errors: {} })),
+      emailToggleLabel: s.useEmail ? 'Prefiero WhatsApp' : 'Prefiero correo',
+      msgOpen: s.msg, msgClosed: !s.msg, openMsg: () => this.setState({ msg: true }),
+      errNombre: !!er.nombre, errContacto: !!er.contacto, errCorreo: !!er.correo, errPersona: !!er.persona,
+      onSubmit: this.onSubmit,
+      submitLabel: s.status === 'sending' ? 'Enviando...' : 'Prueba con un programa',
+      sent: s.status === 'sent', notSent: s.status !== 'sent',
+      personas: [
+        { nombre: 'Artistas', href: 'artistas.html', titulo: 'Para artistas que llenan eventos pero no redes', desc: 'Convertimos tus presentaciones en clips, fotos, EPK y una página de contrataciones, para que el público que te aplaude también te siga y te busque.', enlace: 'Ver soluciones para artistas' },
+        { nombre: 'Radio', href: 'radio.html', titulo: 'Para radios con programas que merecen más vida', desc: 'Cada entrevista se vuelve podcast, clips verticales y piezas patrocinables, con un proceso repetible que tu equipo puede sostener todas las semanas sin desgastarse.', enlace: 'Ver soluciones para radio' },
+        { nombre: 'Eventos', href: 'eventos.html', titulo: 'Para promotores que no pueden fallar en vivo', desc: 'Promoción de preventa, multicámara, streaming, visuales para pantalla y recap al cierre, con un solo equipo coordinando antes, durante y después de tu evento.', enlace: 'Ver soluciones para eventos' },
+        { nombre: 'Recintos', href: 'recintos.html', titulo: 'Para foros y restaurantes con música en vivo', desc: 'Contenido de cada fecha, cartelera que se comparte y reservaciones conectadas, para que cada noche de música ayude a llenar la siguiente y sepas cuál funcionó.', enlace: 'Ver soluciones para recintos' },
+        { nombre: 'Marcas', href: 'marcas.html', titulo: 'Para marcas que patrocinan y necesitan evidencia', desc: 'Spots, cobertura de activaciones y un reporte de activos entregados, para que tu patrocinio se convierta en piezas y argumentos que puedes presentar y reutilizar.', enlace: 'Ver soluciones para marcas' },
+        { nombre: 'Inmobiliario', href: 'inmobiliario.html', titulo: 'Para desarrolladoras que venden lo que aún no existe', desc: 'Drone, recorridos 360°, renders animados y video profesional para mostrar tu desarrollo terminado desde la preventa, con una landing que capta compradores calificados.', enlace: 'Ver soluciones inmobiliarias' }
+      ],
+      situaciones: [
+        { n: '01', titulo: 'Tu radio vive en antena y apenas en redes', texto: 'Tienes señal, audiencia y programas con años al aire, pero tu presencia digital está fragmentada y lo que se dice en cabina casi nunca llega a las plataformas donde hoy se consume contenido.' },
+        { n: '02', titulo: 'Tienes streaming y redes, pero todo es manual', texto: 'Tu equipo recorta, titula y publica a mano. Las entrevistas buenas se quedan en el archivo porque no hay horas suficientes para aprovecharlas, y cada semana se repite el mismo cuello de botella.' },
+        { n: '03', titulo: 'Tu equipo comercial necesita algo nuevo que vender', texto: 'Los anunciantes piden más que el spot en antena y tu fuerza de ventas no tiene paquetes digitales claros para ofrecer: videoentrevistas, clips patrocinados o podcast con menciones de marca integradas.' },
+        { n: '04', titulo: 'Eres conductor y quieres una audiencia que sea tuya', texto: 'Tu voz es reconocida al aire, pero tu visibilidad depende de la emisora. Quieres presencia profesional propia, con contenido que tu público pueda seguir en cualquier formato y en cualquier plataforma.' },
+        { n: '05', titulo: 'Tienes señal en vivo, pero no una plataforma propia', texto: 'La emisora transmite AM/FM, pero su web no reúne reproductor, video en vivo, horarios y episodios grabados. Tu audiencia tiene que buscar cada contenido por separado.' }
+      ],
+      incluye: ['Ingesta de audio y video del programa', 'Edición del episodio completo para podcast y video', 'De 5 a 10 clips por episodio para Reels, TikTok y Shorts', 'Miniaturas, títulos y descripciones optimizadas', 'Distribución y publicación de episodios completos en plataformas compatibles de audio y video', 'Programación de publicaciones', 'Biblioteca organizada y etiquetada de piezas', 'Reporte mensual de alcance, interacción e inventario patrocinable'],
+      beneficios: [
+        { n: '01', titulo: 'Cada entrevista dura más días', texto: 'Una conversación que antes se escuchaba una vez al aire ahora vive como episodio, como clip vertical y como pieza destacada en tu sitio, y sigue sumando audiencia días después de la emisión.' },
+        { n: '02', titulo: 'Nuevos formatos para tus patrocinadores', texto: 'Clips patrocinados, videoentrevistas y podcast se vuelven inventario digital que tu fuerza comercial puede sumar a sus paquetes, además del spot tradicional que ya vende en antena todos los días del año.' },
+        { n: '03', titulo: 'Tu equipo deja de recortar', texto: 'Nos encargamos de editar, titular y programar con un flujo repetible y supervisado, para que tu equipo digital dedique sus horas a la estrategia y no al recorte manual de cada semana.' },
+        { n: '04', titulo: 'Tu audiencia encuentra todo en un lugar', texto: 'Tu señal en vivo, la programación semanal y el archivo de episodios conviven en una web propia que no depende de que el público encuentre cada enlace por separado.' },
+        { n: '05', titulo: 'Tu programa llega más lejos', texto: 'Distribuimos episodios y clips en plataformas de audio, video y redes sociales compatibles, con identidad y calendario consistentes.' }
+      ],
+      distPasos: [
+        { n: '1', t: 'Recibimos la emisión o su grabación original.' },
+        { n: '2', t: 'Preparamos episodio completo, versión de video (si hay material), portada, título y descripción.' },
+        { n: '3', t: 'Gestionamos la publicación en las cuentas autorizadas y organizamos la biblioteca de contenidos.' },
+        { n: '4', t: 'Creamos clips y reportamos métricas por plataforma.' }
+      ],
+      modulosPlat: [
+        { nombre: 'Radio en vivo', exp: 'Botón Play que reproduce la señal de la emisora en web, móvil y escritorio', tec: 'Reproductor web integrado con la URL de streaming actual o una señal Icecast/AzuraCast/servicio equivalente' },
+        { nombre: 'Video en vivo', exp: 'Ver programas, entrevistas o transmisiones especiales desde el estudio', tec: 'Ingesta desde OBS/encoder y entrega mediante Cloudflare Stream u otro proveedor de video' },
+        { nombre: 'Programación', exp: 'Ver qué programa está al aire y cuáles siguen', tec: 'Calendario editorial con horarios, conductores y fichas' },
+        { nombre: 'Episodios a la carta', exp: 'Escuchar o ver las emisiones anteriores por fecha, programa y conductor', tec: 'Grabación, procesamiento, almacenamiento, metadatos, filtros y reproductores' },
+        { nombre: 'Biblioteca / archivo', exp: 'Explorar programas pasados sin buscar enlaces en redes', tec: 'CMS/panel administrativo, búsquedas y categorías' },
+        { nombre: 'Integraciones', exp: 'Compartir episodios y encontrar sus versiones en Spotify o YouTube', tec: 'Enlaces a perfiles y publicaciones externas; no sustituye la distribución a esas plataformas' },
+        { nombre: 'Panel de administración', exp: 'El equipo sube, revisa y publica contenido', tec: 'Accesos, carga y edición de episodios, aprobación editorial' },
+        { nombre: 'Patrocinadores y analítica', exp: 'Espacios para mensajes comerciales y medición', tec: 'Banners, inserciones editoriales autorizadas y métricas según herramientas contratadas' }
+      ],
+      consideraciones: [
+        'El streaming de audio de 24 horas y el video por evento son dos tipos de carga distintos. Cloudflare Stream se reserva principalmente para video; no es necesario enviar video con imagen fija para operar la señal de radio.',
+        'La grabación automática puede requerir configuración de origen, programación de inicio y fin por emisión y automatizaciones externas. No prometer que todas las emisiones se convierten solas en episodios editados y publicados.',
+        'El costo de video depende de minutos almacenados y reproducidos; el de audio, de oyentes simultáneos, transferencia y plan de proveedor.',
+        'La conservación indefinida del archivo no está incluida: definir políticas de retención, respaldo, derechos y capacidad.',
+        'El diseño y software no incluyen cámaras, consola, switcher, micrófonos, conectividad redundante ni operación humana de transmisiones, salvo contrato específico.',
+        'El desarrollo de esta plataforma es un proyecto de implementación, con soporte e infraestructura recurrentes. Es distinto de la mensualidad de edición y distribución de contenido.'
+      ],
+      etapas: [
+        { n: '1', w: '33%', titulo: 'Elegimos un programa que ya existe', texto: 'Tomamos una entrevista o emisión reciente y revisamos derechos, archivos, métricas actuales y patrocinadores que podrían participar.' },
+        { n: '2', w: '66%', titulo: 'Producimos el paquete multiformato completo', texto: 'Editamos el episodio, sacamos los clips, hacemos miniaturas y textos, y lo dejamos programado en tus plataformas.' },
+        { n: '3', w: '100%', titulo: 'Medimos y armamos tu paquete mensual', texto: 'Revisamos horas ahorradas, alcance e interacción, y definimos la mensualidad según los programas que conviene escalar.' }
+      ],
+      objeciones: [
+        { titulo: 'Trabajamos con tu equipo, no en su lugar', texto: 'Tu equipo digital conserva la estrategia y la voz de la emisora. Nosotros sumamos capacidad de edición y publicación para que lleguen a todo lo que hoy se queda en el archivo.' },
+        { titulo: 'Nada se publica sin tu aprobación editorial', texto: 'Automatizamos las tareas repetitivas, pero cada pieza pasa por revisión humana y por la aprobación de quien tú designes antes de salir a cualquier plataforma o red social.' },
+        { titulo: 'Derechos y música resueltos antes de publicar', texto: 'Revisamos quién posee cada programa y qué música aparece en cada clip, para evitar bloqueos por derechos de autor y conflictos entre la emisora, los conductores y los productores.' },
+        { titulo: 'Empiezas sin comprar cámaras para la cabina', texto: 'El piloto arranca con el audio y la grabación que ya tienes. Si después quieres radio visual o streaming, lo cotizamos aparte con equipo técnico profesional y conectividad de respaldo.' }
+      ],
+      faq: [
+        { q: '¿Necesitamos cámaras en cabina?', a: 'No para empezar. Trabajamos con el audio y el video que ya grabas; la radio visual se cotiza aparte.', flag: false },
+        { q: '¿Podemos escuchar la radio en vivo desde nuestra web?', a: 'Sí. Integramos su URL de streaming actual si es compatible o implementamos una fuente de audio digital apropiada.', flag: false },
+        { q: '¿También transmiten video en vivo?', a: 'Sí, como módulo complementario desde el estudio y un proveedor de video. El equipamiento y la realización se presupuestan por separado.', flag: false },
+        { q: '¿Los episodios quedan guardados?', a: 'Diseñamos un flujo de grabación, revisión y publicación para que queden disponibles en una biblioteca organizada, sujeto a derechos y política de almacenamiento.', flag: false },
+        { q: '¿Publican en Spotify, YouTube, Apple Podcasts y otras plataformas?', a: 'Podemos preparar y gestionar publicaciones en las plataformas compatibles con el formato y la cuenta del cliente. Revisamos los requisitos de cada destino.', flag: false },
+        { q: '¿Cuántos clips salen por episodio?', a: 'Entre 5 y 10, según la duración y el contenido del programa. Se ajusta en el piloto.', flag: false },
+        { q: '¿Publican ustedes o nuestro equipo?', a: 'Como prefieras: podemos programar en tus cuentas con tu aprobación o entregarte todo listo.', flag: false },
+        { q: '¿Cómo se cobra?', a: 'Por mensualidad o por volumen de episodios. El piloto se cotiza aparte y por escrito.', flag: false },
+        { q: '¿Trabajan con radios fuera de Ciudad de México?', a: 'Sí. La edición se hace a distancia; la captura en sitio suma viáticos.', flag: sup, sup: '[SUPUESTO]' },
+        { q: '¿Qué pasa con la música en los clips?', a: 'La revisamos antes de publicar y, si hace falta, ajustamos el clip para evitar bloqueos por derechos.', flag: false }
+      ],
+      queSigue: [
+        { n: '1', titulo: 'Revisamos tu proyecto', texto: 'Leemos lo que nos contaste y vemos qué parte del equipo necesita tu producción.' },
+        { n: '2', titulo: 'Te escribimos con preguntas', texto: 'Te contactamos por el medio que elegiste, en horario laboral.' },
+        { n: '3', titulo: 'Recibes una propuesta clara', texto: 'Con alcance, entregables, fechas y costo por escrito, para que decidas con toda la información.' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>Producción de video y VFX en CDMX | BubbleMesh Studio</title>
+<meta name="description" content="Filmamos, creamos efectos visuales y construimos la plataforma digital que convierte tu show, marca o proyecto en audiencia, reservas y clientes medibles.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="canonical" href="https://bubble-mesh.com/studio/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Producción de video y VFX en CDMX | BubbleMesh Studio">
+<meta property="og:description" content="Filmamos, creamos efectos visuales y construimos la plataforma digital que convierte tu show, marca o proyecto en audiencia, reservas y clientes medibles.">
+<meta property="og:url" content="https://bubble-mesh.com/studio/">
+<meta property="og:image" content="https://bubble-mesh.com/assets/favicon-192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/favicon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;background:#0B0F1A;color:#fff;font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+a{color:#A855F7;text-decoration:none}
+a:hover{color:#EC4899}
+details>summary{list-style:none;cursor:pointer}
+details>summary::-webkit-details-marker{display:none}
+input,select,textarea,button{font-family:inherit}
+</style>
+
+<style>
+html,body{overflow-x:clip}
+img,video,iframe,svg{max-width:100%}
+h1,h2,h3{overflow-wrap:break-word;hyphens:auto}
+@media (max-width:900px){
+  [data-r="navlinks"],[data-r="navcta"]{display:none!important}
+  [data-r="burger"]{display:inline-flex!important}
+  [data-r="mobnav"]{display:flex!important}
+  [data-r="nav"]{flex-wrap:nowrap!important}
+}
+@media (max-width:640px){
+  :root{--nw:normal}
+  main section{padding-left:16px!important;padding-right:16px!important}
+  main section>div{padding-left:0!important;padding-right:0!important}
+  [data-r="nav"]{padding-left:16px!important;padding-right:16px!important}
+  footer>div{padding-left:16px!important;padding-right:16px!important}
+  input,select,textarea{font-size:16px!important}
+}
+</style>
+</helmet>
+
+<header style="position:sticky;top:0;z-index:40;background:rgba(11,15,26,0.72);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,0.08)">
+  <nav data-r="nav" style="max-width:1280px;margin:0 auto;padding:14px clamp(20px,4vw,32px);display:flex;align-items:center;gap:20px;flex-wrap:wrap">
+    <a href="#" aria-label="BubbleMesh Studio, inicio" style="display:flex;align-items:baseline;gap:10px;color:#fff;margin-right:auto">
+      <span style="font-family:Montserrat,sans-serif;font-weight:800;font-size:20px;letter-spacing:-0.01em">Bubble<span style="background:linear-gradient(90deg,#A855F7,#EC4899);-webkit-background-clip:text;background-clip:text;color:transparent">Mesh</span></span>
+      <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#94A3B8">Studio</span>
+    </a>
+    <div data-r="navlinks" style="display:flex;align-items:center;gap:4px;flex-wrap:wrap">
+      <div style="position:relative">
+        <button onClick="{{ toggleMenu }}" style="background:none;border:none;color:#E2E8F0;font-family:Inter,system-ui,sans-serif;font-weight:500;font-size:15px;line-height:inherit;padding:10px 14px;cursor:pointer;display:flex;align-items:center;gap:6px" style-hover="color:#fff">Soluciones <span style="font-size:10px;color:#94A3B8">▾</span></button>
+        <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+          <div style="position:absolute;top:calc(100% + 8px);left:0;min-width:220px;background:rgba(17,24,39,0.96);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.10);border-radius:12px;padding:8px;display:flex;flex-direction:column;box-shadow:0 8px 40px rgba(0,0,0,0.5)">
+            <sc-for list="{{ personas }}" as="p" hint-placeholder-count="6">
+              <a href="{{ p.href }}" onClick="{{ closeMenu }}" style="color:#E2E8F0;padding:10px 12px;border-radius:8px;font-size:15px" style-hover="background:rgba(168,85,247,0.10);color:#fff">{{ p.nombre }}</a>
+            </sc-for>
+          </div>
+        </sc-if>
+      </div>
+      <a href="trabajo.html" style="color:#E2E8F0;font-weight:500;font-size:15px;padding:10px 14px" style-hover="color:#fff">Trabajo</a>
+      <a href="estudio.html" style="color:#E2E8F0;font-weight:500;font-size:15px;padding:10px 14px" style-hover="color:#fff">Estudio</a>
+    </div>
+    <a data-r="navcta" href="#cta-final" style="background:linear-gradient(135deg,#EC4899,#7C3AED);color:#fff;font-weight:700;font-size:15px;padding:11px 22px;border-radius:9999px;box-shadow:0 0 24px rgba(236,72,153,0.30);white-space:var(--nw,nowrap)" style-hover="color:#fff;box-shadow:0 0 32px rgba(236,72,153,0.5)">Cotiza tu producción</a>
+  
+    <button data-r="burger" onClick="{{ toggleMenu }}" aria-label="Abrir menú" style="display:none;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:10px;width:44px;height:44px;align-items:center;justify-content:center;cursor:pointer;color:#fff;padding:0">
+      <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></sc-if>
+      <sc-if value="{{ menuClosed }}" hint-placeholder-val="{{ true }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></sc-if>
+    </button>
+  </nav>
+  <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+    <div data-r="mobnav" style="display:none;flex-direction:column;gap:4px;padding:8px clamp(20px,4vw,32px) 20px;border-top:1px solid rgba(255,255,255,0.08);max-height:calc(100vh - 72px);overflow-y:auto">
+      <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#64748B;padding:12px 4px 6px">Soluciones</span>
+      <sc-for list="{{ personas }}" as="p" hint-placeholder-count="6">
+        <a href="{{ p.href }}" onClick="{{ closeMenu }}" style="color:#E2E8F0;font-size:17px;font-weight:500;padding:12px 4px;border-bottom:1px solid rgba(255,255,255,0.06)">{{ p.nombre }}</a>
+      </sc-for>
+      <a href="trabajo.html" onClick="{{ closeMenu }}" style="color:#E2E8F0;font-size:17px;font-weight:500;padding:12px 4px;border-bottom:1px solid rgba(255,255,255,0.06)">Trabajo</a>
+      <a href="estudio.html" onClick="{{ closeMenu }}" style="color:#E2E8F0;font-size:17px;font-weight:500;padding:12px 4px;border-bottom:1px solid rgba(255,255,255,0.06)">Estudio</a>
+      <a href="#cta-final" onClick="{{ closeMenu }}" style="margin-top:16px;text-align:center;background:linear-gradient(135deg,#EC4899,#7C3AED);color:#fff;font-weight:700;font-size:16px;padding:14px 22px;border-radius:9999px">Cotiza tu producción</a>
+    </div>
+  </sc-if>
+
+</header>
+
+<main>
+<!-- 1 HERO -->
+<section id="hero" data-screen-label="01 Hero" onClick="{{ openReel }}" style="position:relative;min-height:min(92vh,880px);display:flex;align-items:flex-end;overflow:hidden;cursor:pointer;background:repeating-linear-gradient(135deg,#0F1525 0 14px,#111a2e 14px 28px)">
+  <div style="position:absolute;top:24px;right:clamp(20px,4vw,32px);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#64748B;text-align:right;line-height:1.7">hero-loop · 12 a 20 s · sin audio<br>poster: hero-poster.webp</div>
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 70% 20%,rgba(124,58,237,0.22),transparent 70%),linear-gradient(to bottom,rgba(11,15,26,0.15) 0%,rgba(11,15,26,0.55) 55%,rgba(11,15,26,0.96) 100%)"></div>
+  <div style="position:relative;max-width:1280px;width:100%;margin:0 auto;padding:clamp(96px,12vw,160px) clamp(20px,4vw,32px) clamp(48px,8vw,96px);display:grid;gap:28px">
+    <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#A855F7">BubbleMesh Studio · Ciudad de México</span>
+    <sc-if value="{{ heroA }}" hint-placeholder-val="{{ true }}">
+      <h1 style="margin:0;font-family:Montserrat,sans-serif;font-weight:800;font-size:clamp(2.25rem,4.4vw + 1.6rem,5.5rem);line-height:0.98;letter-spacing:-0.025em;max-width:11ch;text-wrap:balance">Producción de video y VFX</h1>
+      <p style="margin:0;font-size:clamp(1.05rem,1.6vw,1.25rem);line-height:1.55;color:#E2E8F0;max-width:58ch;text-wrap:pretty">Filmamos, creamos efectos visuales y construimos la plataforma digital que convierte tu show, programa, marca o proyecto en audiencia, reservas y clientes que puedes medir.</p>
+    </sc-if>
+    <sc-if value="{{ heroB }}" hint-placeholder-val="{{ false }}">
+      <h1 style="margin:0;font-family:Montserrat,sans-serif;font-weight:800;font-size:clamp(2.25rem,4.4vw + 1.6rem,5.5rem);line-height:0.98;letter-spacing:-0.025em;max-width:13ch;text-wrap:balance">Video, VFX y transformación digital</h1>
+      <p style="margin:0;font-size:clamp(1.05rem,1.6vw,1.25rem);line-height:1.55;color:#E2E8F0;max-width:58ch;text-wrap:pretty">Un solo equipo produce tu videoclip, tus visuales para pantalla, tu cobertura en vivo y la plataforma donde todo eso se convierte en seguidores, reservas y contrataciones.</p>
+    </sc-if>
+    <sc-if value="{{ heroC }}" hint-placeholder-val="{{ false }}">
+      <h1 style="margin:0;font-family:Montserrat,sans-serif;font-weight:800;font-size:clamp(2.25rem,4.4vw + 1.6rem,5.5rem);line-height:0.98;letter-spacing:-0.025em;max-width:11ch;text-wrap:balance">Video que sigue vendiendo</h1>
+      <p style="margin:0;font-size:clamp(1.05rem,1.6vw,1.25rem);line-height:1.55;color:#E2E8F0;max-width:58ch;text-wrap:pretty">Producimos música, eventos, marcas y propiedades con cámara profesional y VFX, y conectamos cada pieza a tu página, tus reservas y tus datos para que vendas más.</p>
+    </sc-if>
+    <div style="display:flex;flex-wrap:wrap;align-items:center;gap:14px 20px">
+      <a href="#cta-final" onClick="{{ stop }}" style="background:linear-gradient(135deg,#EC4899,#7C3AED);color:#fff;font-weight:700;font-size:16px;padding:15px 30px;border-radius:9999px;box-shadow:0 0 24px rgba(236,72,153,0.35)" style-hover="color:#fff;box-shadow:0 0 36px rgba(236,72,153,0.55)">Cotiza tu producción</a>
+      <button onClick="{{ openReelBtn }}" aria-label="Reproducir el demo reel completo con sonido" style="display:flex;align-items:center;gap:12px;background:rgba(11,15,26,0.55);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.18);color:#fff;font-weight:600;font-size:15px;padding:8px 20px 8px 8px;border-radius:9999px;cursor:pointer" style-hover="border-color:rgba(168,85,247,0.9)">
+        <span style="width:36px;height:36px;border-radius:50%;background:#fff;color:#0B0F1A;display:flex;align-items:center;justify-content:center;font-size:12px;padding-left:2px">▶</span>
+        <span style="white-space:var(--nw,nowrap)">Ver reel completo (1:30)</span>
+        <sc-if value="{{ sup }}" hint-placeholder-val="{{ true }}"><span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.08em;color:#FBBF24">[SUPUESTO]</span></sc-if>
+      </button>
+    </div>
+    <a href="https://wa.me/525531650560?text=Hola,%20quiero%20cotizar%20una%20producción" onClick="{{ stop }}" style="font-size:14px;color:#94A3B8;text-decoration:underline;text-underline-offset:3px;width:fit-content" style-hover="color:#fff">o escríbenos por WhatsApp</a>
+  </div>
+</section>
+
+<!-- 2 PARA QUIEN -->
+<section id="para-quien" data-screen-label="02 Para quién" style="max-width:1280px;margin:0 auto;padding:clamp(72px,10vw,128px) clamp(20px,4vw,32px) 0">
+  <div style="display:grid;gap:14px;margin-bottom:48px">
+    <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#94A3B8">02 · Soluciones</span>
+    <sc-if value="{{ tA }}" hint-placeholder-val="{{ true }}"><h2 style="margin:0;font-family:Montserrat,sans-serif;font-weight:700;font-size:clamp(2rem,4.5vw,3.2rem);letter-spacing:-0.02em;line-height:1.05">Elige lo que quieres producir</h2></sc-if>
+    <sc-if value="{{ tB }}" hint-placeholder-val="{{ false }}"><h2 style="margin:0;font-family:Montserrat,sans-serif;font-weight:700;font-size:clamp(2rem,4.5vw,3.2rem);letter-spacing:-0.02em;line-height:1.05">Soluciones según lo que haces</h2></sc-if>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr));gap:20px">
+    <sc-for list="{{ personas }}" as="p" hint-placeholder-count="6">
+      <a href="{{ p.href }}" style="display:flex;flex-direction:column;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:16px;overflow:hidden;color:#fff;transition:all .3s cubic-bezier(.4,0,.2,1)" style-hover="border-color:rgba(168,85,247,0.45);background:rgba(124,58,237,0.07);box-shadow:0 0 40px rgba(109,40,217,0.25);color:#fff">
+        <div style="aspect-ratio:16/9;background:repeating-linear-gradient(135deg,#111827 0 10px,#151d30 10px 20px);display:flex;align-items:flex-end;justify-content:space-between;padding:14px">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:#64748B">microclip · {{ p.nombre }}</span>
+          <span style="background:rgba(11,15,26,0.65);border:1px solid rgba(255,255,255,0.12);border-radius:9999px;padding:4px 12px;font-size:11px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;color:#E2E8F0">{{ p.nombre }}</span>
+        </div>
+        <div style="padding:24px;display:flex;flex-direction:column;gap:12px;flex:1">
+          <h3 style="margin:0;font-size:19px;font-weight:600;line-height:1.3;text-wrap:balance">{{ p.titulo }}</h3>
+          <p style="margin:0;font-size:15px;line-height:1.6;color:#94A3B8;text-wrap:pretty;flex:1">{{ p.desc }}</p>
+          <span style="font-size:14px;font-weight:600;color:#A855F7;display:flex;align-items:center;gap:8px">{{ p.enlace }} <span>→</span></span>
+        </div>
+      </a>
+    </sc-for>
+  </div>
+</section>
+
+<!-- 3 LO QUE HACEMOS -->
+<section id="lo-que-hacemos" data-screen-label="03 Lo que hacemos" style="margin-top:clamp(72px,10vw,128px);background:radial-gradient(ellipse 60% 50% at 50% 0%,rgba(124,58,237,0.14),transparent 70%),#0F1525;border-top:1px solid rgba(255,255,255,0.06);border-bottom:1px solid rgba(255,255,255,0.06)">
+  <div style="max-width:1280px;margin:0 auto;padding:clamp(72px,10vw,128px) clamp(20px,4vw,32px)">
+    <div style="display:grid;gap:14px;margin-bottom:56px;max-width:720px">
+      <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#94A3B8">03 · Lo que hacemos</span>
+      <sc-if value="{{ tA }}" hint-placeholder-val="{{ true }}"><h2 style="margin:0;font-family:Montserrat,sans-serif;font-weight:700;font-size:clamp(2rem,4.5vw,3.2rem);letter-spacing:-0.02em;line-height:1.05">Tres cosas, un solo equipo</h2></sc-if>
+    <sc-if value="{{ tB }}" hint-placeholder-val="{{ false }}"><h2 style="margin:0;font-family:Montserrat,sans-serif;font-weight:700;font-size:clamp(2rem,4.5vw,3.2rem);letter-spacing:-0.02em;line-height:1.05">Producimos, transformamos y conectamos</h2></sc-if>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:1px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.08);border-radius:20px;overflow:hidden">
+      <sc-for list="{{ pilares }}" as="c" hint-placeholder-count="3">
+        <div style="background:#0F1525;padding:36px 32px;display:flex;flex-direction:column;gap:16px">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;color:{{ c.color }}">{{ c.n }}</span>
+          <h3 style="margin:0;font-size:22px;font-weight:600;line-height:1.25">{{ c.titulo }}</h3>
+          <p style="margin:0;font-size:15px;line-height:1.65;color:#94A3B8;text-wrap:pretty;flex:1">{{ c.texto }}</p>
+          <a href="{{ c.href }}" style="font-size:14px;font-weight:600;display:flex;align-items:center;gap:8px">{{ c.enlace }} <span>→</span></a>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<!-- 4 TRABAJO -->
+<section id="trabajo" data-screen-label="03 Trabajo" style="max-width:1280px;margin:0 auto;padding:clamp(72px,10vw,128px) clamp(20px,4vw,32px) 0">
+  <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:48px">
+    <div style="display:grid;gap:14px;max-width:640px">
+      <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#94A3B8">04 · Trabajo seleccionado</span>
+      <sc-if value="{{ tA }}" hint-placeholder-val="{{ true }}"><h2 style="margin:0;font-family:Montserrat,sans-serif;font-weight:700;font-size:clamp(2rem,4.5vw,3.2rem);letter-spacing:-0.02em;line-height:1.05">Trabajo que hace preguntar cómo</h2></sc-if>
+      <sc-if value="{{ tB }}" hint-placeholder-val="{{ false }}"><h2 style="margin:0;font-family:Montserrat,sans-serif;font-weight:700;font-size:clamp(2rem,4.5vw,3.2rem);letter-spacing:-0.02em;line-height:1.05">Lo que ya salió de edición</h2></sc-if>
+      <p style="margin:0;font-size:17px;line-height:1.6;color:#94A3B8;text-wrap:pretty">Cada pieza indica qué se filmó, qué efectos se agregaron y qué se resolvió en postproducción. Sin trucos escondidos.</p>
+    </div>
+    <a href="trabajo.html" style="font-weight:600;font-size:15px;color:#fff;border:1px solid rgba(168,85,247,0.5);padding:12px 24px;border-radius:9999px;white-space:var(--nw,nowrap);flex-shrink:0" style-hover="border-color:rgba(168,85,247,0.9);background:rgba(168,85,247,0.08);color:#fff">Ver todo el trabajo</a>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,360px),1fr));gap:20px">
+    <sc-for list="{{ trabajo }}" as="t" hint-placeholder-count="6">
+      <article style="display:flex;flex-direction:column;gap:14px">
+        <div style="position:relative;aspect-ratio:4/3;border-radius:16px;overflow:hidden;background:repeating-linear-gradient(135deg,#0F1525 0 10px,#131b2e 10px 20px);border:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;cursor:pointer" style-hover="border-color:rgba(168,85,247,0.45)">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#64748B;text-align:center;padding:0 24px">{{ t.pieza }}</span>
+          <div style="position:absolute;left:12px;bottom:12px;display:flex;flex-wrap:wrap;gap:6px">
+            <sc-for list="{{ t.tags }}" as="tag" hint-placeholder-count="2">
+              <span style="background:rgba(11,15,26,0.7);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.12);border-radius:9999px;padding:4px 10px;font-size:11px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;color:#E2E8F0">{{ tag }}</span>
+            </sc-for>
+          </div>
+        </div>
+        <div style="display:flex;justify-content:space-between;gap:12px;font-size:13px">
+          <span style="color:#E2E8F0;font-weight:600">{{ t.persona }}</span>
+          <span style="color:#94A3B8;text-align:right">{{ t.credito }}</span>
+        </div>
+      </article>
+    </sc-for>
+  </div>
+</section>
+
+<!-- 5 VFX -->
+<section id="vfx" data-screen-label="05 Detrás del efecto" style="max-width:1280px;margin:0 auto;padding:clamp(72px,10vw,128px) clamp(20px,4vw,32px) 0">
+  <div style="display:grid;gap:14px;margin-bottom:40px;max-width:720px">
+    <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#94A3B8">05 · VFX</span>
+    <sc-if value="{{ tA }}" hint-placeholder-val="{{ true }}"><h2 style="margin:0;font-family:Montserrat,sans-serif;font-weight:700;font-size:clamp(2rem,4.5vw,3.2rem);letter-spacing:-0.02em;line-height:1.05">Detrás de cada efecto</h2></sc-if>
+    <sc-if value="{{ tB }}" hint-placeholder-val="{{ false }}"><h2 style="margin:0;font-family:Montserrat,sans-serif;font-weight:700;font-size:clamp(2rem,4.5vw,3.2rem);letter-spacing:-0.02em;line-height:1.05">Desliza y compara el antes</h2></sc-if>
+    <p style="margin:0;font-size:17px;line-height:1.6;color:#94A3B8;text-wrap:pretty">Mueve la línea para ver la toma original y el resultado final. Cada caso explica qué filmamos, qué efectos agregamos y cómo lo resolvimos en postproducción.</p>
+  </div>
+  <div style="position:relative;aspect-ratio:16/9;border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,0.10);user-select:none">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 60% 40%,rgba(236,72,153,0.28),transparent 70%),radial-gradient(ellipse 50% 50% at 30% 70%,rgba(124,58,237,0.35),transparent 70%),#140c2a;display:flex;align-items:center;justify-content:center">
+      <span style="position:absolute;right:20px;bottom:20px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#C4B5FD;white-space:var(--nw,nowrap)">con VFX · composición</span>
+    </div>
+    <div style="position:absolute;inset:0;clip-path:inset(0 {{ clipRight }}% 0 0);background:repeating-linear-gradient(135deg,#1a2030 0 12px,#20283a 12px 24px);display:flex;align-items:center;justify-content:center">
+      <span style="position:absolute;left:20px;bottom:20px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#94A3B8;white-space:var(--nw,nowrap)">toma original · cámara</span>
+    </div>
+    <div style="position:absolute;top:0;bottom:0;left:{{ pos }}%;width:2px;margin-left:-1px;background:#fff;box-shadow:0 0 16px rgba(236,72,153,0.6);pointer-events:none">
+      <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:44px;height:44px;border-radius:50%;background:#fff;color:#0B0F1A;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;letter-spacing:2px">◂▸</div>
+    </div>
+    <span style="position:absolute;top:16px;left:16px;background:rgba(11,15,26,0.7);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.12);border-radius:9999px;padding:6px 14px;font-size:12px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;white-space:var(--nw,nowrap)">Toma original</span>
+    <span style="position:absolute;top:16px;right:16px;background:rgba(11,15,26,0.7);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.12);border-radius:9999px;padding:6px 14px;font-size:12px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;white-space:var(--nw,nowrap)">Con VFX</span>
+    <input type="range" min="0" max="100" value="{{ pos }}" onChange="{{ onPos }}" aria-label="Comparar toma original y resultado con efectos visuales" style="position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:ew-resize">
+  </div>
+  <a href="#" style="display:inline-flex;align-items:center;gap:8px;margin-top:20px;font-weight:600;font-size:15px">Ver cómo se hizo <span>→</span></a>
+</section>
+
+<!-- 6 DIGITAL -->
+<section id="digital" data-screen-label="06 Del video al cliente" style="max-width:1280px;margin:0 auto;padding:clamp(72px,10vw,128px) clamp(20px,4vw,32px) 0">
+  <div style="display:grid;gap:14px;margin-bottom:48px;max-width:760px">
+    <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#94A3B8">06 · Transformación digital</span>
+    <sc-if value="{{ tA }}" hint-placeholder-val="{{ true }}"><h2 style="margin:0;font-family:Montserrat,sans-serif;font-weight:700;font-size:clamp(2rem,4.5vw,3.2rem);letter-spacing:-0.02em;line-height:1.05">Del video a tu siguiente cliente</h2></sc-if>
+    <sc-if value="{{ tB }}" hint-placeholder-val="{{ false }}"><h2 style="margin:0;font-family:Montserrat,sans-serif;font-weight:700;font-size:clamp(2rem,4.5vw,3.2rem);letter-spacing:-0.02em;line-height:1.05">Transformación digital, sin humo</h2></sc-if>
+    <p style="margin:0;font-size:17px;line-height:1.6;color:#94A3B8;text-wrap:pretty">Un buen video atrae miradas; la transformación digital las convierte en negocio. Conectamos cada pieza con una página, un canal de contacto y un tablero, para que sepas qué funcionó.</p>
+  </div>
+  <ol style="list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:16px">
+    <sc-for list="{{ digital }}" as="d" hint-placeholder-count="4">
+      <li style="position:relative;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:28px 24px;display:flex;flex-direction:column;gap:12px">
+        <div style="display:flex;align-items:center;gap:10px">
+          <span style="width:28px;height:28px;border-radius:50%;background:rgba(124,58,237,0.15);border:1px solid rgba(168,85,247,0.35);color:#C4B5FD;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700">{{ d.n }}</span>
+          <span style="flex:1;height:1px;background:linear-gradient(90deg,rgba(168,85,247,0.5),rgba(236,72,153,0.15))"></span>
+        </div>
+        <h3 style="margin:0;font-size:18px;font-weight:600;line-height:1.3">{{ d.titulo }}</h3>
+        <p style="margin:0;font-size:15px;line-height:1.6;color:#94A3B8;text-wrap:pretty">{{ d.texto }}</p>
+      </li>
+    </sc-for>
+  </ol>
+  <a href="#cta-final" style="display:inline-block;margin-top:40px;background:linear-gradient(135deg,#EC4899,#7C3AED);color:#fff;font-weight:700;font-size:16px;padding:15px 30px;border-radius:9999px;box-shadow:0 0 24px rgba(236,72,153,0.30)" style-hover="color:#fff;box-shadow:0 0 32px rgba(236,72,153,0.5)">Cotiza tu producción</a>
+</section>
+
+<!-- 7 CONTENIDO IA -->
+<section id="contenido-ia" data-screen-label="07 Contenido con IA" style="max-width:1280px;margin:0 auto;padding:clamp(72px,10vw,128px) clamp(20px,4vw,32px) 0">
+  <div style="border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:clamp(28px,5vw,56px);display:grid;gap:40px;background:#0D1220">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:32px 56px;align-items:end">
+      <div style="display:grid;gap:14px">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#94A3B8">07 · Contenido generado con IA</span>
+        <sc-if value="{{ tA }}" hint-placeholder-val="{{ true }}"><h2 style="margin:0;font-family:Montserrat,sans-serif;font-weight:700;font-size:clamp(1.8rem,3.8vw,2.6rem);letter-spacing:-0.02em;line-height:1.1">Contenido generado con IA, cuando suma</h2></sc-if>
+        <sc-if value="{{ tB }}" hint-placeholder-val="{{ false }}"><h2 style="margin:0;font-family:Montserrat,sans-serif;font-weight:700;font-size:clamp(1.8rem,3.8vw,2.6rem);letter-spacing:-0.02em;line-height:1.1">Cuando la idea no cabe en cámara</h2></sc-if>
+      </div>
+      <p style="margin:0;font-size:16px;line-height:1.65;color:#94A3B8;text-wrap:pretty">Para ideas que no se pueden filmar, creamos escenas, escenarios y versiones con inteligencia artificial. Es una herramienta más del estudio, no el centro: la usamos solo cuando el proyecto la pide y siempre con tu autorización.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:16px">
+      <div style="aspect-ratio:16/10;border-radius:12px;background:repeating-linear-gradient(135deg,#111827 0 10px,#151d30 10px 20px);border:1px solid rgba(255,255,255,0.06);display:flex;flex-direction:column;justify-content:space-between;padding:14px">
+        <span style="width:fit-content;white-space:var(--nw,nowrap);background:rgba(11,15,26,0.7);border:1px solid rgba(255,255,255,0.12);border-radius:9999px;padding:4px 10px;font-size:11px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;color:#E2E8F0">Hecho con IA</span>
+        <div style="display:grid;gap:6px">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:#64748B">Video de arquitectura con IA · Lazza Arquitectos</span>
+          <sc-if value="{{ sup }}" hint-placeholder-val="{{ true }}"><span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.08em;color:#FBBF24">[SUPUESTO: PERMISO DEL CLIENTE]</span></sc-if>
+        </div>
+      </div>
+      <div style="aspect-ratio:16/10;border-radius:12px;background:repeating-linear-gradient(135deg,#111827 0 10px,#151d30 10px 20px);border:1px solid rgba(255,255,255,0.06);display:flex;flex-direction:column;justify-content:space-between;padding:14px">
+        <span style="width:fit-content;white-space:var(--nw,nowrap);background:rgba(11,15,26,0.7);border:1px solid rgba(255,255,255,0.12);border-radius:9999px;padding:4px 10px;font-size:11px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;color:#E2E8F0">Hecho con IA</span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:#64748B">Spot o escena conceptual propia</span>
+      </div>
+    </div>
+    <ul style="list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:24px 32px">
+      <sc-for list="{{ principiosIA }}" as="p" hint-placeholder-count="3">
+        <li style="display:grid;gap:8px;padding-top:18px;border-top:1px solid rgba(255,255,255,0.10)">
+          <span style="font-size:16px;font-weight:600;line-height:1.35">{{ p.titulo }}</span>
+          <span style="font-size:14px;line-height:1.6;color:#94A3B8;text-wrap:pretty">{{ p.texto }}</span>
+        </li>
+      </sc-for>
+    </ul>
+    <a href="#" style="font-weight:600;font-size:15px;display:flex;align-items:center;gap:8px;width:fit-content">Ver proyectos con IA <span>→</span></a>
+  </div>
+</section>
+
+<!-- 8 PROCESO -->
+<section id="proceso" data-screen-label="08 Proceso" style="max-width:1280px;margin:0 auto;padding:clamp(72px,10vw,128px) clamp(20px,4vw,32px) 0">
+  <div style="display:grid;gap:14px;margin-bottom:48px">
+    <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#94A3B8">08 · Cómo trabajamos</span>
+    <sc-if value="{{ tA }}" hint-placeholder-val="{{ true }}"><h2 style="margin:0;font-family:Montserrat,sans-serif;font-weight:700;font-size:clamp(2rem,4.5vw,3.2rem);letter-spacing:-0.02em;line-height:1.05">Así arranca tu producción con nosotros</h2></sc-if>
+    <sc-if value="{{ tB }}" hint-placeholder-val="{{ false }}"><h2 style="margin:0;font-family:Montserrat,sans-serif;font-weight:700;font-size:clamp(2rem,4.5vw,3.2rem);letter-spacing:-0.02em;line-height:1.05">De la idea a la pieza publicada</h2></sc-if>
+  </div>
+  <ol style="list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:32px">
+    <sc-for list="{{ pasos }}" as="s" hint-placeholder-count="3">
+      <li style="display:flex;flex-direction:column;gap:14px;padding-top:24px;border-top:1px solid rgba(168,85,247,0.35)">
+        <span style="font-family:Montserrat,sans-serif;font-weight:800;font-size:44px;line-height:1;background:linear-gradient(135deg,#7C3AED,#A855F7,#EC4899);-webkit-background-clip:text;background-clip:text;color:transparent">{{ s.n }}</span>
+        <h3 style="margin:0;font-size:19px;font-weight:600;line-height:1.3">{{ s.titulo }}</h3>
+        <p style="margin:0;font-size:15px;line-height:1.65;color:#94A3B8;text-wrap:pretty">{{ s.texto }}</p>
+      </li>
+    </sc-for>
+  </ol>
+  <a href="#cta-final" style="display:inline-block;margin-top:48px;background:linear-gradient(135deg,#EC4899,#7C3AED);color:#fff;font-weight:700;font-size:16px;padding:15px 30px;border-radius:9999px;box-shadow:0 0 24px rgba(236,72,153,0.30)" style-hover="color:#fff;box-shadow:0 0 32px rgba(236,72,153,0.5)">Cotiza tu producción</a>
+</section>
+
+<!-- 9 OBJECIONES -->
+<section id="objeciones" data-screen-label="09 Objeciones" style="max-width:1280px;margin:0 auto;padding:clamp(72px,10vw,128px) clamp(20px,4vw,32px) 0">
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:48px 64px;align-items:start">
+    <div style="display:grid;gap:14px;position:sticky;top:96px">
+      <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#94A3B8">09 · Sí, pero...</span>
+      <sc-if value="{{ tA }}" hint-placeholder-val="{{ true }}"><h2 style="margin:0;font-family:Montserrat,sans-serif;font-weight:700;font-size:clamp(2rem,4.5vw,3.2rem);letter-spacing:-0.02em;line-height:1.05">Lo que suele frenar una producción</h2></sc-if>
+      <sc-if value="{{ tB }}" hint-placeholder-val="{{ false }}"><h2 style="margin:0;font-family:Montserrat,sans-serif;font-weight:700;font-size:clamp(2rem,4.5vw,3.2rem);letter-spacing:-0.02em;line-height:1.05">Sin letras chiquitas</h2></sc-if>
+    </div>
+    <div style="display:flex;flex-direction:column">
+      <sc-for list="{{ objeciones }}" as="o" hint-placeholder-count="5">
+        <div style="display:grid;gap:10px;padding:28px 0;border-bottom:1px solid rgba(255,255,255,0.08)">
+          <h3 style="margin:0;font-size:20px;font-weight:600;line-height:1.3">{{ o.titulo }}</h3>
+          <p style="margin:0;font-size:15px;line-height:1.65;color:#94A3B8;text-wrap:pretty">{{ o.texto }}</p>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<!-- 10 ALIADOS -->
+<section id="aliados" data-screen-label="10 Respaldo" style="max-width:1280px;margin:0 auto;padding:clamp(72px,10vw,128px) clamp(20px,4vw,32px) 0">
+  <div style="background:rgba(124,58,237,0.08);border:1px solid rgba(168,85,247,0.20);border-radius:20px;padding:clamp(28px,5vw,56px);display:grid;gap:36px">
+    <div style="display:grid;gap:14px">
+      <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#A855F7">10 · Respaldo</span>
+      <sc-if value="{{ tA }}" hint-placeholder-val="{{ true }}"><h2 style="margin:0;font-family:Montserrat,sans-serif;font-weight:700;font-size:clamp(1.8rem,3.8vw,2.6rem);letter-spacing:-0.02em;line-height:1.1">Respaldo técnico con oficio probado</h2></sc-if>
+      <sc-if value="{{ tB }}" hint-placeholder-val="{{ false }}"><h2 style="margin:0;font-family:Montserrat,sans-serif;font-weight:700;font-size:clamp(1.8rem,3.8vw,2.6rem);letter-spacing:-0.02em;line-height:1.1">Quién está detrás de cada toma</h2></sc-if>
+    </div>
+    <ul style="list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:28px">
+      <sc-for list="{{ aliados }}" as="a" hint-placeholder-count="3">
+        <li style="display:flex;flex-direction:column;gap:10px">
+          <span style="width:8px;height:8px;border-radius:50%;background:#A855F7;box-shadow:0 0 12px rgba(168,85,247,0.8)"></span>
+          <p style="margin:0;font-size:15px;line-height:1.6;color:#E2E8F0;text-wrap:pretty">{{ a.texto }}</p>
+          <span style="font-size:13px;font-style:italic;color:#94A3B8">{{ a.credito }}</span>
+          <sc-if value="{{ a.flag }}" hint-placeholder-val="{{ false }}"><span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.08em;color:#FBBF24">[SUPUESTO: PERMISO DEL CLIENTE]</span></sc-if>
+        </li>
+      </sc-for>
+    </ul>
+  </div>
+</section>
+
+<!-- 11 FAQ -->
+<section id="faq" data-screen-label="11 FAQ" style="max-width:880px;margin:0 auto;padding:clamp(72px,10vw,128px) clamp(20px,4vw,32px) 0">
+  <div style="display:grid;gap:14px;margin-bottom:32px">
+    <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#94A3B8">11 · Preguntas frecuentes</span>
+    <h2 style="margin:0;font-family:Montserrat,sans-serif;font-weight:700;font-size:clamp(2rem,4.5vw,3.2rem);letter-spacing:-0.02em;line-height:1.05">Preguntas frecuentes</h2>
+  </div>
+  <div style="display:flex;flex-direction:column">
+    <sc-for list="{{ faq }}" as="f" hint-placeholder-count="9">
+      <details style="border-bottom:1px solid rgba(255,255,255,0.08)">
+        <summary style="display:flex;justify-content:space-between;align-items:center;gap:20px;padding:22px 0;font-size:17px;font-weight:600">{{ f.q }}<span style="color:#A855F7;font-size:22px;font-weight:400;line-height:1">+</span></summary>
+        <div style="padding:0 0 24px;display:grid;gap:8px">
+          <p style="margin:0;font-size:15px;line-height:1.65;color:#94A3B8;max-width:68ch">{{ f.a }}</p>
+          <sc-if value="{{ f.flag }}" hint-placeholder-val="{{ false }}"><span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.08em;color:#FBBF24">{{ f.sup }}</span></sc-if>
+        </div>
+      </details>
+    </sc-for>
+  </div>
+</section>
+
+<!-- 12 CTA FINAL -->
+<section id="cta-final" data-screen-label="12 Cierre" style="max-width:1280px;margin:0 auto;padding:clamp(72px,10vw,128px) clamp(20px,4vw,32px)">
+  <div style="position:relative;background:rgba(255,255,255,0.05);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.10);border-top-color:rgba(255,255,255,0.16);border-radius:24px;box-shadow:0 8px 40px rgba(0,0,0,0.5),0 0 60px rgba(109,40,217,0.22);padding:clamp(28px,5vw,64px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:48px">
+    <div style="display:flex;flex-direction:column;gap:18px">
+      <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#A855F7">12 · Cotización</span>
+      <h2 style="margin:0;font-family:Montserrat,sans-serif;font-weight:800;font-size:clamp(2.2rem,5vw,3.6rem);letter-spacing:-0.025em;line-height:1.02;text-wrap:balance">Cuéntanos qué quieres producir</h2>
+      <p style="margin:0;font-size:17px;line-height:1.6;color:#E2E8F0;max-width:44ch">Te respondemos con preguntas concretas y una propuesta de primer paso, sin compromiso.</p>
+      <a href="https://wa.me/525531650560?text=Hola,%20quiero%20cotizar%20una%20producción" style="margin-top:auto;font-size:14px;color:#94A3B8;text-decoration:underline;text-underline-offset:3px;width:fit-content" style-hover="color:#fff">¿Prefieres escribirnos directo? WhatsApp</a>
+    </div>
+
+    <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
+    <form onSubmit="{{ onSubmit }}" novalidate style="display:flex;flex-direction:column;gap:18px">
+      <label style="display:grid;gap:8px">
+        <span style="font-size:13px;font-weight:600;color:#E2E8F0">Tu nombre</span>
+        <input name="nombre" autocomplete="name" placeholder="Nombre y apellido" value="{{ form.nombre }}" onChange="{{ onNombre }}" style="background:rgba(11,15,26,0.6);border:1px solid rgba(255,255,255,0.14);border-radius:12px;padding:14px 16px;color:#fff;font-size:15px;outline:none" style-focus="border-color:#A855F7;box-shadow:0 0 0 3px rgba(168,85,247,0.25)">
+        <sc-if value="{{ errNombre }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;color:#F87171">Escribe tu nombre para saber cómo dirigirnos a ti.</span></sc-if>
+      </label>
+      <sc-if value="{{ usePhone }}" hint-placeholder-val="{{ true }}">
+        <label style="display:grid;gap:8px">
+          <span style="font-size:13px;font-weight:600;color:#E2E8F0">WhatsApp</span>
+          <input type="tel" name="contacto" autocomplete="tel" placeholder="55 1234 5678" value="{{ form.contacto }}" onChange="{{ onContacto }}" style="background:rgba(11,15,26,0.6);border:1px solid rgba(255,255,255,0.14);border-radius:12px;padding:14px 16px;color:#fff;font-size:15px;outline:none" style-focus="border-color:#A855F7;box-shadow:0 0 0 3px rgba(168,85,247,0.25)">
+          <sc-if value="{{ errContacto }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;color:#F87171">Escribe un número de 10 dígitos, por ejemplo 55 1234 5678.</span></sc-if>
+        </label>
+      </sc-if>
+      <sc-if value="{{ useEmail }}" hint-placeholder-val="{{ false }}">
+        <label style="display:grid;gap:8px">
+          <span style="font-size:13px;font-weight:600;color:#E2E8F0">Correo</span>
+          <input type="email" name="correo" autocomplete="email" placeholder="nombre@correo.com" value="{{ form.correo }}" onChange="{{ onCorreo }}" style="background:rgba(11,15,26,0.6);border:1px solid rgba(255,255,255,0.14);border-radius:12px;padding:14px 16px;color:#fff;font-size:15px;outline:none" style-focus="border-color:#A855F7;box-shadow:0 0 0 3px rgba(168,85,247,0.25)">
+          <sc-if value="{{ errCorreo }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;color:#F87171">Escribe un correo válido, por ejemplo nombre@correo.com.</span></sc-if>
+        </label>
+      </sc-if>
+      <button type="button" onClick="{{ toggleEmail }}" style="background:none;border:none;padding:0;margin-top:-8px;color:#A855F7;font-size:13px;font-weight:600;cursor:pointer;width:fit-content;text-decoration:underline;text-underline-offset:3px">{{ emailToggleLabel }}</button>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:18px">
+        <label style="display:grid;gap:8px;align-content:start">
+          <span style="font-size:13px;font-weight:600;color:#E2E8F0">¿Qué produces?</span>
+          <select name="persona" value="{{ form.persona }}" onChange="{{ onPersona }}" style="background:rgba(11,15,26,0.6);border:1px solid rgba(255,255,255,0.14);border-radius:12px;padding:14px 16px;color:#fff;font-size:15px;outline:none" style-focus="border-color:#A855F7">
+            <option value="">Elige una opción</option>
+            <option>Artista o agrupación</option>
+            <option>Radio o podcast</option>
+            <option>Evento</option>
+            <option>Recinto o restaurante</option>
+            <option>Marca o patrocinio</option>
+            <option>Desarrollo o propiedad</option>
+            <option>Otro</option>
+          </select>
+          <sc-if value="{{ errPersona }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;color:#F87171">Elige qué quieres producir para mandarte lo correcto.</span></sc-if>
+        </label>
+        <label style="display:grid;gap:8px;align-content:start">
+          <span style="font-size:13px;font-weight:600;color:#E2E8F0">¿Para cuándo lo necesitas?</span>
+          <select name="plazo" value="{{ form.plazo }}" onChange="{{ onPlazo }}" style="background:rgba(11,15,26,0.6);border:1px solid rgba(255,255,255,0.14);border-radius:12px;padding:14px 16px;color:#fff;font-size:15px;outline:none" style-focus="border-color:#A855F7">
+            <option value="">Elige una opción</option>
+            <option>Este mes</option>
+            <option>En 1 a 3 meses</option>
+            <option>Todavía no tengo fecha</option>
+          </select>
+        </label>
+      </div>
+      <sc-if value="{{ msgClosed }}" hint-placeholder-val="{{ true }}">
+        <button type="button" onClick="{{ openMsg }}" style="background:none;border:1px dashed rgba(255,255,255,0.18);border-radius:12px;padding:14px 16px;color:#94A3B8;font-size:14px;text-align:left;cursor:pointer" style-hover="border-color:rgba(168,85,247,0.6);color:#fff">+ Cuéntanos más (opcional)</button>
+      </sc-if>
+      <sc-if value="{{ msgOpen }}" hint-placeholder-val="{{ false }}">
+        <label style="display:grid;gap:8px">
+          <span style="font-size:13px;font-weight:600;color:#E2E8F0">Cuéntanos más (opcional)</span>
+          <textarea name="mensaje" rows="4" placeholder="Fecha, lugar, idea o lo que tengas en mente" value="{{ form.mensaje }}" onChange="{{ onMensaje }}" style="background:rgba(11,15,26,0.6);border:1px solid rgba(255,255,255,0.14);border-radius:12px;padding:14px 16px;color:#fff;font-size:15px;outline:none;resize:vertical" style-focus="border-color:#A855F7;box-shadow:0 0 0 3px rgba(168,85,247,0.25)"></textarea>
+        </label>
+      </sc-if>
+      <button type="submit" style="margin-top:6px;background:linear-gradient(135deg,#EC4899,#7C3AED);color:#fff;border:none;font-weight:700;font-size:16px;padding:16px 30px;border-radius:9999px;cursor:pointer;box-shadow:0 0 24px rgba(236,72,153,0.30)" style-hover="box-shadow:0 0 32px rgba(236,72,153,0.5)">{{ submitLabel }}</button>
+      <p style="margin:0;font-size:12px;line-height:1.6;color:#94A3B8">Al enviar aceptas nuestro <a href="aviso-de-privacidad.html" style="text-decoration:underline">aviso de privacidad</a>. Usamos tus datos solo para responder a tu solicitud.</p>
+    </form>
+    </sc-if>
+
+    <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-direction:column;gap:24px">
+        <h3 style="margin:0;font-size:22px;font-weight:600">Qué pasa después de enviar</h3>
+        <sc-for list="{{ queSigue }}" as="q" hint-placeholder-count="3">
+          <div style="display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start">
+            <span style="width:32px;height:32px;border-radius:50%;background:rgba(20,184,166,0.12);border:1px solid rgba(20,184,166,0.4);color:#14B8A6;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700">{{ q.n }}</span>
+            <div style="display:grid;gap:4px">
+              <span style="font-weight:600;font-size:16px">{{ q.titulo }}</span>
+              <span style="font-size:14px;line-height:1.6;color:#94A3B8">{{ q.texto }}</span>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </sc-if>
+  </div>
+</section>
+</main>
+
+<footer style="background:#060911;border-top:1px solid rgba(255,255,255,0.06)">
+  <div style="max-width:1280px;margin:0 auto;padding:64px clamp(20px,4vw,32px) 32px;display:grid;gap:48px">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:40px">
+      <div style="display:flex;flex-direction:column;gap:14px;grid-column:span 1">
+        <span style="font-family:Montserrat,sans-serif;font-weight:800;font-size:20px">Bubble<span style="background:linear-gradient(90deg,#A855F7,#EC4899);-webkit-background-clip:text;background-clip:text;color:transparent">Mesh</span> <span style="font-family:'JetBrains Mono',monospace;font-weight:400;font-size:11px;letter-spacing:0.12em;color:#94A3B8">STUDIO</span></span>
+        <p style="margin:0;font-size:14px;line-height:1.6;color:#94A3B8;max-width:32ch">Estudio de producción de video, VFX y transformación digital en Ciudad de México</p>
+        <span style="font-size:13px;color:#94A3B8">Parte de BubbleMesh, agencia de IA</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#64748B;margin-bottom:4px">Soluciones</span>
+        <sc-for list="{{ personas }}" as="p" hint-placeholder-count="6"><a href="{{ p.href }}" style="color:#E2E8F0;font-size:14px" style-hover="color:#fff">{{ p.nombre }}</a></sc-for>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#64748B;margin-bottom:4px">Estudio</span>
+        <a href="trabajo.html" style="color:#E2E8F0;font-size:14px">Trabajo</a>
+        <a href="estudio.html" style="color:#E2E8F0;font-size:14px">Estudio</a>
+        <a href="#cta-final" style="color:#E2E8F0;font-size:14px">Contacto</a>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#64748B;margin-bottom:4px">Contacto</span>
+        <a href="mailto:contacto@bubble-mesh.com" style="color:#E2E8F0;font-size:14px">contacto@bubble-mesh.com</a>
+        <a href="tel:+525531650560" style="color:#E2E8F0;font-size:14px">+52 55 3165 0560</a>
+        <sc-if value="{{ sup }}" hint-placeholder-val="{{ true }}"><span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.08em;color:#FBBF24">[SUPUESTO: DATOS DE STUDIO]</span></sc-if>
+      </div>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.06);font-size:13px;color:#94A3B8">
+      <span>Producción técnica en alianza con Mädi Films y R3State</span>
+      <div style="display:flex;gap:20px;flex-wrap:wrap"><a href="aviso-de-privacidad.html" style="color:#94A3B8">Aviso de privacidad</a><span>© 2026 BubbleMesh Studio</span></div>
+    </div>
+  </div>
+</footer>
+
+<sc-if value="{{ reelOpen }}" hint-placeholder-val="{{ false }}">
+  <div role="dialog" aria-modal="true" aria-label="Demo reel" onClick="{{ closeReel }}" style="position:fixed;inset:0;z-index:100;background:rgba(6,9,17,0.92);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;padding:clamp(16px,4vw,48px)">
+    <div onClick="{{ stop }}" style="position:relative;width:min(100%,1280px);aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:repeating-linear-gradient(135deg,#0F1525 0 14px,#131b2e 14px 28px);border:1px solid rgba(255,255,255,0.12);box-shadow:0 0 80px rgba(109,40,217,0.35);display:flex;align-items:center;justify-content:center">
+      <span style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:#94A3B8;text-align:center;line-height:1.8">reel-completo · HLS con audio y controles<br>proveedor por definir</span>
+    </div>
+    <button onClick="{{ closeReel }}" style="position:absolute;top:20px;right:20px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.16);color:#fff;font-weight:600;font-size:14px;padding:10px 18px;border-radius:9999px;cursor:pointer" style-hover="background:rgba(255,255,255,0.14)">Cerrar reel ✕</button>
+  </div>
+</sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;heroVariant&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;A&quot;,&quot;B&quot;,&quot;C&quot;],&quot;default&quot;:&quot;A&quot;,&quot;tsType&quot;:&quot;'A'|'B'|'C'&quot;,&quot;section&quot;:&quot;Copy&quot;},&quot;sectionTitles&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;A&quot;,&quot;B&quot;],&quot;default&quot;:&quot;A&quot;,&quot;tsType&quot;:&quot;'A'|'B'&quot;,&quot;section&quot;:&quot;Copy&quot;},&quot;showSupuestos&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Borrador&quot;}}">
+class Component extends DCLogic {
+  state = { reel: false, menu: false, pos: 50, useEmail: false, msg: false, status: 'idle', errors: {},
+    form: { nombre: '', contacto: '', correo: '', persona: '', plazo: '', mensaje: '' } };
+
+  componentDidMount() {
+    this.onKey = (e) => { if (e.key === 'Escape') { this.closeReel(); this.setState({ menu: false }); } };
+    window.addEventListener('keydown', this.onKey);
+  }
+  componentWillUnmount() { window.removeEventListener('keydown', this.onKey); document.body.style.overflow = ''; }
+
+  openReel = () => { this.lastFocus = document.activeElement; document.body.style.overflow = 'hidden'; this.setState({ reel: true }); };
+  closeReel = () => {
+    if (!this.state.reel) return;
+    document.body.style.overflow = '';
+    this.setState({ reel: false }, () => this.lastFocus && this.lastFocus.focus && this.lastFocus.focus());
+  };
+  setField = (k) => (e) => { const v = e.target.value; this.setState(s => ({ form: { ...s.form, [k]: v }, errors: { ...s.errors, [k]: false } })); };
+
+  validate() {
+    const f = this.state.form, e = {};
+    if (!f.nombre.trim()) e.nombre = true;
+    if (this.state.useEmail) { if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.correo)) e.correo = true; }
+    else if (f.contacto.replace(/\D/g, '').length !== 10) e.contacto = true;
+    if (!f.persona) e.persona = true;
+    return e;
+  }
+  onSubmit = (ev) => {
+    ev.preventDefault();
+    const e = this.validate();
+    this.setState({ errors: e });
+    if (Object.keys(e).length) return;
+    this.setState({ status: 'sending' });
+    setTimeout(() => this.setState({ status: 'sent' }), 1200);
+  };
+
+  renderVals() {
+    const v = this.props.heroVariant ?? 'A';
+    const titles = this.props.sectionTitles ?? 'A';
+    const sup = this.props.showSupuestos ?? false;
+    const s = this.state, er = s.errors;
+    return {
+      heroA: v === 'A', heroB: v === 'B', heroC: v === 'C',
+      tA: titles === 'A', tB: titles === 'B', sup,
+      menuOpen: s.menu, menuClosed: !s.menu,
+      toggleMenu: () => this.setState(x => ({ menu: !x.menu })),
+      closeMenu: () => this.setState({ menu: false }),
+      stop: (e) => e.stopPropagation(),
+      openReel: this.openReel,
+      openReelBtn: (e) => { e.stopPropagation(); this.openReel(); },
+      closeReel: this.closeReel, reelOpen: s.reel,
+      pos: s.pos, clipRight: 100 - s.pos,
+      onPos: (e) => this.setState({ pos: Number(e.target.value) }),
+      form: s.form,
+      onNombre: this.setField('nombre'), onContacto: this.setField('contacto'), onCorreo: this.setField('correo'),
+      onPersona: this.setField('persona'), onPlazo: this.setField('plazo'), onMensaje: this.setField('mensaje'),
+      useEmail: s.useEmail, usePhone: !s.useEmail,
+      toggleEmail: () => this.setState(x => ({ useEmail: !x.useEmail, errors: {} })),
+      emailToggleLabel: s.useEmail ? 'Prefiero WhatsApp' : 'Prefiero correo',
+      msgOpen: s.msg, msgClosed: !s.msg, openMsg: () => this.setState({ msg: true }),
+      errNombre: !!er.nombre, errContacto: !!er.contacto, errCorreo: !!er.correo, errPersona: !!er.persona,
+      onSubmit: this.onSubmit,
+      submitLabel: s.status === 'sending' ? 'Enviando...' : 'Cotiza tu producción',
+      sent: s.status === 'sent', notSent: s.status !== 'sent',
+      personas: [
+        { nombre: 'Artistas', href: 'artistas.html', titulo: 'Para artistas que llenan eventos pero no redes', desc: 'Convertimos tus presentaciones en clips, fotos, EPK y una página de contrataciones, para que el público que te aplaude también te siga y te busque.', enlace: 'Ver soluciones para artistas' },
+        { nombre: 'Radio', href: 'radio.html', titulo: 'Para radios con programas que merecen más vida', desc: 'Cada entrevista se vuelve podcast, clips verticales y piezas patrocinables, con un proceso repetible que tu equipo puede sostener todas las semanas sin desgastarse.', enlace: 'Ver soluciones para radio' },
+        { nombre: 'Eventos', href: 'eventos.html', titulo: 'Para promotores que no pueden fallar en vivo', desc: 'Promoción de preventa, multicámara, streaming, visuales para pantalla y recap al cierre, con un solo equipo coordinando antes, durante y después de tu evento.', enlace: 'Ver soluciones para eventos' },
+        { nombre: 'Recintos', href: 'recintos.html', titulo: 'Para foros y restaurantes con música en vivo', desc: 'Contenido de cada fecha, cartelera que se comparte y reservaciones conectadas, para que cada noche de música ayude a llenar la siguiente y sepas cuál funcionó.', enlace: 'Ver soluciones para recintos' },
+        { nombre: 'Marcas', href: 'marcas.html', titulo: 'Para marcas que patrocinan y necesitan evidencia', desc: 'Spots, cobertura de activaciones y un reporte de activos entregados, para que tu patrocinio se convierta en piezas y argumentos que puedes presentar y reutilizar.', enlace: 'Ver soluciones para marcas' },
+        { nombre: 'Inmobiliario', href: 'inmobiliario.html', titulo: 'Para desarrolladoras que venden lo que aún no existe', desc: 'Drone, recorridos 360°, renders animados y video profesional para mostrar tu desarrollo terminado desde la preventa, con una landing que capta compradores calificados.', enlace: 'Ver soluciones inmobiliarias' }
+      ],
+      trabajo: [
+        { pieza: 'Videoclip o performance de un artista', persona: 'Artistas', tags: ['Cámara', 'Edición', 'VFX'], credito: 'Por definir' },
+        { pieza: 'Loop o intro para pantalla LED', persona: 'Artistas, Eventos', tags: ['VFX'], credito: 'Equipo propio' },
+        { pieza: 'Recap o aftermovie de evento', persona: 'Eventos', tags: ['Cámara', 'Drone', 'Edición'], credito: 'Producción técnica: Mädi Films' },
+        { pieza: 'Spot o cobertura de activación', persona: 'Marcas', tags: ['Cámara', 'Edición', 'VFX'], credito: 'Por definir' },
+        { pieza: 'Video aéreo y recorrido 360° de un desarrollo', persona: 'Inmobiliario', tags: ['Drone', '360°'], credito: 'Producción técnica: R3State' },
+        { pieza: 'Cartelera web con reservas o landing de venta', persona: 'Recintos o Inmobiliario', tags: ['Web y plataforma'], credito: 'Equipo propio' }
+      ],
+      pilares: [
+        { n: '01 · VIDEO', color: '#7C3AED', titulo: 'Producción de video profesional', texto: 'Videoclips, conciertos, eventos, spots, programas y propiedades. Rodamos con crew, cámaras, luces, audio y drones de productoras aliadas, y nuestro equipo edita cada pieza para la red y el formato donde va a vivir.', enlace: 'Ver trabajo de video', href: '#trabajo' },
+        { n: '02 · VFX', color: '#A855F7', titulo: 'VFX y visuales para pantalla', texto: 'Intros, loops para pantallas LED, composición, motion graphics y efectos para videoclips y spots. Nuestros especialistas diseñan cada visual a partir de tu música, tu marca o tu escenario, con flujos que permiten versionarlo rápido.', enlace: 'Ver cómo se hace un efecto', href: '#vfx' },
+        { n: '03 · DIGITAL', color: '#EC4899', titulo: 'Transformación digital de tu negocio', texto: 'Sitios, EPK, carteleras con reservas, landings de venta, formularios conectados a tu CRM, automatizaciones y tableros de datos. La atención que genera tu contenido termina en contactos y clientes que puedes medir.', enlace: 'Ver cómo funciona', href: '#digital' }
+      ],
+      digital: [
+        { n: '1', titulo: 'Contenido que atrae', texto: 'Video, foto y visuales pensados para la red y el público que quieres alcanzar.' },
+        { n: '2', titulo: 'Una página que convierte', texto: 'Sitio, EPK, cartelera o landing donde la persona interesada entiende qué ofreces y da el siguiente paso.' },
+        { n: '3', titulo: 'Contactos que llegan ordenados', texto: 'Formularios, WhatsApp y reservas conectados a tu CRM, con respuesta automática para que ningún prospecto se enfríe.' },
+        { n: '4', titulo: 'Datos para decidir mejor', texto: 'Un tablero que muestra qué pieza trajo seguidores, reservas o clientes, para invertir donde sí funciona.' }
+      ],
+      principiosIA: [
+        { titulo: 'Nunca sustituye tu voz ni tu imagen', texto: 'El talento real sigue siendo el protagonista; la IA solo amplía lo que la cámara no alcanza.' },
+        { titulo: 'Consentimiento por escrito, siempre', texto: 'No creamos ni modificamos el rostro o la voz de nadie sin su autorización firmada.' },
+        { titulo: 'Etiquetado con claridad', texto: 'Las piezas creadas con IA se identifican como tales en nuestro portafolio y en tus entregables.' }
+      ],
+      pasos: [
+        { n: '01', titulo: 'Diagnóstico de tu proyecto y objetivo', texto: 'En una llamada corta entendemos qué produces, para cuándo lo necesitas y qué resultado quieres medir al final.' },
+        { n: '02', titulo: 'Rodaje, VFX y edición en casa', texto: 'Rodamos con equipo profesional aliado y nuestros especialistas suman VFX, edición y la plataforma digital que necesitas.' },
+        { n: '03', titulo: 'Entrega, publicación y medición acordada', texto: 'Recibes las piezas listas para publicar en cada red y revisamos juntos los resultados contra lo que pactamos.' }
+      ],
+      objeciones: [
+        { titulo: 'Cada pieza conectada a un resultado', texto: 'No entregamos videos para que se queden en una carpeta. Cada pieza llega con su página, su enlace medible o su flujo de contacto, para que sepas qué te trajo seguidores, reservas o clientes.' },
+        { titulo: 'Tu imagen y tus derechos, cuidados', texto: 'Antes de producir revisamos permisos de música, nombres e imágenes, y pedimos tu autorización por escrito para cualquier uso especial de tu rostro o tu voz.' },
+        { titulo: 'Empiezas con un piloto medible', texto: 'Arrancamos con un proyecto acotado, entregables definidos y métricas acordadas por escrito, para que decidas con datos si conviene seguir antes de firmar algo más largo.' },
+        { titulo: 'Equipo especialista propio, producción de gran escala', texto: 'Postproducción, VFX y desarrollo los hace nuestro equipo especialista; rodamos con el equipo técnico de productoras aliadas. Tu proyecto recibe gran escala sin pagar la estructura de una casa productora.' },
+        { titulo: 'Un solo responsable en lugar de cinco proveedores', texto: 'Coordinamos rodaje, postproducción, VFX y plataforma con una sola persona a cargo de tu proyecto, así que no persigues proveedores ni juntas piezas que no combinan entre sí.' }
+      ],
+      aliados: [
+        { texto: 'Equipo técnico aliado con más de 12 años filmando para más de 40 marcas.', credito: 'Producción técnica: Mädi Films.', flag: false },
+        { texto: 'Experiencia de rodaje con artistas como Sonora Santanera, Maldita Vecindad y Mägo de Oz.', credito: 'Créditos de Mädi Films.', flag: false },
+        { texto: 'Producción aérea, recorridos 360° con escaneo LIDAR y renders para desarrolladoras como Gigante Grupo Inmobiliario.', credito: 'Créditos de R3State.', flag: false }
+      ],
+      faq: [
+        { q: '¿Cuánto cuesta una producción?', a: 'Depende del alcance, las fechas y los formatos. Después del diagnóstico recibes una cotización cerrada por escrito, con entregables y tiempos definidos.', flag: false },
+        { q: '¿Piden anticipo?', a: 'Sí. Reservamos fecha y equipo con un anticipo del 50 % y el resto se liquida contra entrega.', flag: sup, sup: '[SUPUESTO: CONFIRMAR ESQUEMA]' },
+        { q: '¿En cuánto tiempo entregan?', a: 'Cada cotización incluye fechas de entrega por pieza. Un recap al cierre se entrega el mismo día; un videoclip o un spot toma más tiempo según su complejidad.', flag: false },
+        { q: '¿Trabajan fuera de Ciudad de México?', a: 'Sí. Los viáticos del equipo se desglosan en la cotización.', flag: sup, sup: '[SUPUESTO]' },
+        { q: '¿De quién es el material?', a: 'Las piezas entregadas son tuyas para promocionarte. El uso del material en bruto y la publicación en nuestro portafolio se acuerdan en el contrato.', flag: sup, sup: '[SUPUESTO: CONFIRMAR POLÍTICA]' },
+        { q: '¿Cuántas rondas de cambios incluye?', a: 'Dos rondas de ajustes por pieza, salvo que el paquete diga otra cosa.', flag: sup, sup: '[SUPUESTO]' },
+        { q: '¿Qué significa transformación digital para mi negocio?', a: 'Que tu contenido se conecte con una página, un canal de contacto o reservas y un tablero de datos, para que la atención se convierta en clientes que puedes medir.', flag: false },
+        { q: '¿Usan inteligencia artificial?', a: 'Solo cuando el proyecto lo pide y con tu autorización. La mayor parte de nuestro trabajo es rodaje, VFX, edición y desarrollo.', flag: false },
+        { q: '¿Emiten factura?', a: 'Sí, emitimos factura por cada servicio.', flag: sup, sup: '[SUPUESTO: CONFIRMAR RAZÓN SOCIAL]' }
+      ],
+      queSigue: [
+        { n: '1', titulo: 'Revisamos tu proyecto', texto: 'Leemos lo que nos contaste y vemos qué parte del equipo necesita tu producción.' },
+        { n: '2', titulo: 'Te escribimos con preguntas', texto: 'Te contactamos por el medio que elegiste, en horario laboral.' },
+        { n: '3', titulo: 'Recibes una propuesta clara', texto: 'Con alcance, entregables, fechas y costo por escrito, para que decidas con toda la información.' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>
