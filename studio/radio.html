@@ -1,24 +1,37 @@
 <!DOCTYPE html>
-<html>
+<html lang="es-MX">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Radio en vivo, podcasts y contenido digital | BubbleMesh Studio</title>
+<meta name="description" content="Radio en vivo, podcasts, clips verticales y piezas patrocinables con un proceso que tu equipo sostiene cada semana.">
+<meta name="robots" content="index, follow, max-image-preview:large, max-video-preview:-1">
+<link rel="canonical" href="https://bubble-mesh.com/studio/radio.html">
+<meta name="theme-color" content="#0B0F1A">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_MX">
+<meta property="og:site_name" content="BubbleMesh Studio">
+<meta property="og:title" content="Radio en vivo, podcasts y contenido digital | BubbleMesh Studio">
+<meta property="og:description" content="Radio en vivo, podcasts, clips verticales y piezas patrocinables con un proceso que tu equipo sostiene cada semana.">
+<meta property="og:url" content="https://bubble-mesh.com/studio/radio.html">
+<meta property="og:image" content="https://bubble-mesh.com/studio/assets/og-studio.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Radio en vivo, podcasts y contenido digital | BubbleMesh Studio">
+<meta name="twitter:description" content="Radio en vivo, podcasts, clips verticales y piezas patrocinables con un proceso que tu equipo sostiene cada semana.">
+<meta name="twitter:image" content="https://bubble-mesh.com/studio/assets/og-studio.jpg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/favicon-180.png">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="image" href="media/hero.webp" fetchpriority="high">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "ProfessionalService", "@id": "https://bubble-mesh.com/studio/#negocio", "name": "BubbleMesh Studio", "description": "Estudio de producción de video, VFX, contenido con IA y páginas web en Ciudad de México.", "url": "https://bubble-mesh.com/studio/", "logo": "https://bubble-mesh.com/studio/assets/logo-studio.webp", "image": "https://bubble-mesh.com/studio/assets/og-studio.jpg", "telephone": "+52-55-3165-0560", "email": "contacto@bubble-mesh.com", "address": {"@type": "PostalAddress", "addressLocality": "Ciudad de México", "addressRegion": "CDMX", "addressCountry": "MX"}, "areaServed": {"@type": "Country", "name": "México"}, "parentOrganization": {"@type": "Organization", "name": "BubbleMesh", "url": "https://bubble-mesh.com/"}, "knowsAbout": ["Producción de video", "Efectos visuales", "Videoclips", "Streaming de eventos", "Video inmobiliario con drone", "Contenido con inteligencia artificial", "Desarrollo web"]}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "BubbleMesh Studio", "item": "https://bubble-mesh.com/studio/"}, {"@type": "ListItem", "position": 2, "name": "Podcast, clips y radio en vivo en la web", "item": "https://bubble-mesh.com/studio/radio.html"}]}, {"@type": "Service", "name": "Podcast, clips y radio en vivo en la web", "description": "Radio en vivo, podcasts, clips verticales y piezas patrocinables con un proceso que tu equipo sostiene cada semana.", "url": "https://bubble-mesh.com/studio/radio.html", "provider": {"@id": "https://bubble-mesh.com/studio/#negocio"}, "areaServed": {"@type": "Country", "name": "México"}}]}</script>
 <script src="./support.js"></script>
 </head>
 <body>
 <x-dc>
 <helmet>
 <title>Radio en vivo, podcasts y contenido digital | BubbleMesh Studio</title>
-<meta name="description" content="Radio en vivo, podcasts, clips verticales y piezas patrocinables con un proceso que tu equipo sostiene cada semana.">
-<meta name="robots" content="noindex, nofollow">
-<link rel="canonical" href="https://bubble-mesh.com/studio/radio.html">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Radio en vivo, podcasts y contenido digital | BubbleMesh Studio">
-<meta property="og:description" content="Radio en vivo, podcasts, clips verticales y piezas patrocinables con un proceso que tu equipo sostiene cada semana.">
-<meta property="og:url" content="https://bubble-mesh.com/studio/radio.html">
-<meta property="og:image" content="https://bubble-mesh.com/assets/favicon-192.png">
-<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
-<link rel="apple-touch-icon" href="../assets/favicon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
 <style>
@@ -54,12 +67,28 @@ input,select,textarea,button{font-family:inherit}
     var src=t.getAttribute('data-video')||''; if(src.indexOf('media/')!==0) return;
     e.preventDefault(); e.stopPropagation(); abrir(src);
   },true);
+  // Sin identificadores camelCase seguidos de '=': support.js los toma por atributos
+  var cola=null;
+  function cargarHls(cb){
+    if(window.Hls) return cb();
+    if(cola) return cola.push(cb);
+    cola=[cb]; var sc=document.createElement('script');
+    sc.src='https://cdn.jsdelivr.net/npm/hls.js@1.5.20/dist/hls.min.js';
+    sc.onload=sc.onerror=function(){ cola.forEach(function(f){ f(); }); };
+    document.head.appendChild(sc);
+  }
   function play(v){ var p=v.play(); if(p&&p.catch) p.catch(function(){}); }
   // Con sonido; si el navegador lo bloquea, arranca sin sonido en vez de quedarse detenido
   function playAudio(v){ var p=v.play(); if(p&&p.catch) p.catch(function(){ v.muted=true; play(v); }); }
   function reel(){
     document.querySelectorAll('video[data-reel]').forEach(function(v){
-      if(!v.getAttribute('src')){ v.src=v.dataset.src; playAudio(v); }
+      if(v.dataset.on) return; v.dataset.on='1';
+      // HLS adaptativo: la calidad sube o baja según la conexión del visitante
+      if(v.canPlayType('application/vnd.apple.mpegurl')){ v.src=v.dataset.hls; playAudio(v); return; }
+      cargarHls(function(){
+        if(window.Hls && window.Hls.isSupported()){ var h=new window.Hls({capLevelToPlayerSize:true}); h.loadSource(v.dataset.hls); h.attachMedia(v); v.hls=h; playAudio(v); }
+        else { v.src=v.dataset.src; playAudio(v); }
+      });
     });
   }
   // El modal del reel lo pinta React justo después del clic: se busca dentro del
@@ -75,6 +104,8 @@ input,select,textarea,button{font-family:inherit}
       if(!v.getAttribute('src')){ v.src = hd ? 'media/hero-1080.mp4' : 'media/hero.mp4'; }
       if(v.paused) play(v);
     });
+    // Loops silenciosos de fondo (tarjetas grandes)
+    document.querySelectorAll('video[data-loop]').forEach(function(v){ v.muted=true; if(v.paused) play(v); });
     // El reel solo se descarga al abrirlo: sin src en la plantilla el navegador no lo pide antes
     reel();
   }
@@ -84,18 +115,49 @@ input,select,textarea,button{font-family:inherit}
 </script>
 
 <style>
+.bm-anim{position:relative;aspect-ratio:4/3;border-radius:16px;overflow:hidden;background:radial-gradient(ellipse 70% 60% at 50% 30%,rgba(124,58,237,0.16),transparent 70%),#0F1525;border:1px solid rgba(255,255,255,0.08)}
+.bm-anim svg{position:absolute;inset:0;width:100%;height:100%}
+.bm-anim *{transform-box:fill-box}
+@keyframes bmRing{0%{transform:scale(.3);opacity:.9}100%{transform:scale(2.4);opacity:0}}
+@keyframes bmBar{0%,100%{transform:scaleY(.25)}50%{transform:scaleY(1)}}
+@keyframes bmBlink{0%,100%{opacity:1}50%{opacity:.15}}
+@keyframes bmSlideX{0%,10%{transform:translateX(0)}45%,55%{transform:translateX(150px)}90%,100%{transform:translateX(0)}}
+@keyframes bmPop{0%,20%{transform:translateY(16px) scale(.85);opacity:0}35%,85%{transform:none;opacity:1}100%{opacity:0}}
+@keyframes bmTravel{0%{offset-distance:0%;opacity:0}10%{opacity:1}90%{opacity:1}100%{offset-distance:100%;opacity:0}}
+@keyframes bmGlow{0%,60%,100%{fill:#1B2338;stroke:rgba(255,255,255,.15)}70%,90%{fill:rgba(124,58,237,.35);stroke:#A855F7}}
+@keyframes bmFill{0%{transform:scaleX(0)}80%,100%{transform:scaleX(1)}}
+@keyframes bmFly0{0%{transform:translate(0,0) rotate(0);opacity:0}15%{opacity:1}100%{transform:translate(90px,-80px) rotate(18deg);opacity:0}}
+@keyframes bmFly1{0%{transform:translate(0,0) rotate(0);opacity:0}15%{opacity:1}100%{transform:translate(110px,0) rotate(18deg);opacity:0}}
+@keyframes bmFly2{0%{transform:translate(0,0) rotate(0);opacity:0}15%{opacity:1}100%{transform:translate(90px,80px) rotate(18deg);opacity:0}}
+@keyframes bmSwitch{0%,24%{transform:translate(0,0)}25%,49%{transform:translate(96px,0)}50%,74%{transform:translate(0,64px)}75%,100%{transform:translate(96px,64px)}}
+@keyframes bmProg{0%,24%{fill:#7C3AED}25%,49%{fill:#EC4899}50%,74%{fill:#14B8A6}75%,100%{fill:#A855F7}}
+@keyframes bmBeam{0%,100%{transform:rotate(-16deg)}50%{transform:rotate(16deg)}}
+@keyframes bmBeam2{0%,100%{transform:rotate(14deg)}50%{transform:rotate(-14deg)}}
+@keyframes bmFlip{0%,30%{transform:translateY(0);opacity:1}45%,85%{transform:translateY(-96px);opacity:1}100%{transform:translateY(-96px);opacity:0}}
+@keyframes bmClick{0%,40%{transform:translate(60px,50px)}55%{transform:translate(0,0)}60%{transform:translate(0,0) scale(.85)}65%,100%{transform:translate(0,0)}}
+@keyframes bmPress{0%,57%{fill:#7C3AED}60%,75%{fill:#EC4899}100%{fill:#7C3AED}}
+@keyframes bmCount{0%,58%{transform:translateY(0)}64%,100%{transform:translateY(-22px)}}
+@keyframes bmRise{0%{transform:scaleY(.15)}70%,100%{transform:scaleY(1)}}
+@keyframes bmSweep{0%{transform:translateX(-60px)}100%{transform:translateX(330px)}}
+@media (prefers-reduced-motion:reduce){.bm-anim *{animation:none!important}}
+</style>
+
+<style>
 html,body{overflow-x:clip}
 img,video,iframe,svg{max-width:100%}
-h1,h2,h3{overflow-wrap:break-word;hyphens:auto}
+h1,h2,h3{overflow-wrap:break-word}
 @media (max-width:900px){
   [data-r="navlinks"],[data-r="navcta"]{display:none!important}
   [data-r="burger"]{display:inline-flex!important}
   [data-r="mobnav"]{display:flex!important}
   [data-r="nav"]{flex-wrap:nowrap!important}
   [data-r="logo"]{height:30px!important}
+  [data-r="pegajoso"]{position:static!important}
 }
 @media (max-width:640px){
   :root{--nw:normal}
+  h1,h2,h3{hyphens:auto}
+  [data-r="fondo"]{opacity:.35}
   main section{padding-left:16px!important;padding-right:16px!important}
   main section>div{padding-left:0!important;padding-right:0!important}
   [data-r="nav"]{padding-left:16px!important;padding-right:16px!important}
@@ -122,7 +184,7 @@ h1,h2,h3{overflow-wrap:break-word;hyphens:auto}
         </sc-if>
       </div>
       <a href="trabajo.html" style="color:#E2E8F0;font-weight:500;font-size:15px;padding:10px 14px" style-hover="color:#fff">Trabajo</a>
-      <a href="estudio.html" style="color:#E2E8F0;font-weight:500;font-size:15px;padding:10px 14px" style-hover="color:#fff">Estudio</a>
+      <a href="index.html#lo-que-hacemos" style="color:#E2E8F0;font-weight:500;font-size:15px;padding:10px 14px" style-hover="color:#fff">Estudio</a>
     </div>
     <a data-r="navcta" href="#cta-final" style="background:linear-gradient(135deg,#EC4899,#7C3AED);color:#fff;font-weight:700;font-size:15px;padding:11px 22px;border-radius:9999px;box-shadow:0 0 24px rgba(236,72,153,0.30);white-space:var(--nw,nowrap)" style-hover="color:#fff;box-shadow:0 0 32px rgba(236,72,153,0.5)">Cotiza tu producción</a>
   
@@ -138,7 +200,7 @@ h1,h2,h3{overflow-wrap:break-word;hyphens:auto}
         <a href="{{ p.href }}" onClick="{{ closeMenu }}" style="color:#E2E8F0;font-size:17px;font-weight:500;padding:12px 4px;border-bottom:1px solid rgba(255,255,255,0.06)">{{ p.nombre }}</a>
       </sc-for>
       <a href="trabajo.html" onClick="{{ closeMenu }}" style="color:#E2E8F0;font-size:17px;font-weight:500;padding:12px 4px;border-bottom:1px solid rgba(255,255,255,0.06)">Trabajo</a>
-      <a href="estudio.html" onClick="{{ closeMenu }}" style="color:#E2E8F0;font-size:17px;font-weight:500;padding:12px 4px;border-bottom:1px solid rgba(255,255,255,0.06)">Estudio</a>
+      <a href="index.html#lo-que-hacemos" onClick="{{ closeMenu }}" style="color:#E2E8F0;font-size:17px;font-weight:500;padding:12px 4px;border-bottom:1px solid rgba(255,255,255,0.06)">Estudio</a>
       <a href="#cta-final" onClick="{{ closeMenu }}" style="margin-top:16px;text-align:center;background:linear-gradient(135deg,#EC4899,#7C3AED);color:#fff;font-weight:700;font-size:16px;padding:14px 22px;border-radius:9999px">Cotiza tu producción</a>
     </div>
   </sc-if>
@@ -220,7 +282,7 @@ h1,h2,h3{overflow-wrap:break-word;hyphens:auto}
             <li style="display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start;padding:13px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:15px;line-height:1.5;color:#E2E8F0"><span style="color:#14B8A6;font-weight:700">✓</span><span>{{ i }}</span></li>
           </sc-for>
         </ul>
-        <p style="margin:0;font-size:13px;line-height:1.6;color:#94A3B8">Por episodio o mensualidad; cantidades ajustables.</p>
+        
       </div>
     </div>
     <div style="display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;background:rgba(124,58,237,0.06);border:1px solid rgba(168,85,247,0.18);border-radius:16px;padding:24px 28px">
@@ -242,18 +304,18 @@ h1,h2,h3{overflow-wrap:break-word;hyphens:auto}
   <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px">
     <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:24px;display:grid;gap:16px;align-content:start">
       <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#A855F7">Audio / podcast</span>
-      <div style="display:flex;flex-wrap:wrap;gap:8px"><span style="white-space:var(--nw,nowrap);display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:10px 14px;font-size:14px;font-weight:600;color:#E2E8F0"><img src="assets/logos-plataformas/spotify.svg" alt="" width="20" height="20" style="width:20px;height:20px;filter:brightness(0) invert(1);flex-shrink:0">Spotify</span><span style="white-space:var(--nw,nowrap);display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:10px 14px;font-size:14px;font-weight:600;color:#E2E8F0"><img src="assets/logos-plataformas/applepodcasts.svg" alt="" width="20" height="20" style="width:20px;height:20px;filter:brightness(0) invert(1);flex-shrink:0">Apple Podcasts</span><span style="white-space:var(--nw,nowrap);display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:10px 14px;font-size:14px;font-weight:600;color:#E2E8F0"><img src="assets/logos-plataformas/amazonmusic.svg" alt="" width="20" height="20" style="width:20px;height:20px;filter:brightness(0) invert(1);flex-shrink:0">Amazon Music</span><span style="white-space:var(--nw,nowrap);display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:10px 14px;font-size:14px;font-weight:600;color:#E2E8F0"><img src="assets/logos-plataformas/podimo-wordmark.svg" alt="Podimo" width="60" height="17" style="width:60px;height:17px;filter:brightness(0) invert(1)"><span style="margin-left:-6px">*</span></span></div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px"><span style="white-space:var(--nw,nowrap);display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:10px 14px;font-size:14px;font-weight:600;color:#E2E8F0"><img src="assets/logos-plataformas/spotify.svg" alt="" width="20" height="20" style="width:20px;height:20px;filter:brightness(0) invert(1);flex-shrink:0">Spotify</span><span style="white-space:var(--nw,nowrap);display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:10px 14px;font-size:14px;font-weight:600;color:#E2E8F0"><img src="assets/logos-plataformas/applepodcasts.svg" alt="" width="20" height="20" style="width:20px;height:20px;filter:brightness(0) invert(1);flex-shrink:0">Apple Podcasts</span><span style="white-space:var(--nw,nowrap);display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:10px 14px;font-size:14px;font-weight:600;color:#E2E8F0"><img src="assets/logos-plataformas/amazonmusic.svg" alt="" width="20" height="20" style="width:20px;height:20px;filter:brightness(0) invert(1);flex-shrink:0">Amazon Music</span><span style="white-space:var(--nw,nowrap);display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:10px 14px;font-size:14px;font-weight:600;color:#E2E8F0"><img src="assets/logos-plataformas/podimo-wordmark.svg" alt="Podimo" width="60" height="17" style="width:60px;height:17px;filter:brightness(0) invert(1)"></span></div>
     </div>
     <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:24px;display:grid;gap:16px;align-content:start">
       <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#A855F7">Video</span>
-      <div style="display:flex;flex-wrap:wrap;gap:8px"><span style="white-space:var(--nw,nowrap);display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:10px 14px;font-size:14px;font-weight:600;color:#E2E8F0"><img src="assets/logos-plataformas/youtube.svg" alt="" width="20" height="20" style="width:20px;height:20px;filter:brightness(0) invert(1);flex-shrink:0">YouTube</span><span style="white-space:var(--nw,nowrap);display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:10px 14px;font-size:14px;font-weight:600;color:#E2E8F0"><img src="assets/logos-plataformas/youtubemusic.svg" alt="" width="20" height="20" style="width:20px;height:20px;filter:brightness(0) invert(1);flex-shrink:0">YouTube Music*</span></div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px"><span style="white-space:var(--nw,nowrap);display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:10px 14px;font-size:14px;font-weight:600;color:#E2E8F0"><img src="assets/logos-plataformas/youtube.svg" alt="" width="20" height="20" style="width:20px;height:20px;filter:brightness(0) invert(1);flex-shrink:0">YouTube</span><span style="white-space:var(--nw,nowrap);display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:10px 14px;font-size:14px;font-weight:600;color:#E2E8F0"><img src="assets/logos-plataformas/youtubemusic.svg" alt="" width="20" height="20" style="width:20px;height:20px;filter:brightness(0) invert(1);flex-shrink:0">YouTube Music</span></div>
     </div>
     <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:24px;display:grid;gap:16px;align-content:start">
       <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#A855F7">Redes y formatos breves</span>
       <div style="display:flex;flex-wrap:wrap;gap:8px"><span style="white-space:var(--nw,nowrap);display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:10px 14px;font-size:14px;font-weight:600;color:#E2E8F0"><img src="assets/logos-plataformas/youtubeshorts.svg" alt="" width="20" height="20" style="width:20px;height:20px;filter:brightness(0) invert(1);flex-shrink:0">YouTube Shorts</span><span style="white-space:var(--nw,nowrap);display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:10px 14px;font-size:14px;font-weight:600;color:#E2E8F0"><img src="assets/logos-plataformas/instagram.svg" alt="" width="20" height="20" style="width:20px;height:20px;filter:brightness(0) invert(1);flex-shrink:0">Instagram Reels</span><span style="white-space:var(--nw,nowrap);display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:10px 14px;font-size:14px;font-weight:600;color:#E2E8F0"><img src="assets/logos-plataformas/tiktok.svg" alt="" width="20" height="20" style="width:20px;height:20px;filter:brightness(0) invert(1);flex-shrink:0">TikTok</span></div>
     </div>
   </div>
-  <p style="margin:16px 0 0;font-size:12px;line-height:1.6;color:#94A3B8;max-width:900px;font-style:italic">*La disponibilidad del programa en cada destino depende de sus políticas, mercados, modalidad de publicación y requisitos técnicos. YouTube Music puede recibir podcasts publicados mediante los mecanismos compatibles de YouTube; Podimo requiere confirmar acceso y condiciones aplicables. La distribución no implica que las plataformas acepten automáticamente cualquier emisión.</p>
+  
   <sc-if value="{{ sup }}" hint-placeholder-val="{{ true }}"><span style="display:block;margin-top:8px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.08em;color:#FBBF24">[SUPUESTO: SUSTITUIR CUADROS PUNTEADOS POR LOGOTIPOS OFICIALES, CADA UNO ENLAZADO A SU SERVICIO]</span></sc-if>
   <div style="margin-top:48px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:32px 56px">
     <div style="display:grid;gap:16px;align-content:start">
@@ -272,7 +334,7 @@ h1,h2,h3{overflow-wrap:break-word;hyphens:auto}
         <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#A855F7">Entregables</span>
         <p style="margin:0;font-size:15px;line-height:1.65;color:#E2E8F0">Episodios a la carta, videopodcast cuando existe video, metadatos, miniaturas, calendario de publicación, clips verticales y registro de enlaces publicados.</p>
       </div>
-      <p style="margin:0;padding:14px 18px;border-radius:12px;background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.30);font-size:14px;line-height:1.6;color:#FDE68A"><strong style="font-weight:600">Nota editorial y de derechos:</strong> la emisión de radio puede incluir música, anuncios, llamadas o materiales cuya retransmisión y explotación como podcast requieran autorizaciones distintas de las de AM/FM. Se revisa cada pieza antes de publicarla.</p>
+      
     </div>
   </div>
 </section>
@@ -294,7 +356,7 @@ h1,h2,h3{overflow-wrap:break-word;hyphens:auto}
             <div style="display:grid;gap:2px;min-width:0;flex:1"><span style="display:flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#F87171"><span style="width:6px;height:6px;border-radius:50%;background:#EF4444"></span>En vivo</span><span style="font-size:14px;font-weight:600;white-space:var(--nw,nowrap);overflow:hidden;text-overflow:ellipsis">Programa al aire · Conductor</span></div>
           </div>
           <div style="display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:12px">
-            <div style="aspect-ratio:16/10;border-radius:10px;background:repeating-linear-gradient(135deg,#111827 0 8px,#151d30 8px 16px);display:flex;align-items:flex-end;padding:10px"><span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#94A3B8;background:rgba(11,15,26,0.7);padding:4px 8px;border-radius:6px">Ver en vivo</span></div>
+            <div style="aspect-ratio:16/10;border-radius:10px;background:#111827 url(assets/ejemplos/radio-cabina.webp) center/cover no-repeat;display:flex;align-items:flex-end;padding:10px"><span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#94A3B8;background:rgba(11,15,26,0.7);padding:4px 8px;border-radius:6px">Ver en vivo</span></div>
             <div style="display:grid;gap:6px;align-content:start">
               <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#64748B">Parrilla</span>
               <div style="display:grid;gap:4px">
@@ -306,9 +368,9 @@ h1,h2,h3{overflow-wrap:break-word;hyphens:auto}
           </div>
           <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#64748B">Últimos episodios</span>
           <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px">
-            <div style="aspect-ratio:1/1;border-radius:8px;background:repeating-linear-gradient(135deg,#111827 0 8px,#151d30 8px 16px)"></div>
-            <div style="aspect-ratio:1/1;border-radius:8px;background:repeating-linear-gradient(135deg,#111827 0 8px,#151d30 8px 16px)"></div>
-            <div style="aspect-ratio:1/1;border-radius:8px;background:repeating-linear-gradient(135deg,#111827 0 8px,#151d30 8px 16px)"></div>
+            <div style="aspect-ratio:1/1;border-radius:8px;background:linear-gradient(135deg,#7C3AED,#EC4899)"></div>
+            <div style="aspect-ratio:1/1;border-radius:8px;background:linear-gradient(135deg,#14B8A6,#7C3AED)"></div>
+            <div style="aspect-ratio:1/1;border-radius:8px;background:linear-gradient(135deg,#EC4899,#F59E0B)"></div>
           </div>
         </div>
       </div>
@@ -356,7 +418,7 @@ h1,h2,h3{overflow-wrap:break-word;hyphens:auto}
 
 <section id="conductores" data-screen-label="07 Conductores" style="max-width:1280px;margin:0 auto;padding:clamp(72px,10vw,128px) clamp(20px,4vw,32px) 0">
   <div style="position:relative;border-radius:24px;overflow:hidden;min-height:clamp(420px,52vw,600px);display:flex;align-items:flex-end;background:radial-gradient(ellipse 50% 60% at 75% 35%,rgba(236,72,153,0.30),transparent 70%),radial-gradient(ellipse 45% 55% at 55% 60%,rgba(124,58,237,0.40),transparent 70%),#0d0820;border:1px solid rgba(255,255,255,0.08)">
-    <span style="position:absolute;top:24px;right:24px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#C4B5FD;text-align:right;line-height:1.7">retrato de conductor en cabina</span>
+    <img data-r="fondo" src="assets/ejemplos/radio-cabina.webp" alt="" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
     <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(11,15,26,0.92) 0%,rgba(11,15,26,0.55) 50%,transparent 100%)"></div>
     <div style="position:relative;padding:clamp(28px,5vw,56px);display:grid;gap:18px;max-width:560px">
       <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#C4B5FD">07 · ¿Eres conductor?</span>
@@ -376,14 +438,14 @@ h1,h2,h3{overflow-wrap:break-word;hyphens:auto}
 <section id="trabajo" data-screen-label="08 Trabajo" style="max-width:1280px;margin:0 auto;padding:clamp(72px,10vw,128px) clamp(20px,4vw,32px) 0">
   <div style="display:grid;gap:14px;margin-bottom:48px;max-width:760px">
     <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#94A3B8">08 · Trabajo</span>
-<h2 style="margin:0;font-family:Montserrat,sans-serif;font-weight:700;font-size:clamp(2rem,4.5vw,3.2rem);letter-spacing:-0.02em;line-height:1.05;text-wrap:balance">Programas que ya viven en más formatos</h2>
+<h2 style="margin:0;font-family:Montserrat,sans-serif;font-weight:700;font-size:clamp(2rem,4.5vw,3.2rem);letter-spacing:-0.02em;line-height:1.05;text-wrap:balance">Así funciona con tu programa</h2>
     <sc-if value="{{ sup }}"</sc-if>
     <sc-if value="{{ sup }}" hint-placeholder-val="{{ true }}"><span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.08em;color:#FBBF24">[SUPUESTO: SIN CASOS PROPIOS DE RADIO TODAVÍA. PUBLICAR CON EL PRIMER PILOTO DOCUMENTADO]</span></sc-if>
   </div>
   <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:20px">
-    <div style="aspect-ratio:4/3;border-radius:16px;background:repeating-linear-gradient(135deg,#0F1525 0 10px,#131b2e 10px 20px);border:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;padding:0 24px"><span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#64748B;text-align:center">Demostración con una entrevista pública · con permiso</span></div>
-    <div style="aspect-ratio:4/3;border-radius:16px;background:repeating-linear-gradient(135deg,#0F1525 0 10px,#131b2e 10px 20px);border:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;padding:0 24px"><span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#64748B;text-align:center">Clips verticales de la demostración</span></div>
-    <div style="aspect-ratio:4/3;border-radius:16px;background:repeating-linear-gradient(135deg,#0F1525 0 10px,#131b2e 10px 20px);border:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;padding:0 24px"><span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#64748B;text-align:center">Episodio de podcast de la demostración</span></div>
+    <div style="display:flex;flex-direction:column;gap:14px"><div class="bm-anim"><svg viewBox="0 0 400 300" role="img" aria-hidden="true" fill="none"><g transform="translate(70 150)"><circle r="28" stroke="#A855F7" stroke-width="2" style="transform-origin:center;animation:bmRing 2.4s ease-out 0s infinite"></circle><circle r="28" stroke="#A855F7" stroke-width="2" style="transform-origin:center;animation:bmRing 2.4s ease-out 0.8s infinite"></circle><circle r="28" stroke="#A855F7" stroke-width="2" style="transform-origin:center;animation:bmRing 2.4s ease-out 1.6s infinite"></circle><path d="M0 -26 L-14 34 M0 -26 L14 34 M-9 12 L9 12" stroke="#E2E8F0" stroke-width="3" stroke-linecap="round"></path><circle cy="-30" r="6" fill="#EC4899"></circle></g><path d="M120 150 H175" stroke="#64748B" stroke-width="2" stroke-dasharray="4 6"></path><rect x="185" y="70" width="190" height="160" rx="12" fill="#1B2338" stroke="rgba(255,255,255,.14)"></rect><circle cx="203" cy="88" r="4" fill="#64748B"></circle><circle cx="217" cy="88" r="4" fill="#64748B"></circle><circle cx="212" cy="122" r="5" fill="#EF4444" style="animation:bmBlink 1.2s infinite"></circle><text x="224" y="127" fill="#E2E8F0" font-size="13" font-weight="700" font-family="Inter,sans-serif">EN VIVO</text><circle cx="225" cy="182" r="22" fill="#7C3AED"></circle><path d="M219 171 L234 182 L219 193 Z" fill="#fff"></path><rect x="262" y="160" width="8" height="44" rx="3" fill="#A855F7" style="transform-origin:bottom;animation:bmBar 0.7s ease-in-out 0.0s infinite"></rect><rect x="276" y="160" width="8" height="44" rx="3" fill="#EC4899" style="transform-origin:bottom;animation:bmBar 0.95s ease-in-out 0.12s infinite"></rect><rect x="290" y="160" width="8" height="44" rx="3" fill="#A855F7" style="transform-origin:bottom;animation:bmBar 1.2s ease-in-out 0.24s infinite"></rect><rect x="304" y="160" width="8" height="44" rx="3" fill="#EC4899" style="transform-origin:bottom;animation:bmBar 0.7s ease-in-out 0.36s infinite"></rect><rect x="318" y="160" width="8" height="44" rx="3" fill="#A855F7" style="transform-origin:bottom;animation:bmBar 0.95s ease-in-out 0.48s infinite"></rect><rect x="332" y="160" width="8" height="44" rx="3" fill="#EC4899" style="transform-origin:bottom;animation:bmBar 1.2s ease-in-out 0.6s infinite"></rect><rect x="346" y="160" width="8" height="44" rx="3" fill="#A855F7" style="transform-origin:bottom;animation:bmBar 0.7s ease-in-out 0.72s infinite"></rect></svg></div><div style="display:grid;gap:6px"><span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#A855F7">01 · Señal en vivo</span><h3 style="margin:0;font-size:19px;font-weight:600;line-height:1.3">Tu señal, en tu propia página</h3><p style="margin:0;font-size:15px;line-height:1.6;color:#94A3B8">Conectamos la transmisión que ya tienes a un reproductor en tu sitio. La audiencia escucha en vivo desde el celular o la computadora, sin buscar otra app.</p></div></div>
+    <div style="display:flex;flex-direction:column;gap:14px"><div class="bm-anim"><svg viewBox="0 0 400 300" role="img" aria-hidden="true" fill="none"><rect x="30" y="60" width="240" height="135" rx="10" fill="#1B2338" stroke="rgba(255,255,255,.14)"></rect><rect x="42" y="119" width="5" height="16" rx="2" fill="#64748B"></rect><rect x="51" y="113" width="5" height="28" rx="2" fill="#64748B"></rect><rect x="60" y="105" width="5" height="44" rx="2" fill="#64748B"></rect><rect x="69" y="115" width="5" height="24" rx="2" fill="#64748B"></rect><rect x="78" y="97" width="5" height="60" rx="2" fill="#64748B"></rect><rect x="87" y="109" width="5" height="36" rx="2" fill="#64748B"></rect><rect x="96" y="101" width="5" height="52" rx="2" fill="#64748B"></rect><rect x="105" y="117" width="5" height="20" rx="2" fill="#64748B"></rect><rect x="114" y="107" width="5" height="40" rx="2" fill="#64748B"></rect><rect x="123" y="93" width="5" height="68" rx="2" fill="#64748B"></rect><rect x="132" y="111" width="5" height="32" rx="2" fill="#64748B"></rect><rect x="141" y="103" width="5" height="48" rx="2" fill="#64748B"></rect><rect x="150" y="115" width="5" height="24" rx="2" fill="#64748B"></rect><rect x="159" y="99" width="5" height="56" rx="2" fill="#64748B"></rect><rect x="168" y="107" width="5" height="40" rx="2" fill="#64748B"></rect><rect x="177" y="117" width="5" height="20" rx="2" fill="#64748B"></rect><rect x="186" y="109" width="5" height="36" rx="2" fill="#64748B"></rect><rect x="195" y="101" width="5" height="52" rx="2" fill="#64748B"></rect><rect x="204" y="113" width="5" height="28" rx="2" fill="#64748B"></rect><rect x="213" y="119" width="5" height="16" rx="2" fill="#64748B"></rect><rect x="222" y="105" width="5" height="44" rx="2" fill="#64748B"></rect><rect x="231" y="115" width="5" height="24" rx="2" fill="#64748B"></rect><rect x="240" y="111" width="5" height="32" rx="2" fill="#64748B"></rect><rect x="249" y="117" width="5" height="20" rx="2" fill="#64748B"></rect><rect x="258" y="121" width="5" height="12" rx="2" fill="#64748B"></rect><rect x="60" y="56" width="76" height="143" rx="8" stroke="#EC4899" stroke-width="3" style="animation:bmSlideX 4s ease-in-out infinite"></rect><g style="animation:bmPop 4s ease-out 0s infinite;transform-origin:center"><rect x="296" y="205" width="44" height="78" rx="8" fill="#7C3AED"></rect><rect x="304" y="262" width="28" height="5" rx="2" fill="rgba(255,255,255,.7)"></rect></g><g style="animation:bmPop 4s ease-out 0.5s infinite;transform-origin:center"><rect x="344" y="205" width="44" height="78" rx="8" fill="#EC4899"></rect><rect x="352" y="262" width="28" height="5" rx="2" fill="rgba(255,255,255,.7)"></rect></g><g style="animation:bmPop 4s ease-out 1s infinite;transform-origin:center"><rect x="296" y="110" width="44" height="78" rx="8" fill="#14B8A6"></rect><rect x="304" y="167" width="28" height="5" rx="2" fill="rgba(255,255,255,.7)"></rect></g><g style="animation:bmPop 4s ease-out 1.5s infinite;transform-origin:center"><rect x="344" y="110" width="44" height="78" rx="8" fill="#A855F7"></rect><rect x="352" y="167" width="28" height="5" rx="2" fill="rgba(255,255,255,.7)"></rect></g><text x="30" y="40" fill="#64748B" font-size="11" letter-spacing="2" font-family="JetBrains Mono,monospace">ENTREVISTA 16:9 → CLIPS 9:16</text></svg></div><div style="display:grid;gap:6px"><span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#A855F7">02 · Clips</span><h3 style="margin:0;font-size:19px;font-weight:600;line-height:1.3">Cada entrevista, en clips verticales</h3><p style="margin:0;font-size:15px;line-height:1.6;color:#94A3B8">Del programa completo recortamos los mejores momentos en formato 9:16, con subtítulos, listos para Reels, TikTok y Shorts.</p></div></div>
+    <div style="display:flex;flex-direction:column;gap:14px"><div class="bm-anim"><svg viewBox="0 0 400 300" role="img" aria-hidden="true" fill="none"><rect x="40" y="105" width="120" height="90" rx="14" fill="#7C3AED"></rect><circle cx="100" cy="140" r="16" stroke="#fff" stroke-width="3"></circle><path d="M100 156 V172" stroke="#fff" stroke-width="3" stroke-linecap="round"></path><text x="100" y="188" fill="#fff" font-size="11" text-anchor="middle" font-weight="700" font-family="Inter,sans-serif">EPISODIO</text><path id="bmrp0" d="M160 150 C 230 150, 250 60, 290 60" stroke="rgba(255,255,255,.14)" stroke-width="2"></path><circle r="5" fill="#EC4899" style="offset-path:path('M160 150 C 230 150, 250 60, 290 60');animation:bmTravel 2.4s linear 0.0s infinite"></circle><rect x="290" y="42" width="84" height="36" rx="18" stroke-width="2" style="animation:bmGlow 2.4s linear 0.0s infinite"></rect><text x="332" y="65" fill="#E2E8F0" font-size="12" font-weight="600" text-anchor="middle" font-family="Inter,sans-serif">Spotify</text><path id="bmrp1" d="M160 150 C 230 150, 250 125, 305 125" stroke="rgba(255,255,255,.14)" stroke-width="2"></path><circle r="5" fill="#EC4899" style="offset-path:path('M160 150 C 230 150, 250 125, 305 125');animation:bmTravel 2.4s linear 0.6s infinite"></circle><rect x="305" y="107" width="84" height="36" rx="18" stroke-width="2" style="animation:bmGlow 2.4s linear 0.6s infinite"></rect><text x="347" y="130" fill="#E2E8F0" font-size="12" font-weight="600" text-anchor="middle" font-family="Inter,sans-serif">Apple</text><path id="bmrp2" d="M160 150 C 230 150, 250 190, 305 190" stroke="rgba(255,255,255,.14)" stroke-width="2"></path><circle r="5" fill="#EC4899" style="offset-path:path('M160 150 C 230 150, 250 190, 305 190');animation:bmTravel 2.4s linear 1.2s infinite"></circle><rect x="305" y="172" width="84" height="36" rx="18" stroke-width="2" style="animation:bmGlow 2.4s linear 1.2s infinite"></rect><text x="347" y="195" fill="#E2E8F0" font-size="12" font-weight="600" text-anchor="middle" font-family="Inter,sans-serif">YouTube</text><path id="bmrp3" d="M160 150 C 230 150, 250 252, 290 252" stroke="rgba(255,255,255,.14)" stroke-width="2"></path><circle r="5" fill="#EC4899" style="offset-path:path('M160 150 C 230 150, 250 252, 290 252');animation:bmTravel 2.4s linear 1.7999999999999998s infinite"></circle><rect x="290" y="234" width="84" height="36" rx="18" stroke-width="2" style="animation:bmGlow 2.4s linear 1.7999999999999998s infinite"></rect><text x="332" y="257" fill="#E2E8F0" font-size="12" font-weight="600" text-anchor="middle" font-family="Inter,sans-serif">Amazon</text></svg></div><div style="display:grid;gap:6px"><span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#A855F7">03 · Distribución</span><h3 style="margin:0;font-size:19px;font-weight:600;line-height:1.3">Un episodio, todas las plataformas</h3><p style="margin:0;font-size:15px;line-height:1.6;color:#94A3B8">El programa se publica como episodio con portada y descripción, y llega a Spotify, Apple Podcasts, YouTube y Amazon Music desde un solo envío.</p></div></div>
   </div>
 
 </section>
@@ -415,7 +477,7 @@ h1,h2,h3{overflow-wrap:break-word;hyphens:auto}
 <!-- 8 OBJECIONES -->
 <section id="objeciones" data-screen-label="10 Objeciones" style="max-width:1280px;margin:0 auto;padding:clamp(72px,10vw,128px) clamp(20px,4vw,32px) 0">
   <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:48px 64px;align-items:start">
-    <div style="display:grid;gap:14px;position:sticky;top:96px">
+    <div data-r="pegajoso" style="display:grid;gap:14px;position:sticky;top:96px">
       <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#94A3B8">10 · Sí, pero...</span>
       <h2 style="margin:0;font-family:Montserrat,sans-serif;font-weight:700;font-size:clamp(2rem,4.5vw,3.2rem);letter-spacing:-0.02em;line-height:1.05">Lo que suelen preguntar las radios</h2>
     </div>
@@ -456,113 +518,10 @@ h1,h2,h3{overflow-wrap:break-word;hyphens:auto}
       <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#A855F7">12 · Piloto</span>
       <h2 style="margin:0;font-family:Montserrat,sans-serif;font-weight:800;font-size:clamp(2.2rem,5vw,3.6rem);letter-spacing:-0.025em;line-height:1.02;text-wrap:balance">Tu próximo programa, en todas partes</h2>
       <p style="margin:0;font-size:17px;line-height:1.6;color:#E2E8F0;max-width:44ch">Mándanos una entrevista y te mostramos cómo llevarla a podcast, video y redes.</p>
-      <a href="https://wa.me/525531650560?text=Hola,%20quiero%20cotizar%20una%20producción" style="margin-top:auto;font-size:14px;color:#94A3B8;text-decoration:underline;text-underline-offset:3px;width:fit-content" style-hover="color:#fff">¿Prefieres escribirnos directo? WhatsApp</a>
+      
     </div>
 
-    <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
-    <form onSubmit="{{ onSubmit }}" novalidate style="display:flex;flex-direction:column;gap:18px">
-      <label style="display:grid;gap:8px">
-        <span style="font-size:13px;font-weight:600;color:#E2E8F0">Tu nombre</span>
-        <input name="nombre" autocomplete="name" placeholder="Nombre y apellido" value="{{ form.nombre }}" onChange="{{ onNombre }}" style="background:rgba(11,15,26,0.6);border:1px solid rgba(255,255,255,0.14);border-radius:12px;padding:14px 16px;color:#fff;font-size:15px;outline:none" style-focus="border-color:#A855F7;box-shadow:0 0 0 3px rgba(168,85,247,0.25)">
-        <sc-if value="{{ errNombre }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;color:#F87171">Escribe tu nombre para saber cómo dirigirnos a ti.</span></sc-if>
-      </label>
-      <sc-if value="{{ usePhone }}" hint-placeholder-val="{{ true }}">
-        <label style="display:grid;gap:8px">
-          <span style="font-size:13px;font-weight:600;color:#E2E8F0">WhatsApp</span>
-          <input type="tel" name="contacto" autocomplete="tel" placeholder="55 1234 5678" value="{{ form.contacto }}" onChange="{{ onContacto }}" style="background:rgba(11,15,26,0.6);border:1px solid rgba(255,255,255,0.14);border-radius:12px;padding:14px 16px;color:#fff;font-size:15px;outline:none" style-focus="border-color:#A855F7;box-shadow:0 0 0 3px rgba(168,85,247,0.25)">
-          <sc-if value="{{ errContacto }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;color:#F87171">Escribe un número de 10 dígitos, por ejemplo 55 1234 5678.</span></sc-if>
-        </label>
-      </sc-if>
-      <sc-if value="{{ useEmail }}" hint-placeholder-val="{{ false }}">
-        <label style="display:grid;gap:8px">
-          <span style="font-size:13px;font-weight:600;color:#E2E8F0">Correo</span>
-          <input type="email" name="correo" autocomplete="email" placeholder="nombre@correo.com" value="{{ form.correo }}" onChange="{{ onCorreo }}" style="background:rgba(11,15,26,0.6);border:1px solid rgba(255,255,255,0.14);border-radius:12px;padding:14px 16px;color:#fff;font-size:15px;outline:none" style-focus="border-color:#A855F7;box-shadow:0 0 0 3px rgba(168,85,247,0.25)">
-          <sc-if value="{{ errCorreo }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;color:#F87171">Escribe un correo válido, por ejemplo nombre@correo.com.</span></sc-if>
-        </label>
-      </sc-if>
-      <button type="button" onClick="{{ toggleEmail }}" style="background:none;border:none;padding:0;margin-top:-8px;color:#A855F7;font-size:13px;font-weight:600;cursor:pointer;width:fit-content;text-decoration:underline;text-underline-offset:3px">{{ emailToggleLabel }}</button>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:18px">
-        <label style="display:grid;gap:8px;align-content:start">
-          <span style="font-size:13px;font-weight:600;color:#E2E8F0">¿Qué produces?</span>
-          <select name="persona" value="{{ form.persona }}" onChange="{{ onPersona }}" style="background:rgba(11,15,26,0.6);border:1px solid rgba(255,255,255,0.14);border-radius:12px;padding:14px 16px;color:#fff;font-size:15px;outline:none" style-focus="border-color:#A855F7">
-            <option value="">Elige una opción</option>
-            <option>Artista o agrupación</option>
-            <option>Radio o podcast</option>
-            <option>Evento</option>
-            <option>Recinto o restaurante</option>
-            <option>Marca o patrocinio</option>
-            <option>Desarrollo o propiedad</option>
-            <option>Otro</option>
-          </select>
-          <sc-if value="{{ errPersona }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;color:#F87171">Elige qué quieres producir para mandarte lo correcto.</span></sc-if>
-        </label>
-        <label style="display:grid;gap:8px;align-content:start">
-          <span style="font-size:13px;font-weight:600;color:#E2E8F0">¿Para cuándo lo necesitas?</span>
-          <select name="plazo" value="{{ form.plazo }}" onChange="{{ onPlazo }}" style="background:rgba(11,15,26,0.6);border:1px solid rgba(255,255,255,0.14);border-radius:12px;padding:14px 16px;color:#fff;font-size:15px;outline:none" style-focus="border-color:#A855F7">
-            <option value="">Elige una opción</option>
-            <option>Este mes</option>
-            <option>En 1 a 3 meses</option>
-            <option>Todavía no tengo fecha</option>
-          </select>
-        </label>
-      </div>
-      <label style="display:grid;gap:8px;align-content:start">
-          <span style="font-size:13px;font-weight:600;color:#E2E8F0">¿Qué te interesa?</span>
-          <select name="interes" value="{{ form.interes }}" onChange="{{ onInteres }}" style="background:rgba(11,15,26,0.6);border:1px solid rgba(255,255,255,0.14);border-radius:12px;padding:14px 16px;color:#fff;font-size:15px;outline:none" style-focus="border-color:#A855F7">
-            <option value="">Elige una opción</option>
-            <option>Edición y distribución</option><option>Plataforma web y streaming</option><option>Ambos</option>
-          </select>
-        </label>
-      <sc-if value="{{ showPlat }}" hint-placeholder-val="{{ false }}">
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:18px">
-          <label style="display:grid;gap:8px;align-content:start">
-          <span style="font-size:13px;font-weight:600;color:#E2E8F0">¿Ya tienen streaming de audio?</span>
-          <select name="stream" value="{{ form.stream }}" onChange="{{ onStream }}" style="background:rgba(11,15,26,0.6);border:1px solid rgba(255,255,255,0.14);border-radius:12px;padding:14px 16px;color:#fff;font-size:15px;outline:none" style-focus="border-color:#A855F7">
-            <option value="">Elige una opción</option>
-            <option>Sí</option><option>No</option><option>No sé</option>
-          </select>
-        </label>
-          <label style="display:grid;gap:8px;align-content:start">
-          <span style="font-size:13px;font-weight:600;color:#E2E8F0">¿Quieren video desde el estudio?</span>
-          <select name="video" value="{{ form.video }}" onChange="{{ onVideo }}" style="background:rgba(11,15,26,0.6);border:1px solid rgba(255,255,255,0.14);border-radius:12px;padding:14px 16px;color:#fff;font-size:15px;outline:none" style-focus="border-color:#A855F7">
-            <option value="">Elige una opción</option>
-            <option>Sí</option><option>No</option><option>Tal vez</option>
-          </select>
-        </label>
-        </div>
-      </sc-if>
-      <label style="display:grid;gap:8px">
-        <span style="font-size:13px;font-weight:600;color:#E2E8F0">Nombre de la emisora o del programa <span style="color:#94A3B8;font-weight:400">(opcional)</span></span>
-        <input name="emisora" value="{{ form.emisora }}" onChange="{{ onEmisora }}" style="background:rgba(11,15,26,0.6);border:1px solid rgba(255,255,255,0.14);border-radius:12px;padding:14px 16px;color:#fff;font-size:15px;outline:none" style-focus="border-color:#A855F7;box-shadow:0 0 0 3px rgba(168,85,247,0.25)">
-      </label>
-      <sc-if value="{{ msgClosed }}" hint-placeholder-val="{{ true }}">
-        <button type="button" onClick="{{ openMsg }}" style="background:none;border:1px dashed rgba(255,255,255,0.18);border-radius:12px;padding:14px 16px;color:#94A3B8;font-size:14px;text-align:left;cursor:pointer" style-hover="border-color:rgba(168,85,247,0.6);color:#fff">+ Cuéntanos más (opcional)</button>
-      </sc-if>
-      <sc-if value="{{ msgOpen }}" hint-placeholder-val="{{ false }}">
-        <label style="display:grid;gap:8px">
-          <span style="font-size:13px;font-weight:600;color:#E2E8F0">Cuéntanos más (opcional)</span>
-          <textarea name="mensaje" rows="4" placeholder="Fecha, lugar, idea o lo que tengas en mente" value="{{ form.mensaje }}" onChange="{{ onMensaje }}" style="background:rgba(11,15,26,0.6);border:1px solid rgba(255,255,255,0.14);border-radius:12px;padding:14px 16px;color:#fff;font-size:15px;outline:none;resize:vertical" style-focus="border-color:#A855F7;box-shadow:0 0 0 3px rgba(168,85,247,0.25)"></textarea>
-        </label>
-      </sc-if>
-      <button type="submit" style="margin-top:6px;background:linear-gradient(135deg,#EC4899,#7C3AED);color:#fff;border:none;font-weight:700;font-size:16px;padding:16px 30px;border-radius:9999px;cursor:pointer;box-shadow:0 0 24px rgba(236,72,153,0.30)" style-hover="box-shadow:0 0 32px rgba(236,72,153,0.5)">{{ submitLabel }}</button>
-      <p style="margin:0;font-size:12px;line-height:1.6;color:#94A3B8">Al enviar aceptas nuestro <a href="aviso-de-privacidad.html" style="text-decoration:underline">aviso de privacidad</a>. Usamos tus datos solo para responder a tu solicitud.</p>
-    </form>
-    </sc-if>
-
-    <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
-      <div style="display:flex;flex-direction:column;gap:24px">
-        <h3 style="margin:0;font-size:22px;font-weight:600">Qué pasa después de enviar</h3>
-        <sc-for list="{{ queSigue }}" as="q" hint-placeholder-count="3">
-          <div style="display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start">
-            <span style="width:32px;height:32px;border-radius:50%;background:rgba(20,184,166,0.12);border:1px solid rgba(20,184,166,0.4);color:#14B8A6;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700">{{ q.n }}</span>
-            <div style="display:grid;gap:4px">
-              <span style="font-weight:600;font-size:16px">{{ q.titulo }}</span>
-              <span style="font-size:14px;line-height:1.6;color:#94A3B8">{{ q.texto }}</span>
-            </div>
-          </div>
-        </sc-for>
-      </div>
-    </sc-if>
+    <div style="display:flex;flex-direction:column;justify-content:center;gap:18px;padding:clamp(8px,2vw,24px) 0"><a href="https://wa.me/525531650560?text=Hola%20BubbleMesh%20Studio%2C%20quiero%20cotizar%20una%20producci%C3%B3n" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;justify-content:center;gap:12px;background:#25D366;color:#0B0F1A;font-weight:800;font-size:18px;padding:18px 32px;border-radius:9999px;box-shadow:0 0 32px rgba(37,211,102,0.35)" style-hover="color:#0B0F1A;box-shadow:0 0 44px rgba(37,211,102,0.55)"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2a9.9 9.9 0 0 0-8.5 15l-1.4 5.1 5.2-1.4A9.9 9.9 0 1 0 12.04 2Zm0 18.1a8.2 8.2 0 0 1-4.2-1.15l-.3-.18-3.1.8.83-3-.2-.31a8.2 8.2 0 1 1 6.97 3.84Zm4.5-6.14c-.25-.12-1.46-.72-1.69-.8-.23-.08-.39-.12-.55.12-.16.25-.63.8-.78.97-.14.16-.29.18-.53.06a6.7 6.7 0 0 1-3.32-2.9c-.25-.43.25-.4.71-1.33.08-.16.04-.3-.02-.43-.06-.12-.55-1.33-.76-1.82-.2-.48-.4-.41-.55-.42h-.47a.9.9 0 0 0-.65.3 2.74 2.74 0 0 0-.86 2.04 4.76 4.76 0 0 0 1 2.53 10.9 10.9 0 0 0 4.18 3.7c1.56.67 2.17.73 2.95.61.47-.07 1.46-.6 1.66-1.17.2-.58.2-1.07.14-1.17-.06-.1-.22-.16-.47-.28Z"></path></svg>Cotiza por WhatsApp</a><a href="tel:+525531650560" style="text-align:center;font-size:17px;font-weight:600;color:#E2E8F0" style-hover="color:#fff">+52 55 3165 0560</a><p style="margin:0;text-align:center;font-size:14px;line-height:1.6;color:#94A3B8">Te respondemos en horario laboral con preguntas concretas y una propuesta de primer paso.</p><a href="mailto:contacto@bubble-mesh.com" style="text-align:center;font-size:14px;color:#94A3B8;text-decoration:underline;text-underline-offset:3px" style-hover="color:#fff">o escríbenos a contacto@bubble-mesh.com</a></div>
   </div>
 </section>
 </main>
@@ -582,7 +541,7 @@ h1,h2,h3{overflow-wrap:break-word;hyphens:auto}
       <div style="display:flex;flex-direction:column;gap:10px">
         <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#64748B;margin-bottom:4px">Estudio</span>
         <a href="trabajo.html" style="color:#E2E8F0;font-size:14px">Trabajo</a>
-        <a href="estudio.html" style="color:#E2E8F0;font-size:14px">Estudio</a>
+        <a href="index.html#lo-que-hacemos" style="color:#E2E8F0;font-size:14px">Estudio</a>
         <a href="#cta-final" style="color:#E2E8F0;font-size:14px">Contacto</a>
       </div>
       <div style="display:flex;flex-direction:column;gap:10px">
@@ -593,7 +552,7 @@ h1,h2,h3{overflow-wrap:break-word;hyphens:auto}
       </div>
     </div>
     <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.06);font-size:13px;color:#94A3B8">
-      <span>Producción técnica en alianza con Mädi Films y R3State</span>
+      <span>BubbleMesh Studio · Ciudad de México</span>
       <div style="display:flex;gap:20px;flex-wrap:wrap"><a href="aviso-de-privacidad.html" style="color:#94A3B8">Aviso de privacidad</a><span>© 2026 BubbleMesh Studio</span></div>
     </div>
   </div>
@@ -602,7 +561,7 @@ h1,h2,h3{overflow-wrap:break-word;hyphens:auto}
 <sc-if value="{{ reelOpen }}" hint-placeholder-val="{{ false }}">
   <div role="dialog" aria-modal="true" aria-label="Demo reel" onClick="{{ closeReel }}" style="position:fixed;inset:0;z-index:100;background:rgba(6,9,17,0.92);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;padding:clamp(16px,4vw,48px)">
     <div onClick="{{ stop }}" style="position:relative;width:min(100%,1280px);aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:repeating-linear-gradient(135deg,#0F1525 0 14px,#131b2e 14px 28px);border:1px solid rgba(255,255,255,0.12);box-shadow:0 0 80px rgba(109,40,217,0.35);display:flex;align-items:center;justify-content:center">
-      <video data-reel data-src="media/showreel.mp4" poster="media/showreel.webp" controls playsinline preload="none" style="width:100%;height:100%;background:#000"></video>
+      <video data-reel data-src="media/showreel.mp4" data-hls="media/showreel-hls/master.m3u8" poster="media/showreel.webp" controls playsinline preload="none" style="width:100%;height:100%;background:#000"></video>
     </div>
     <button onClick="{{ closeReel }}" style="position:absolute;top:20px;right:20px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.16);color:#fff;font-weight:600;font-size:14px;padding:10px 18px;border-radius:9999px;cursor:pointer" style-hover="background:rgba(255,255,255,0.14)">Cerrar reel ✕</button>
   </div>

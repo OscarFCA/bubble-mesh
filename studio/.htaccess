@@ -1,3 +1,20 @@
+# HostGator no manda Cache-Control: el HTML y el JS se revalidan en cada visita
+# para que un deploy se vea de inmediato; imágenes y video se guardan una semana.
 <FilesMatch "\.(html|js)$">
   Header set Cache-Control "no-cache"
 </FilesMatch>
+<FilesMatch "\.(webp|jpg|png|svg|mp4|ts)$">
+  Header set Cache-Control "public, max-age=604800"
+</FilesMatch>
+
+AddType application/vnd.apple.mpegurl .m3u8
+AddType video/mp2t .ts
+AddType image/webp .webp
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript text/javascript image/svg+xml application/xml application/vnd.apple.mpegurl
+</IfModule>
+
+# Estudio ya no es página: vive como sección de la portada
+RewriteEngine On
+RewriteRule ^estudio\.html$ /studio/#lo-que-hacemos [R=301,NE,L]

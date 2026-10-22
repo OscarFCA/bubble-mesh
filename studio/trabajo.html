@@ -1,24 +1,36 @@
 <!DOCTYPE html>
-<html>
+<html lang="es-MX">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portafolio de video, IA y VFX | BubbleMesh Studio</title>
+<meta name="description" content="Portafolio de video, VFX y plataformas digitales de BubbleMesh Studio.">
+<meta name="robots" content="index, follow, max-image-preview:large, max-video-preview:-1">
+<link rel="canonical" href="https://bubble-mesh.com/studio/trabajo.html">
+<meta name="theme-color" content="#0B0F1A">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_MX">
+<meta property="og:site_name" content="BubbleMesh Studio">
+<meta property="og:title" content="Portafolio de video, IA y VFX | BubbleMesh Studio">
+<meta property="og:description" content="Portafolio de video, VFX y plataformas digitales de BubbleMesh Studio.">
+<meta property="og:url" content="https://bubble-mesh.com/studio/trabajo.html">
+<meta property="og:image" content="https://bubble-mesh.com/studio/assets/og-studio.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Portafolio de video, IA y VFX | BubbleMesh Studio">
+<meta name="twitter:description" content="Portafolio de video, VFX y plataformas digitales de BubbleMesh Studio.">
+<meta name="twitter:image" content="https://bubble-mesh.com/studio/assets/og-studio.jpg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/favicon-180.png">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "ProfessionalService", "@id": "https://bubble-mesh.com/studio/#negocio", "name": "BubbleMesh Studio", "description": "Estudio de producción de video, VFX, contenido con IA y páginas web en Ciudad de México.", "url": "https://bubble-mesh.com/studio/", "logo": "https://bubble-mesh.com/studio/assets/logo-studio.webp", "image": "https://bubble-mesh.com/studio/assets/og-studio.jpg", "telephone": "+52-55-3165-0560", "email": "contacto@bubble-mesh.com", "address": {"@type": "PostalAddress", "addressLocality": "Ciudad de México", "addressRegion": "CDMX", "addressCountry": "MX"}, "areaServed": {"@type": "Country", "name": "México"}, "parentOrganization": {"@type": "Organization", "name": "BubbleMesh", "url": "https://bubble-mesh.com/"}, "knowsAbout": ["Producción de video", "Efectos visuales", "Videoclips", "Streaming de eventos", "Video inmobiliario con drone", "Contenido con inteligencia artificial", "Desarrollo web"]}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "BubbleMesh Studio", "item": "https://bubble-mesh.com/studio/"}, {"@type": "ListItem", "position": 2, "name": "Trabajo", "item": "https://bubble-mesh.com/studio/trabajo.html"}]}]}</script>
 <script src="./support.js"></script>
 </head>
 <body>
 <x-dc>
 <helmet>
 <title>Portafolio de video, IA y VFX | BubbleMesh Studio</title>
-<meta name="description" content="Portafolio de video, VFX y plataformas digitales de BubbleMesh Studio.">
-<meta name="robots" content="noindex, nofollow">
-<link rel="canonical" href="https://bubble-mesh.com/studio/trabajo.html">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Portafolio de video, IA y VFX | BubbleMesh Studio">
-<meta property="og:description" content="Portafolio de video, VFX y plataformas digitales de BubbleMesh Studio.">
-<meta property="og:url" content="https://bubble-mesh.com/studio/trabajo.html">
-<meta property="og:image" content="https://bubble-mesh.com/assets/favicon-192.png">
-<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
-<link rel="apple-touch-icon" href="../assets/favicon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
 <style>
@@ -54,12 +66,28 @@ input,select,textarea,button{font-family:inherit}
     var src=t.getAttribute('data-video')||''; if(src.indexOf('media/')!==0) return;
     e.preventDefault(); e.stopPropagation(); abrir(src);
   },true);
+  // Sin identificadores camelCase seguidos de '=': support.js los toma por atributos
+  var cola=null;
+  function cargarHls(cb){
+    if(window.Hls) return cb();
+    if(cola) return cola.push(cb);
+    cola=[cb]; var sc=document.createElement('script');
+    sc.src='https://cdn.jsdelivr.net/npm/hls.js@1.5.20/dist/hls.min.js';
+    sc.onload=sc.onerror=function(){ cola.forEach(function(f){ f(); }); };
+    document.head.appendChild(sc);
+  }
   function play(v){ var p=v.play(); if(p&&p.catch) p.catch(function(){}); }
   // Con sonido; si el navegador lo bloquea, arranca sin sonido en vez de quedarse detenido
   function playAudio(v){ var p=v.play(); if(p&&p.catch) p.catch(function(){ v.muted=true; play(v); }); }
   function reel(){
     document.querySelectorAll('video[data-reel]').forEach(function(v){
-      if(!v.getAttribute('src')){ v.src=v.dataset.src; playAudio(v); }
+      if(v.dataset.on) return; v.dataset.on='1';
+      // HLS adaptativo: la calidad sube o baja según la conexión del visitante
+      if(v.canPlayType('application/vnd.apple.mpegurl')){ v.src=v.dataset.hls; playAudio(v); return; }
+      cargarHls(function(){
+        if(window.Hls && window.Hls.isSupported()){ var h=new window.Hls({capLevelToPlayerSize:true}); h.loadSource(v.dataset.hls); h.attachMedia(v); v.hls=h; playAudio(v); }
+        else { v.src=v.dataset.src; playAudio(v); }
+      });
     });
   }
   // El modal del reel lo pinta React justo después del clic: se busca dentro del
@@ -75,6 +103,8 @@ input,select,textarea,button{font-family:inherit}
       if(!v.getAttribute('src')){ v.src = hd ? 'media/hero-1080.mp4' : 'media/hero.mp4'; }
       if(v.paused) play(v);
     });
+    // Loops silenciosos de fondo (tarjetas grandes)
+    document.querySelectorAll('video[data-loop]').forEach(function(v){ v.muted=true; if(v.paused) play(v); });
     // El reel solo se descarga al abrirlo: sin src en la plantilla el navegador no lo pide antes
     reel();
   }
@@ -86,16 +116,19 @@ input,select,textarea,button{font-family:inherit}
 <style>
 html,body{overflow-x:clip}
 img,video,iframe,svg{max-width:100%}
-h1,h2,h3{overflow-wrap:break-word;hyphens:auto}
+h1,h2,h3{overflow-wrap:break-word}
 @media (max-width:900px){
   [data-r="navlinks"],[data-r="navcta"]{display:none!important}
   [data-r="burger"]{display:inline-flex!important}
   [data-r="mobnav"]{display:flex!important}
   [data-r="nav"]{flex-wrap:nowrap!important}
   [data-r="logo"]{height:30px!important}
+  [data-r="pegajoso"]{position:static!important}
 }
 @media (max-width:640px){
   :root{--nw:normal}
+  h1,h2,h3{hyphens:auto}
+  [data-r="fondo"]{opacity:.35}
   main section{padding-left:16px!important;padding-right:16px!important}
   main section>div{padding-left:0!important;padding-right:0!important}
   [data-r="nav"]{padding-left:16px!important;padding-right:16px!important}
@@ -122,7 +155,7 @@ h1,h2,h3{overflow-wrap:break-word;hyphens:auto}
         </sc-if>
       </div>
       <a href="trabajo.html" aria-current="page" style="color:#fff;font-weight:600;font-size:15px;padding:10px 14px" style-hover="color:#fff">Trabajo</a>
-      <a href="estudio.html" style="color:#E2E8F0;font-weight:500;font-size:15px;padding:10px 14px" style-hover="color:#fff">Estudio</a>
+      <a href="index.html#lo-que-hacemos" style="color:#E2E8F0;font-weight:500;font-size:15px;padding:10px 14px" style-hover="color:#fff">Estudio</a>
     </div>
     <a data-r="navcta" href="#cta-final" style="background:linear-gradient(135deg,#EC4899,#7C3AED);color:#fff;font-weight:700;font-size:15px;padding:11px 22px;border-radius:9999px;box-shadow:0 0 24px rgba(236,72,153,0.30);white-space:var(--nw,nowrap)" style-hover="color:#fff;box-shadow:0 0 32px rgba(236,72,153,0.5)">Cotiza tu producción</a>
   
@@ -138,7 +171,7 @@ h1,h2,h3{overflow-wrap:break-word;hyphens:auto}
         <a href="{{ p.href }}" onClick="{{ closeMenu }}" style="color:#E2E8F0;font-size:17px;font-weight:500;padding:12px 4px;border-bottom:1px solid rgba(255,255,255,0.06)">{{ p.nombre }}</a>
       </sc-for>
       <a href="trabajo.html" onClick="{{ closeMenu }}" style="color:#E2E8F0;font-size:17px;font-weight:500;padding:12px 4px;border-bottom:1px solid rgba(255,255,255,0.06)">Trabajo</a>
-      <a href="estudio.html" onClick="{{ closeMenu }}" style="color:#E2E8F0;font-size:17px;font-weight:500;padding:12px 4px;border-bottom:1px solid rgba(255,255,255,0.06)">Estudio</a>
+      <a href="index.html#lo-que-hacemos" onClick="{{ closeMenu }}" style="color:#E2E8F0;font-size:17px;font-weight:500;padding:12px 4px;border-bottom:1px solid rgba(255,255,255,0.06)">Estudio</a>
       <a href="#cta-final" onClick="{{ closeMenu }}" style="margin-top:16px;text-align:center;background:linear-gradient(135deg,#EC4899,#7C3AED);color:#fff;font-weight:700;font-size:16px;padding:14px 22px;border-radius:9999px">Cotiza tu producción</a>
     </div>
   </sc-if>
@@ -237,84 +270,10 @@ h1,h2,h3{overflow-wrap:break-word;hyphens:auto}
       <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#A855F7">Cotización</span>
       <h2 style="margin:0;font-family:Montserrat,sans-serif;font-weight:800;font-size:clamp(2.2rem,5vw,3.6rem);letter-spacing:-0.025em;line-height:1.02;text-wrap:balance">El siguiente proyecto puede ser tuyo</h2>
       <p style="margin:0;font-size:17px;line-height:1.6;color:#E2E8F0;max-width:44ch">Cuéntanos qué quieres producir y te decimos qué parte filmamos, qué parte creamos con IA y cuánto tiempo toma.</p>
-      <a href="https://wa.me/525531650560?text=Hola,%20quiero%20cotizar%20una%20producción" style="margin-top:auto;font-size:14px;color:#94A3B8;text-decoration:underline;text-underline-offset:3px;width:fit-content" style-hover="color:#fff">¿Prefieres escribirnos directo? WhatsApp</a>
+      
     </div>
 
-    <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
-    <form onSubmit="{{ onSubmit }}" novalidate style="display:flex;flex-direction:column;gap:18px">
-      <label style="display:grid;gap:8px">
-        <span style="font-size:13px;font-weight:600;color:#E2E8F0">Tu nombre</span>
-        <input name="nombre" autocomplete="name" placeholder="Nombre y apellido" value="{{ form.nombre }}" onChange="{{ onNombre }}" style="background:rgba(11,15,26,0.6);border:1px solid rgba(255,255,255,0.14);border-radius:12px;padding:14px 16px;color:#fff;font-size:15px;outline:none" style-focus="border-color:#A855F7;box-shadow:0 0 0 3px rgba(168,85,247,0.25)">
-        <sc-if value="{{ errNombre }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;color:#F87171">Escribe tu nombre para saber cómo dirigirnos a ti.</span></sc-if>
-      </label>
-      <sc-if value="{{ usePhone }}" hint-placeholder-val="{{ true }}">
-        <label style="display:grid;gap:8px">
-          <span style="font-size:13px;font-weight:600;color:#E2E8F0">WhatsApp</span>
-          <input type="tel" name="contacto" autocomplete="tel" placeholder="55 1234 5678" value="{{ form.contacto }}" onChange="{{ onContacto }}" style="background:rgba(11,15,26,0.6);border:1px solid rgba(255,255,255,0.14);border-radius:12px;padding:14px 16px;color:#fff;font-size:15px;outline:none" style-focus="border-color:#A855F7;box-shadow:0 0 0 3px rgba(168,85,247,0.25)">
-          <sc-if value="{{ errContacto }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;color:#F87171">Escribe un número de 10 dígitos, por ejemplo 55 1234 5678.</span></sc-if>
-        </label>
-      </sc-if>
-      <sc-if value="{{ useEmail }}" hint-placeholder-val="{{ false }}">
-        <label style="display:grid;gap:8px">
-          <span style="font-size:13px;font-weight:600;color:#E2E8F0">Correo</span>
-          <input type="email" name="correo" autocomplete="email" placeholder="nombre@correo.com" value="{{ form.correo }}" onChange="{{ onCorreo }}" style="background:rgba(11,15,26,0.6);border:1px solid rgba(255,255,255,0.14);border-radius:12px;padding:14px 16px;color:#fff;font-size:15px;outline:none" style-focus="border-color:#A855F7;box-shadow:0 0 0 3px rgba(168,85,247,0.25)">
-          <sc-if value="{{ errCorreo }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;color:#F87171">Escribe un correo válido, por ejemplo nombre@correo.com.</span></sc-if>
-        </label>
-      </sc-if>
-      <button type="button" onClick="{{ toggleEmail }}" style="background:none;border:none;padding:0;margin-top:-8px;color:#A855F7;font-size:13px;font-weight:600;cursor:pointer;width:fit-content;text-decoration:underline;text-underline-offset:3px">{{ emailToggleLabel }}</button>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:18px">
-        <label style="display:grid;gap:8px;align-content:start">
-          <span style="font-size:13px;font-weight:600;color:#E2E8F0">¿Qué produces?</span>
-          <select name="persona" value="{{ form.persona }}" onChange="{{ onPersona }}" style="background:rgba(11,15,26,0.6);border:1px solid rgba(255,255,255,0.14);border-radius:12px;padding:14px 16px;color:#fff;font-size:15px;outline:none" style-focus="border-color:#A855F7">
-            <option value="">Elige una opción</option>
-            <option>Artista o agrupación</option>
-            <option>Radio o podcast</option>
-            <option>Evento</option>
-            <option>Recinto o restaurante</option>
-            <option>Marca o patrocinio</option>
-            <option>Desarrollo o propiedad</option>
-            <option>Otro</option>
-          </select>
-          <sc-if value="{{ errPersona }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;color:#F87171">Elige qué quieres producir para mandarte lo correcto.</span></sc-if>
-        </label>
-        <label style="display:grid;gap:8px;align-content:start">
-          <span style="font-size:13px;font-weight:600;color:#E2E8F0">¿Para cuándo lo necesitas?</span>
-          <select name="plazo" value="{{ form.plazo }}" onChange="{{ onPlazo }}" style="background:rgba(11,15,26,0.6);border:1px solid rgba(255,255,255,0.14);border-radius:12px;padding:14px 16px;color:#fff;font-size:15px;outline:none" style-focus="border-color:#A855F7">
-            <option value="">Elige una opción</option>
-            <option>Este mes</option>
-            <option>En 1 a 3 meses</option>
-            <option>Todavía no tengo fecha</option>
-          </select>
-        </label>
-      </div>
-      <sc-if value="{{ msgClosed }}" hint-placeholder-val="{{ true }}">
-        <button type="button" onClick="{{ openMsg }}" style="background:none;border:1px dashed rgba(255,255,255,0.18);border-radius:12px;padding:14px 16px;color:#94A3B8;font-size:14px;text-align:left;cursor:pointer" style-hover="border-color:rgba(168,85,247,0.6);color:#fff">+ Cuéntanos más (opcional)</button>
-      </sc-if>
-      <sc-if value="{{ msgOpen }}" hint-placeholder-val="{{ false }}">
-        <label style="display:grid;gap:8px">
-          <span style="font-size:13px;font-weight:600;color:#E2E8F0">Cuéntanos más (opcional)</span>
-          <textarea name="mensaje" rows="4" placeholder="Fecha, lugar, idea o lo que tengas en mente" value="{{ form.mensaje }}" onChange="{{ onMensaje }}" style="background:rgba(11,15,26,0.6);border:1px solid rgba(255,255,255,0.14);border-radius:12px;padding:14px 16px;color:#fff;font-size:15px;outline:none;resize:vertical" style-focus="border-color:#A855F7;box-shadow:0 0 0 3px rgba(168,85,247,0.25)"></textarea>
-        </label>
-      </sc-if>
-      <button type="submit" style="margin-top:6px;background:linear-gradient(135deg,#EC4899,#7C3AED);color:#fff;border:none;font-weight:700;font-size:16px;padding:16px 30px;border-radius:9999px;cursor:pointer;box-shadow:0 0 24px rgba(236,72,153,0.30)" style-hover="box-shadow:0 0 32px rgba(236,72,153,0.5)">{{ submitLabel }}</button>
-      <p style="margin:0;font-size:12px;line-height:1.6;color:#94A3B8">Al enviar aceptas nuestro <a href="aviso-de-privacidad.html" style="text-decoration:underline">aviso de privacidad</a>. Usamos tus datos solo para responder a tu solicitud.</p>
-    </form>
-    </sc-if>
-
-    <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
-      <div style="display:flex;flex-direction:column;gap:24px">
-        <h3 style="margin:0;font-size:22px;font-weight:600">Qué pasa después de enviar</h3>
-        <sc-for list="{{ queSigue }}" as="q" hint-placeholder-count="3">
-          <div style="display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start">
-            <span style="width:32px;height:32px;border-radius:50%;background:rgba(20,184,166,0.12);border:1px solid rgba(20,184,166,0.4);color:#14B8A6;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700">{{ q.n }}</span>
-            <div style="display:grid;gap:4px">
-              <span style="font-weight:600;font-size:16px">{{ q.titulo }}</span>
-              <span style="font-size:14px;line-height:1.6;color:#94A3B8">{{ q.texto }}</span>
-            </div>
-          </div>
-        </sc-for>
-      </div>
-    </sc-if>
+    <div style="display:flex;flex-direction:column;justify-content:center;gap:18px;padding:clamp(8px,2vw,24px) 0"><a href="https://wa.me/525531650560?text=Hola%20BubbleMesh%20Studio%2C%20quiero%20cotizar%20una%20producci%C3%B3n" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;justify-content:center;gap:12px;background:#25D366;color:#0B0F1A;font-weight:800;font-size:18px;padding:18px 32px;border-radius:9999px;box-shadow:0 0 32px rgba(37,211,102,0.35)" style-hover="color:#0B0F1A;box-shadow:0 0 44px rgba(37,211,102,0.55)"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2a9.9 9.9 0 0 0-8.5 15l-1.4 5.1 5.2-1.4A9.9 9.9 0 1 0 12.04 2Zm0 18.1a8.2 8.2 0 0 1-4.2-1.15l-.3-.18-3.1.8.83-3-.2-.31a8.2 8.2 0 1 1 6.97 3.84Zm4.5-6.14c-.25-.12-1.46-.72-1.69-.8-.23-.08-.39-.12-.55.12-.16.25-.63.8-.78.97-.14.16-.29.18-.53.06a6.7 6.7 0 0 1-3.32-2.9c-.25-.43.25-.4.71-1.33.08-.16.04-.3-.02-.43-.06-.12-.55-1.33-.76-1.82-.2-.48-.4-.41-.55-.42h-.47a.9.9 0 0 0-.65.3 2.74 2.74 0 0 0-.86 2.04 4.76 4.76 0 0 0 1 2.53 10.9 10.9 0 0 0 4.18 3.7c1.56.67 2.17.73 2.95.61.47-.07 1.46-.6 1.66-1.17.2-.58.2-1.07.14-1.17-.06-.1-.22-.16-.47-.28Z"></path></svg>Cotiza por WhatsApp</a><a href="tel:+525531650560" style="text-align:center;font-size:17px;font-weight:600;color:#E2E8F0" style-hover="color:#fff">+52 55 3165 0560</a><p style="margin:0;text-align:center;font-size:14px;line-height:1.6;color:#94A3B8">Te respondemos en horario laboral con preguntas concretas y una propuesta de primer paso.</p><a href="mailto:contacto@bubble-mesh.com" style="text-align:center;font-size:14px;color:#94A3B8;text-decoration:underline;text-underline-offset:3px" style-hover="color:#fff">o escríbenos a contacto@bubble-mesh.com</a></div>
   </div>
 </section>
 </main>
@@ -334,7 +293,7 @@ h1,h2,h3{overflow-wrap:break-word;hyphens:auto}
       <div style="display:flex;flex-direction:column;gap:10px">
         <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#64748B;margin-bottom:4px">Estudio</span>
         <a href="trabajo.html" style="color:#E2E8F0;font-size:14px">Trabajo</a>
-        <a href="estudio.html" style="color:#E2E8F0;font-size:14px">Estudio</a>
+        <a href="index.html#lo-que-hacemos" style="color:#E2E8F0;font-size:14px">Estudio</a>
         <a href="#cta-final" style="color:#E2E8F0;font-size:14px">Contacto</a>
       </div>
       <div style="display:flex;flex-direction:column;gap:10px">
@@ -345,7 +304,7 @@ h1,h2,h3{overflow-wrap:break-word;hyphens:auto}
       </div>
     </div>
     <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.06);font-size:13px;color:#94A3B8">
-      <span>Producción técnica en alianza con Mädi Films y R3State</span>
+      <span>BubbleMesh Studio · Ciudad de México</span>
       <div style="display:flex;gap:20px;flex-wrap:wrap"><a href="aviso-de-privacidad.html" style="color:#94A3B8">Aviso de privacidad</a><span>© 2026 BubbleMesh Studio</span></div>
     </div>
   </div>
@@ -354,7 +313,7 @@ h1,h2,h3{overflow-wrap:break-word;hyphens:auto}
 <sc-if value="{{ reelOpen }}" hint-placeholder-val="{{ false }}">
   <div role="dialog" aria-modal="true" aria-label="Demo reel" onClick="{{ closeReel }}" style="position:fixed;inset:0;z-index:100;background:rgba(6,9,17,0.92);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;padding:clamp(16px,4vw,48px)">
     <div onClick="{{ stop }}" style="position:relative;width:min(100%,1280px);aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:repeating-linear-gradient(135deg,#0F1525 0 14px,#131b2e 14px 28px);border:1px solid rgba(255,255,255,0.12);box-shadow:0 0 80px rgba(109,40,217,0.35);display:flex;align-items:center;justify-content:center">
-      <video data-reel data-src="media/showreel.mp4" poster="media/showreel.webp" controls playsinline preload="none" style="width:100%;height:100%;background:#000"></video>
+      <video data-reel data-src="media/showreel.mp4" data-hls="media/showreel-hls/master.m3u8" poster="media/showreel.webp" controls playsinline preload="none" style="width:100%;height:100%;background:#000"></video>
     </div>
     <button onClick="{{ closeReel }}" style="position:absolute;top:20px;right:20px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.16);color:#fff;font-weight:600;font-size:14px;padding:10px 18px;border-radius:9999px;cursor:pointer" style-hover="background:rgba(255,255,255,0.14)">Cerrar reel ✕</button>
   </div>
@@ -435,8 +394,8 @@ class Component extends DCLogic {
           { titulo: 'Lazza Arquitectos · Teatro Nacional', persona: 'Inmobiliario', tags: ['Video con IA', 'Edición'], credito: 'BubbleMesh Studio', estado: '', video: 'media/lazza-teatro-nacional.mp4', poster: 'url(media/lazza-teatro-nacional.webp)' },
           { titulo: 'Testimonio de compradora', persona: 'Inmobiliario', tags: ['Cámara', 'Edición'], credito: 'BubbleMesh Studio', estado: '', video: 'media/raquel-testimonio.mp4', poster: 'url(media/raquel-testimonio.webp)' },
           { titulo: 'Lamzo · residencia de playa', persona: 'Inmobiliario', tags: ['Video con IA', 'Edición'], credito: 'BubbleMesh Studio', estado: '', video: 'media/lamzo-villa.mp4', poster: 'url(media/lamzo-villa.webp)' },
-          { titulo: 'Central Rock &amp; Mulch · spot con IA', persona: 'Marcas', tags: ['Video con IA', 'VFX'], credito: 'BubbleMesh Studio', estado: '', video: 'media/central-rock-spot-ia.mp4', poster: 'url(media/central-rock-spot-ia.webp)' },
-          { titulo: 'Central Rock &amp; Mulch · reel', persona: 'Marcas', tags: ['Video con IA', 'Edición'], credito: 'BubbleMesh Studio', estado: '', video: 'media/central-rock-05.mp4', poster: 'url(media/central-rock-05.webp)' },
+          { titulo: 'Central Rock & Mulch · spot con IA', persona: 'Marcas', tags: ['Video con IA', 'VFX'], credito: 'BubbleMesh Studio', estado: '', video: 'media/central-rock-spot-ia.mp4', poster: 'url(media/central-rock-spot-ia.webp)' },
+          { titulo: 'Central Rock & Mulch · reel', persona: 'Marcas', tags: ['Video con IA', 'Edición'], credito: 'BubbleMesh Studio', estado: '', video: 'media/central-rock-05.mp4', poster: 'url(media/central-rock-05.webp)' },
           { titulo: 'Lamzo · contenido de marca', persona: 'Marcas', tags: ['Cámara', 'Edición'], credito: 'BubbleMesh Studio', estado: '', video: 'media/lamzo-reel.mp4', poster: 'url(media/lamzo-reel.webp)' }
         ].map(p => ({ ...p, flag: false }));
         const fp = s.fPersona, ft = s.fTecnica;
@@ -460,9 +419,9 @@ class Component extends DCLogic {
       trabajo: [
         { pieza: 'Videoclip o performance de un artista', persona: 'Artistas', tags: ['Cámara', 'Edición', 'VFX'], credito: 'Por definir' },
         { pieza: 'Loop o intro para pantalla LED', persona: 'Artistas, Eventos', tags: ['VFX'], credito: 'Equipo propio' },
-        { pieza: 'Recap o aftermovie de evento', persona: 'Eventos', tags: ['Cámara', 'Drone', 'Edición'], credito: 'Producción técnica: Mädi Films' },
+        { pieza: 'Recap o aftermovie de evento', persona: 'Eventos', tags: ['Cámara', 'Drone', 'Edición'], credito: 'Equipo propio' },
         { pieza: 'Spot o cobertura de activación', persona: 'Marcas', tags: ['Cámara', 'Edición', 'VFX'], credito: 'Por definir' },
-        { pieza: 'Video aéreo y recorrido 360° de un desarrollo', persona: 'Inmobiliario', tags: ['Drone', '360°'], credito: 'Producción técnica: R3State' },
+        { pieza: 'Video aéreo y recorrido 360° de un desarrollo', persona: 'Inmobiliario', tags: ['Drone', '360°'], credito: 'Equipo propio' },
         { pieza: 'Cartelera web con reservas o landing de venta', persona: 'Recintos o Inmobiliario', tags: ['Web y plataforma'], credito: 'Equipo propio' }
       ],
       pilares: [
@@ -494,9 +453,7 @@ class Component extends DCLogic {
         { titulo: 'Un solo responsable en lugar de cinco proveedores', texto: 'Coordinamos rodaje, postproducción, VFX y plataforma con una sola persona a cargo de tu proyecto, así que no persigues proveedores ni juntas piezas que no combinan entre sí.' }
       ],
       aliados: [
-        { texto: 'Equipo técnico aliado con más de 12 años filmando para más de 40 marcas.', credito: 'Producción técnica: Mädi Films.', flag: false },
-        { texto: 'Experiencia de rodaje con artistas como Sonora Santanera, Maldita Vecindad y Mägo de Oz.', credito: 'Créditos de Mädi Films.', flag: false },
-        { texto: 'Producción aérea, recorridos 360° con escaneo LIDAR y renders para desarrolladoras como Gigante Grupo Inmobiliario.', credito: 'Créditos de R3State.', flag: false }
+        { texto: 'Equipo técnico aliado con más de 12 años filmando para más de 40 marcas.', credito: 'Equipo propio.', flag: false },
       ],
       faq: [
         { q: '¿Cuánto cuesta una producción?', a: 'Depende del alcance, las fechas y los formatos. Después del diagnóstico recibes una cotización cerrada por escrito, con entregables y tiempos definidos.', flag: false },

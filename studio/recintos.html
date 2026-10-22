@@ -1,24 +1,37 @@
 <!DOCTYPE html>
-<html>
+<html lang="es-MX">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contenido para bares y foros con música | BubbleMesh Studio</title>
+<meta name="description" content="Contenido de cada fecha, cartelera que se comparte y reservaciones conectadas para foros y restaurantes con música en vivo.">
+<meta name="robots" content="index, follow, max-image-preview:large, max-video-preview:-1">
+<link rel="canonical" href="https://bubble-mesh.com/studio/recintos.html">
+<meta name="theme-color" content="#0B0F1A">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_MX">
+<meta property="og:site_name" content="BubbleMesh Studio">
+<meta property="og:title" content="Contenido para bares y foros con música | BubbleMesh Studio">
+<meta property="og:description" content="Contenido de cada fecha, cartelera que se comparte y reservaciones conectadas para foros y restaurantes con música en vivo.">
+<meta property="og:url" content="https://bubble-mesh.com/studio/recintos.html">
+<meta property="og:image" content="https://bubble-mesh.com/studio/assets/og-studio.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Contenido para bares y foros con música | BubbleMesh Studio">
+<meta name="twitter:description" content="Contenido de cada fecha, cartelera que se comparte y reservaciones conectadas para foros y restaurantes con música en vivo.">
+<meta name="twitter:image" content="https://bubble-mesh.com/studio/assets/og-studio.jpg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/favicon-180.png">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="image" href="media/hero.webp" fetchpriority="high">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "ProfessionalService", "@id": "https://bubble-mesh.com/studio/#negocio", "name": "BubbleMesh Studio", "description": "Estudio de producción de video, VFX, contenido con IA y páginas web en Ciudad de México.", "url": "https://bubble-mesh.com/studio/", "logo": "https://bubble-mesh.com/studio/assets/logo-studio.webp", "image": "https://bubble-mesh.com/studio/assets/og-studio.jpg", "telephone": "+52-55-3165-0560", "email": "contacto@bubble-mesh.com", "address": {"@type": "PostalAddress", "addressLocality": "Ciudad de México", "addressRegion": "CDMX", "addressCountry": "MX"}, "areaServed": {"@type": "Country", "name": "México"}, "parentOrganization": {"@type": "Organization", "name": "BubbleMesh", "url": "https://bubble-mesh.com/"}, "knowsAbout": ["Producción de video", "Efectos visuales", "Videoclips", "Streaming de eventos", "Video inmobiliario con drone", "Contenido con inteligencia artificial", "Desarrollo web"]}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "BubbleMesh Studio", "item": "https://bubble-mesh.com/studio/"}, {"@type": "ListItem", "position": 2, "name": "Contenido y reservas para bares y foros con música en vivo", "item": "https://bubble-mesh.com/studio/recintos.html"}]}, {"@type": "Service", "name": "Contenido y reservas para bares y foros con música en vivo", "description": "Contenido de cada fecha, cartelera que se comparte y reservaciones conectadas para foros y restaurantes con música en vivo.", "url": "https://bubble-mesh.com/studio/recintos.html", "provider": {"@id": "https://bubble-mesh.com/studio/#negocio"}, "areaServed": {"@type": "Country", "name": "México"}}]}</script>
 <script src="./support.js"></script>
 </head>
 <body>
 <x-dc>
 <helmet>
 <title>Contenido para bares y foros con música | BubbleMesh Studio</title>
-<meta name="description" content="Contenido de cada fecha, cartelera que se comparte y reservaciones conectadas para foros y restaurantes con música en vivo.">
-<meta name="robots" content="noindex, nofollow">
-<link rel="canonical" href="https://bubble-mesh.com/studio/recintos.html">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Contenido para bares y foros con música | BubbleMesh Studio">
-<meta property="og:description" content="Contenido de cada fecha, cartelera que se comparte y reservaciones conectadas para foros y restaurantes con música en vivo.">
-<meta property="og:url" content="https://bubble-mesh.com/studio/recintos.html">
-<meta property="og:image" content="https://bubble-mesh.com/assets/favicon-192.png">
-<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
-<link rel="apple-touch-icon" href="../assets/favicon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
 <style>
@@ -54,12 +67,28 @@ input,select,textarea,button{font-family:inherit}
     var src=t.getAttribute('data-video')||''; if(src.indexOf('media/')!==0) return;
     e.preventDefault(); e.stopPropagation(); abrir(src);
   },true);
+  // Sin identificadores camelCase seguidos de '=': support.js los toma por atributos
+  var cola=null;
+  function cargarHls(cb){
+    if(window.Hls) return cb();
+    if(cola) return cola.push(cb);
+    cola=[cb]; var sc=document.createElement('script');
+    sc.src='https://cdn.jsdelivr.net/npm/hls.js@1.5.20/dist/hls.min.js';
+    sc.onload=sc.onerror=function(){ cola.forEach(function(f){ f(); }); };
+    document.head.appendChild(sc);
+  }
   function play(v){ var p=v.play(); if(p&&p.catch) p.catch(function(){}); }
   // Con sonido; si el navegador lo bloquea, arranca sin sonido en vez de quedarse detenido
   function playAudio(v){ var p=v.play(); if(p&&p.catch) p.catch(function(){ v.muted=true; play(v); }); }
   function reel(){
     document.querySelectorAll('video[data-reel]').forEach(function(v){
-      if(!v.getAttribute('src')){ v.src=v.dataset.src; playAudio(v); }
+      if(v.dataset.on) return; v.dataset.on='1';
+      // HLS adaptativo: la calidad sube o baja según la conexión del visitante
+      if(v.canPlayType('application/vnd.apple.mpegurl')){ v.src=v.dataset.hls; playAudio(v); return; }
+      cargarHls(function(){
+        if(window.Hls && window.Hls.isSupported()){ var h=new window.Hls({capLevelToPlayerSize:true}); h.loadSource(v.dataset.hls); h.attachMedia(v); v.hls=h; playAudio(v); }
+        else { v.src=v.dataset.src; playAudio(v); }
+      });
     });
   }
   // El modal del reel lo pinta React justo después del clic: se busca dentro del
@@ -75,6 +104,8 @@ input,select,textarea,button{font-family:inherit}
       if(!v.getAttribute('src')){ v.src = hd ? 'media/hero-1080.mp4' : 'media/hero.mp4'; }
       if(v.paused) play(v);
     });
+    // Loops silenciosos de fondo (tarjetas grandes)
+    document.querySelectorAll('video[data-loop]').forEach(function(v){ v.muted=true; if(v.paused) play(v); });
     // El reel solo se descarga al abrirlo: sin src en la plantilla el navegador no lo pide antes
     reel();
   }
@@ -84,18 +115,49 @@ input,select,textarea,button{font-family:inherit}
 </script>
 
 <style>
+.bm-anim{position:relative;aspect-ratio:4/3;border-radius:16px;overflow:hidden;background:radial-gradient(ellipse 70% 60% at 50% 30%,rgba(124,58,237,0.16),transparent 70%),#0F1525;border:1px solid rgba(255,255,255,0.08)}
+.bm-anim svg{position:absolute;inset:0;width:100%;height:100%}
+.bm-anim *{transform-box:fill-box}
+@keyframes bmRing{0%{transform:scale(.3);opacity:.9}100%{transform:scale(2.4);opacity:0}}
+@keyframes bmBar{0%,100%{transform:scaleY(.25)}50%{transform:scaleY(1)}}
+@keyframes bmBlink{0%,100%{opacity:1}50%{opacity:.15}}
+@keyframes bmSlideX{0%,10%{transform:translateX(0)}45%,55%{transform:translateX(150px)}90%,100%{transform:translateX(0)}}
+@keyframes bmPop{0%,20%{transform:translateY(16px) scale(.85);opacity:0}35%,85%{transform:none;opacity:1}100%{opacity:0}}
+@keyframes bmTravel{0%{offset-distance:0%;opacity:0}10%{opacity:1}90%{opacity:1}100%{offset-distance:100%;opacity:0}}
+@keyframes bmGlow{0%,60%,100%{fill:#1B2338;stroke:rgba(255,255,255,.15)}70%,90%{fill:rgba(124,58,237,.35);stroke:#A855F7}}
+@keyframes bmFill{0%{transform:scaleX(0)}80%,100%{transform:scaleX(1)}}
+@keyframes bmFly0{0%{transform:translate(0,0) rotate(0);opacity:0}15%{opacity:1}100%{transform:translate(90px,-80px) rotate(18deg);opacity:0}}
+@keyframes bmFly1{0%{transform:translate(0,0) rotate(0);opacity:0}15%{opacity:1}100%{transform:translate(110px,0) rotate(18deg);opacity:0}}
+@keyframes bmFly2{0%{transform:translate(0,0) rotate(0);opacity:0}15%{opacity:1}100%{transform:translate(90px,80px) rotate(18deg);opacity:0}}
+@keyframes bmSwitch{0%,24%{transform:translate(0,0)}25%,49%{transform:translate(96px,0)}50%,74%{transform:translate(0,64px)}75%,100%{transform:translate(96px,64px)}}
+@keyframes bmProg{0%,24%{fill:#7C3AED}25%,49%{fill:#EC4899}50%,74%{fill:#14B8A6}75%,100%{fill:#A855F7}}
+@keyframes bmBeam{0%,100%{transform:rotate(-16deg)}50%{transform:rotate(16deg)}}
+@keyframes bmBeam2{0%,100%{transform:rotate(14deg)}50%{transform:rotate(-14deg)}}
+@keyframes bmFlip{0%,30%{transform:translateY(0);opacity:1}45%,85%{transform:translateY(-96px);opacity:1}100%{transform:translateY(-96px);opacity:0}}
+@keyframes bmClick{0%,40%{transform:translate(60px,50px)}55%{transform:translate(0,0)}60%{transform:translate(0,0) scale(.85)}65%,100%{transform:translate(0,0)}}
+@keyframes bmPress{0%,57%{fill:#7C3AED}60%,75%{fill:#EC4899}100%{fill:#7C3AED}}
+@keyframes bmCount{0%,58%{transform:translateY(0)}64%,100%{transform:translateY(-22px)}}
+@keyframes bmRise{0%{transform:scaleY(.15)}70%,100%{transform:scaleY(1)}}
+@keyframes bmSweep{0%{transform:translateX(-60px)}100%{transform:translateX(330px)}}
+@media (prefers-reduced-motion:reduce){.bm-anim *{animation:none!important}}
+</style>
+
+<style>
 html,body{overflow-x:clip}
 img,video,iframe,svg{max-width:100%}
-h1,h2,h3{overflow-wrap:break-word;hyphens:auto}
+h1,h2,h3{overflow-wrap:break-word}
 @media (max-width:900px){
   [data-r="navlinks"],[data-r="navcta"]{display:none!important}
   [data-r="burger"]{display:inline-flex!important}
   [data-r="mobnav"]{display:flex!important}
   [data-r="nav"]{flex-wrap:nowrap!important}
   [data-r="logo"]{height:30px!important}
+  [data-r="pegajoso"]{position:static!important}
 }
 @media (max-width:640px){
   :root{--nw:normal}
+  h1,h2,h3{hyphens:auto}
+  [data-r="fondo"]{opacity:.35}
   main section{padding-left:16px!important;padding-right:16px!important}
   main section>div{padding-left:0!important;padding-right:0!important}
   [data-r="nav"]{padding-left:16px!important;padding-right:16px!important}
@@ -122,7 +184,7 @@ h1,h2,h3{overflow-wrap:break-word;hyphens:auto}
         </sc-if>
       </div>
       <a href="trabajo.html" style="color:#E2E8F0;font-weight:500;font-size:15px;padding:10px 14px" style-hover="color:#fff">Trabajo</a>
-      <a href="estudio.html" style="color:#E2E8F0;font-weight:500;font-size:15px;padding:10px 14px" style-hover="color:#fff">Estudio</a>
+      <a href="index.html#lo-que-hacemos" style="color:#E2E8F0;font-weight:500;font-size:15px;padding:10px 14px" style-hover="color:#fff">Estudio</a>
     </div>
     <a data-r="navcta" href="#cta-final" style="background:linear-gradient(135deg,#EC4899,#7C3AED);color:#fff;font-weight:700;font-size:15px;padding:11px 22px;border-radius:9999px;box-shadow:0 0 24px rgba(236,72,153,0.30);white-space:var(--nw,nowrap)" style-hover="color:#fff;box-shadow:0 0 32px rgba(236,72,153,0.5)">Cotiza tu producción</a>
   
@@ -138,7 +200,7 @@ h1,h2,h3{overflow-wrap:break-word;hyphens:auto}
         <a href="{{ p.href }}" onClick="{{ closeMenu }}" style="color:#E2E8F0;font-size:17px;font-weight:500;padding:12px 4px;border-bottom:1px solid rgba(255,255,255,0.06)">{{ p.nombre }}</a>
       </sc-for>
       <a href="trabajo.html" onClick="{{ closeMenu }}" style="color:#E2E8F0;font-size:17px;font-weight:500;padding:12px 4px;border-bottom:1px solid rgba(255,255,255,0.06)">Trabajo</a>
-      <a href="estudio.html" onClick="{{ closeMenu }}" style="color:#E2E8F0;font-size:17px;font-weight:500;padding:12px 4px;border-bottom:1px solid rgba(255,255,255,0.06)">Estudio</a>
+      <a href="index.html#lo-que-hacemos" onClick="{{ closeMenu }}" style="color:#E2E8F0;font-size:17px;font-weight:500;padding:12px 4px;border-bottom:1px solid rgba(255,255,255,0.06)">Estudio</a>
       <a href="#cta-final" onClick="{{ closeMenu }}" style="margin-top:16px;text-align:center;background:linear-gradient(135deg,#EC4899,#7C3AED);color:#fff;font-weight:700;font-size:16px;padding:14px 22px;border-radius:9999px">Cotiza tu producción</a>
     </div>
   </sc-if>
@@ -220,7 +282,7 @@ h1,h2,h3{overflow-wrap:break-word;hyphens:auto}
             <li style="display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start;padding:13px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:15px;line-height:1.5;color:#E2E8F0"><span style="color:#14B8A6;font-weight:700">✓</span><span>{{ i }}</span></li>
           </sc-for>
         </ul>
-        <p style="margin:0;font-size:13px;line-height:1.6;color:#94A3B8">Mensualidad después del piloto.</p>
+        
       </div>
     </div>
   </div>
@@ -245,14 +307,14 @@ h1,h2,h3{overflow-wrap:break-word;hyphens:auto}
 <section id="trabajo" data-screen-label="05 Trabajo" style="max-width:1280px;margin:0 auto;padding:clamp(72px,10vw,128px) clamp(20px,4vw,32px) 0">
   <div style="display:grid;gap:14px;margin-bottom:48px;max-width:760px">
     <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#94A3B8">05 · Trabajo</span>
-<h2 style="margin:0;font-family:Montserrat,sans-serif;font-weight:700;font-size:clamp(2rem,4.5vw,3.2rem);letter-spacing:-0.02em;line-height:1.05;text-wrap:balance">Noches que ya grabamos</h2>
+<h2 style="margin:0;font-family:Montserrat,sans-serif;font-weight:700;font-size:clamp(2rem,4.5vw,3.2rem);letter-spacing:-0.02em;line-height:1.05;text-wrap:balance">Así funciona en tu lugar</h2>
     <sc-if value="{{ sup }}"</sc-if>
     <sc-if value="{{ sup }}" hint-placeholder-val="{{ true }}"><span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.08em;color:#FBBF24">[SUPUESTO: CONFIRMAR SI LOS TRABAJOS CON TAQUERÍAS Y NEGOCIOS DE COMIDA APLICAN Y HAY PERMISO]</span></sc-if>
   </div>
   <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:20px">
-    <div style="aspect-ratio:4/3;border-radius:16px;background:repeating-linear-gradient(135deg,#0F1525 0 10px,#131b2e 10px 20px);border:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;padding:0 24px"><span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#64748B;text-align:center">Noche grabada · filtro Recintos</span></div>
-    <div style="aspect-ratio:4/3;border-radius:16px;background:repeating-linear-gradient(135deg,#0F1525 0 10px,#131b2e 10px 20px);border:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;padding:0 24px"><span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#64748B;text-align:center">Reels de cartelera · filtro Recintos</span></div>
-    <div style="aspect-ratio:4/3;border-radius:16px;background:repeating-linear-gradient(135deg,#0F1525 0 10px,#131b2e 10px 20px);border:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;padding:0 24px"><span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#64748B;text-align:center">Página de cartelera con reservas</span></div>
+    <div style="display:flex;flex-direction:column;gap:14px"><div class="bm-anim"><svg viewBox="0 0 400 300" role="img" aria-hidden="true" fill="none"><rect x="0" y="230" width="400" height="70" fill="#1B2338"></rect><path d="M110 20 L60 230 L160 230 Z" fill="rgba(168,85,247,.22)" style="transform-origin:110px 20px;transform-box:view-box;animation:bmBeam 4s ease-in-out infinite"></path><path d="M290 20 L240 230 L340 230 Z" fill="rgba(236,72,153,.2)" style="transform-origin:290px 20px;transform-box:view-box;animation:bmBeam2 4.6s ease-in-out infinite"></path><g transform="translate(150 150)"><circle r="14" fill="#0B0F1A"></circle><rect x="-16" y="14" width="32" height="66" rx="12" fill="#0B0F1A"></rect></g><g transform="translate(200 150)"><circle r="14" fill="#0B0F1A"></circle><rect x="-16" y="14" width="32" height="66" rx="12" fill="#0B0F1A"></rect></g><g transform="translate(250 150)"><circle r="14" fill="#0B0F1A"></circle><rect x="-16" y="14" width="32" height="66" rx="12" fill="#0B0F1A"></rect></g><rect x="300" y="40" width="72" height="26" rx="13" fill="rgba(11,15,26,.75)"></rect><circle cx="316" cy="53" r="5" fill="#EF4444" style="animation:bmBlink 1s infinite"></circle><text x="328" y="57" fill="#fff" font-size="11" font-weight="700" font-family="Inter,sans-serif">REC</text></svg></div><div style="display:grid;gap:6px"><span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#A855F7">01 · La noche</span><h3 style="margin:0;font-size:19px;font-weight:600;line-height:1.3">Grabamos cada fecha</h3><p style="margin:0;font-size:15px;line-height:1.6;color:#94A3B8">Un equipo ligero registra la música, el ambiente y a la gente sin interrumpir el servicio ni cambiar la experiencia de tus mesas.</p></div></div>
+    <div style="display:flex;flex-direction:column;gap:14px"><div class="bm-anim"><svg viewBox="0 0 400 300" role="img" aria-hidden="true" fill="none"><rect x="30" y="40" width="200" height="220" rx="12" fill="#1B2338" stroke="rgba(255,255,255,.14)"></rect><text x="48" y="68" fill="#64748B" font-size="11" letter-spacing="2" font-family="JetBrains Mono,monospace">CARTELERA</text><rect x="48" y="84" width="36" height="32" rx="6" fill="rgba(255,255,255,.06)"></rect><text x="66" y="105" fill="#E2E8F0" font-size="11" text-anchor="middle" font-family="Inter,sans-serif">12</text><rect x="92" y="84" width="36" height="32" rx="6" fill="rgba(255,255,255,.06)"></rect><text x="110" y="105" fill="#E2E8F0" font-size="11" text-anchor="middle" font-family="Inter,sans-serif">13</text><rect x="136" y="84" width="36" height="32" rx="6" fill="rgba(255,255,255,.06)"></rect><text x="154" y="105" fill="#E2E8F0" font-size="11" text-anchor="middle" font-family="Inter,sans-serif">14</text><rect x="180" y="84" width="36" height="32" rx="6" fill="rgba(255,255,255,.06)"></rect><text x="198" y="105" fill="#E2E8F0" font-size="11" text-anchor="middle" font-family="Inter,sans-serif">15</text><rect x="48" y="124" width="36" height="32" rx="6" fill="rgba(255,255,255,.06)"></rect><text x="66" y="145" fill="#E2E8F0" font-size="11" text-anchor="middle" font-family="Inter,sans-serif">16</text><rect x="92" y="124" width="36" height="32" rx="6" fill="#EC4899"></rect><text x="110" y="145" fill="#E2E8F0" font-size="11" text-anchor="middle" font-family="Inter,sans-serif">17</text><rect x="136" y="124" width="36" height="32" rx="6" fill="rgba(255,255,255,.06)"></rect><text x="154" y="145" fill="#E2E8F0" font-size="11" text-anchor="middle" font-family="Inter,sans-serif">18</text><rect x="180" y="124" width="36" height="32" rx="6" fill="rgba(255,255,255,.06)"></rect><text x="198" y="145" fill="#E2E8F0" font-size="11" text-anchor="middle" font-family="Inter,sans-serif">19</text><rect x="48" y="164" width="36" height="32" rx="6" fill="rgba(255,255,255,.06)"></rect><text x="66" y="185" fill="#E2E8F0" font-size="11" text-anchor="middle" font-family="Inter,sans-serif">20</text><rect x="92" y="164" width="36" height="32" rx="6" fill="rgba(255,255,255,.06)"></rect><text x="110" y="185" fill="#E2E8F0" font-size="11" text-anchor="middle" font-family="Inter,sans-serif">21</text><rect x="136" y="164" width="36" height="32" rx="6" fill="#EC4899"></rect><text x="154" y="185" fill="#E2E8F0" font-size="11" text-anchor="middle" font-family="Inter,sans-serif">22</text><rect x="180" y="164" width="36" height="32" rx="6" fill="rgba(255,255,255,.06)"></rect><text x="198" y="185" fill="#E2E8F0" font-size="11" text-anchor="middle" font-family="Inter,sans-serif">23</text><rect x="48" y="204" width="36" height="32" rx="6" fill="rgba(255,255,255,.06)"></rect><text x="66" y="225" fill="#E2E8F0" font-size="11" text-anchor="middle" font-family="Inter,sans-serif">24</text><rect x="92" y="204" width="36" height="32" rx="6" fill="rgba(255,255,255,.06)"></rect><text x="110" y="225" fill="#E2E8F0" font-size="11" text-anchor="middle" font-family="Inter,sans-serif">25</text><rect x="136" y="204" width="36" height="32" rx="6" fill="rgba(255,255,255,.06)"></rect><text x="154" y="225" fill="#E2E8F0" font-size="11" text-anchor="middle" font-family="Inter,sans-serif">26</text><rect x="180" y="204" width="36" height="32" rx="6" fill="rgba(255,255,255,.06)"></rect><text x="198" y="225" fill="#E2E8F0" font-size="11" text-anchor="middle" font-family="Inter,sans-serif">27</text><g style="animation:bmFlip 4s ease-in-out infinite"><rect x="270" y="150" width="76" height="130" rx="10" fill="#7C3AED"></rect><path d="M298 200 L322 215 L298 230 Z" fill="#fff"></path><rect x="282" y="250" width="52" height="6" rx="3" fill="rgba(255,255,255,.7)"></rect></g><path d="M236 128 C 255 128, 262 150, 266 160" stroke="#64748B" stroke-width="2" stroke-dasharray="4 6"></path></svg></div><div style="display:grid;gap:6px"><span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#A855F7">02 · La cartelera</span><h3 style="margin:0;font-size:19px;font-weight:600;line-height:1.3">Cada fecha se vuelve un reel</h3><p style="margin:0;font-size:15px;line-height:1.6;color:#94A3B8">Lo grabado anuncia la siguiente noche: la cartelera se convierte en videos cortos que la gente comparte y guarda.</p></div></div>
+    <div style="display:flex;flex-direction:column;gap:14px"><div class="bm-anim"><svg viewBox="0 0 400 300" role="img" aria-hidden="true" fill="none"><rect x="40" y="40" width="320" height="220" rx="12" fill="#1B2338" stroke="rgba(255,255,255,.14)"></rect><circle cx="58" cy="58" r="4" fill="#64748B"></circle><circle cx="72" cy="58" r="4" fill="#64748B"></circle><rect x="60" y="80" width="130" height="90" rx="8" fill="#7C3AED" opacity=".6"></rect><text x="206" y="98" fill="#fff" font-size="14" font-weight="700" font-family="Inter,sans-serif">Jueves de bolero</text><text x="206" y="118" fill="#E2E8F0" font-size="11" font-family="Inter,sans-serif">21:00 · mesa para 2</text><rect x="206" y="134" width="96" height="32" rx="16" style="animation:bmPress 3s infinite"></rect><text x="254" y="155" fill="#fff" font-size="12" font-weight="700" text-anchor="middle" font-family="Inter,sans-serif">Reservar</text><path d="M0 0 L0 18 L5 13 L9 22 L12 21 L8 12 L15 12 Z" fill="#fff" stroke="#0B0F1A" stroke-width="1" transform="translate(262 150)" style="transform-box:view-box"></path><text x="60" y="214" fill="#64748B" font-size="11" letter-spacing="2" font-family="JetBrains Mono,monospace">RESERVAS DE ESTA NOCHE</text><svg x="60" y="222" width="60" height="26" viewBox="0 0 60 26" overflow="hidden"><g style="animation:bmCount 3s ease-out infinite"><text x="0" y="20" fill="#fff" font-size="22" font-weight="800" font-family="Montserrat,sans-serif">27</text><text x="0" y="42" fill="#14B8A6" font-size="22" font-weight="800" font-family="Montserrat,sans-serif">28</text></g></svg></svg></div><div style="display:grid;gap:6px"><span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#A855F7">03 · La reserva</span><h3 style="margin:0;font-size:19px;font-weight:600;line-height:1.3">Reservas que puedes medir</h3><p style="margin:0;font-size:15px;line-height:1.6;color:#94A3B8">Cada reel lleva a tu cartelera en línea con botón de reserva. Ves cuántas mesas trajo cada noche y cada publicación.</p></div></div>
   </div>
 
 </section>
@@ -279,7 +341,7 @@ h1,h2,h3{overflow-wrap:break-word;hyphens:auto}
 <!-- 8 OBJECIONES -->
 <section id="objeciones" data-screen-label="07 Objeciones" style="max-width:1280px;margin:0 auto;padding:clamp(72px,10vw,128px) clamp(20px,4vw,32px) 0">
   <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:48px 64px;align-items:start">
-    <div style="display:grid;gap:14px;position:sticky;top:96px">
+    <div data-r="pegajoso" style="display:grid;gap:14px;position:sticky;top:96px">
       <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#94A3B8">07 · Sí, pero...</span>
       <h2 style="margin:0;font-family:Montserrat,sans-serif;font-weight:700;font-size:clamp(2rem,4.5vw,3.2rem);letter-spacing:-0.02em;line-height:1.05">Lo que nos preguntan los dueños</h2>
     </div>
@@ -320,88 +382,10 @@ h1,h2,h3{overflow-wrap:break-word;hyphens:auto}
       <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#A855F7">09 · Piloto</span>
       <h2 style="margin:0;font-family:Montserrat,sans-serif;font-weight:800;font-size:clamp(2.2rem,5vw,3.6rem);letter-spacing:-0.025em;line-height:1.02;text-wrap:balance">Cada noche de música debe vender</h2>
       <p style="margin:0;font-size:17px;line-height:1.6;color:#E2E8F0;max-width:44ch">Elige tres fechas y te mostramos con datos qué cambia cuando cada noche se graba, se publica y se mide.</p>
-      <a href="https://wa.me/525531650560?text=Hola,%20quiero%20cotizar%20una%20producción" style="margin-top:auto;font-size:14px;color:#94A3B8;text-decoration:underline;text-underline-offset:3px;width:fit-content" style-hover="color:#fff">¿Prefieres escribirnos directo? WhatsApp</a>
+      
     </div>
 
-    <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
-    <form onSubmit="{{ onSubmit }}" novalidate style="display:flex;flex-direction:column;gap:18px">
-      <label style="display:grid;gap:8px">
-        <span style="font-size:13px;font-weight:600;color:#E2E8F0">Tu nombre</span>
-        <input name="nombre" autocomplete="name" placeholder="Nombre y apellido" value="{{ form.nombre }}" onChange="{{ onNombre }}" style="background:rgba(11,15,26,0.6);border:1px solid rgba(255,255,255,0.14);border-radius:12px;padding:14px 16px;color:#fff;font-size:15px;outline:none" style-focus="border-color:#A855F7;box-shadow:0 0 0 3px rgba(168,85,247,0.25)">
-        <sc-if value="{{ errNombre }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;color:#F87171">Escribe tu nombre para saber cómo dirigirnos a ti.</span></sc-if>
-      </label>
-      <sc-if value="{{ usePhone }}" hint-placeholder-val="{{ true }}">
-        <label style="display:grid;gap:8px">
-          <span style="font-size:13px;font-weight:600;color:#E2E8F0">WhatsApp</span>
-          <input type="tel" name="contacto" autocomplete="tel" placeholder="55 1234 5678" value="{{ form.contacto }}" onChange="{{ onContacto }}" style="background:rgba(11,15,26,0.6);border:1px solid rgba(255,255,255,0.14);border-radius:12px;padding:14px 16px;color:#fff;font-size:15px;outline:none" style-focus="border-color:#A855F7;box-shadow:0 0 0 3px rgba(168,85,247,0.25)">
-          <sc-if value="{{ errContacto }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;color:#F87171">Escribe un número de 10 dígitos, por ejemplo 55 1234 5678.</span></sc-if>
-        </label>
-      </sc-if>
-      <sc-if value="{{ useEmail }}" hint-placeholder-val="{{ false }}">
-        <label style="display:grid;gap:8px">
-          <span style="font-size:13px;font-weight:600;color:#E2E8F0">Correo</span>
-          <input type="email" name="correo" autocomplete="email" placeholder="nombre@correo.com" value="{{ form.correo }}" onChange="{{ onCorreo }}" style="background:rgba(11,15,26,0.6);border:1px solid rgba(255,255,255,0.14);border-radius:12px;padding:14px 16px;color:#fff;font-size:15px;outline:none" style-focus="border-color:#A855F7;box-shadow:0 0 0 3px rgba(168,85,247,0.25)">
-          <sc-if value="{{ errCorreo }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;color:#F87171">Escribe un correo válido, por ejemplo nombre@correo.com.</span></sc-if>
-        </label>
-      </sc-if>
-      <button type="button" onClick="{{ toggleEmail }}" style="background:none;border:none;padding:0;margin-top:-8px;color:#A855F7;font-size:13px;font-weight:600;cursor:pointer;width:fit-content;text-decoration:underline;text-underline-offset:3px">{{ emailToggleLabel }}</button>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:18px">
-        <label style="display:grid;gap:8px;align-content:start">
-          <span style="font-size:13px;font-weight:600;color:#E2E8F0">¿Qué produces?</span>
-          <select name="persona" value="{{ form.persona }}" onChange="{{ onPersona }}" style="background:rgba(11,15,26,0.6);border:1px solid rgba(255,255,255,0.14);border-radius:12px;padding:14px 16px;color:#fff;font-size:15px;outline:none" style-focus="border-color:#A855F7">
-            <option value="">Elige una opción</option>
-            <option>Artista o agrupación</option>
-            <option>Radio o podcast</option>
-            <option>Evento</option>
-            <option>Recinto o restaurante</option>
-            <option>Marca o patrocinio</option>
-            <option>Desarrollo o propiedad</option>
-            <option>Otro</option>
-          </select>
-          <sc-if value="{{ errPersona }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;color:#F87171">Elige qué quieres producir para mandarte lo correcto.</span></sc-if>
-        </label>
-        <label style="display:grid;gap:8px;align-content:start">
-          <span style="font-size:13px;font-weight:600;color:#E2E8F0">¿Para cuándo lo necesitas?</span>
-          <select name="plazo" value="{{ form.plazo }}" onChange="{{ onPlazo }}" style="background:rgba(11,15,26,0.6);border:1px solid rgba(255,255,255,0.14);border-radius:12px;padding:14px 16px;color:#fff;font-size:15px;outline:none" style-focus="border-color:#A855F7">
-            <option value="">Elige una opción</option>
-            <option>Este mes</option>
-            <option>En 1 a 3 meses</option>
-            <option>Todavía no tengo fecha</option>
-          </select>
-        </label>
-      </div>
-      <label style="display:grid;gap:8px">
-        <span style="font-size:13px;font-weight:600;color:#E2E8F0">Nombre del lugar y colonia <span style="color:#94A3B8;font-weight:400">(opcional)</span></span>
-        <input name="emisora" value="{{ form.emisora }}" onChange="{{ onEmisora }}" style="background:rgba(11,15,26,0.6);border:1px solid rgba(255,255,255,0.14);border-radius:12px;padding:14px 16px;color:#fff;font-size:15px;outline:none" style-focus="border-color:#A855F7;box-shadow:0 0 0 3px rgba(168,85,247,0.25)">
-      </label>
-      <sc-if value="{{ msgClosed }}" hint-placeholder-val="{{ true }}">
-        <button type="button" onClick="{{ openMsg }}" style="background:none;border:1px dashed rgba(255,255,255,0.18);border-radius:12px;padding:14px 16px;color:#94A3B8;font-size:14px;text-align:left;cursor:pointer" style-hover="border-color:rgba(168,85,247,0.6);color:#fff">+ Cuéntanos más (opcional)</button>
-      </sc-if>
-      <sc-if value="{{ msgOpen }}" hint-placeholder-val="{{ false }}">
-        <label style="display:grid;gap:8px">
-          <span style="font-size:13px;font-weight:600;color:#E2E8F0">Cuéntanos más (opcional)</span>
-          <textarea name="mensaje" rows="4" placeholder="Fecha, lugar, idea o lo que tengas en mente" value="{{ form.mensaje }}" onChange="{{ onMensaje }}" style="background:rgba(11,15,26,0.6);border:1px solid rgba(255,255,255,0.14);border-radius:12px;padding:14px 16px;color:#fff;font-size:15px;outline:none;resize:vertical" style-focus="border-color:#A855F7;box-shadow:0 0 0 3px rgba(168,85,247,0.25)"></textarea>
-        </label>
-      </sc-if>
-      <button type="submit" style="margin-top:6px;background:linear-gradient(135deg,#EC4899,#7C3AED);color:#fff;border:none;font-weight:700;font-size:16px;padding:16px 30px;border-radius:9999px;cursor:pointer;box-shadow:0 0 24px rgba(236,72,153,0.30)" style-hover="box-shadow:0 0 32px rgba(236,72,153,0.5)">{{ submitLabel }}</button>
-      <p style="margin:0;font-size:12px;line-height:1.6;color:#94A3B8">Al enviar aceptas nuestro <a href="aviso-de-privacidad.html" style="text-decoration:underline">aviso de privacidad</a>. Usamos tus datos solo para responder a tu solicitud.</p>
-    </form>
-    </sc-if>
-
-    <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
-      <div style="display:flex;flex-direction:column;gap:24px">
-        <h3 style="margin:0;font-size:22px;font-weight:600">Qué pasa después de enviar</h3>
-        <sc-for list="{{ queSigue }}" as="q" hint-placeholder-count="3">
-          <div style="display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start">
-            <span style="width:32px;height:32px;border-radius:50%;background:rgba(20,184,166,0.12);border:1px solid rgba(20,184,166,0.4);color:#14B8A6;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700">{{ q.n }}</span>
-            <div style="display:grid;gap:4px">
-              <span style="font-weight:600;font-size:16px">{{ q.titulo }}</span>
-              <span style="font-size:14px;line-height:1.6;color:#94A3B8">{{ q.texto }}</span>
-            </div>
-          </div>
-        </sc-for>
-      </div>
-    </sc-if>
+    <div style="display:flex;flex-direction:column;justify-content:center;gap:18px;padding:clamp(8px,2vw,24px) 0"><a href="https://wa.me/525531650560?text=Hola%20BubbleMesh%20Studio%2C%20quiero%20cotizar%20una%20producci%C3%B3n" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;justify-content:center;gap:12px;background:#25D366;color:#0B0F1A;font-weight:800;font-size:18px;padding:18px 32px;border-radius:9999px;box-shadow:0 0 32px rgba(37,211,102,0.35)" style-hover="color:#0B0F1A;box-shadow:0 0 44px rgba(37,211,102,0.55)"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2a9.9 9.9 0 0 0-8.5 15l-1.4 5.1 5.2-1.4A9.9 9.9 0 1 0 12.04 2Zm0 18.1a8.2 8.2 0 0 1-4.2-1.15l-.3-.18-3.1.8.83-3-.2-.31a8.2 8.2 0 1 1 6.97 3.84Zm4.5-6.14c-.25-.12-1.46-.72-1.69-.8-.23-.08-.39-.12-.55.12-.16.25-.63.8-.78.97-.14.16-.29.18-.53.06a6.7 6.7 0 0 1-3.32-2.9c-.25-.43.25-.4.71-1.33.08-.16.04-.3-.02-.43-.06-.12-.55-1.33-.76-1.82-.2-.48-.4-.41-.55-.42h-.47a.9.9 0 0 0-.65.3 2.74 2.74 0 0 0-.86 2.04 4.76 4.76 0 0 0 1 2.53 10.9 10.9 0 0 0 4.18 3.7c1.56.67 2.17.73 2.95.61.47-.07 1.46-.6 1.66-1.17.2-.58.2-1.07.14-1.17-.06-.1-.22-.16-.47-.28Z"></path></svg>Cotiza por WhatsApp</a><a href="tel:+525531650560" style="text-align:center;font-size:17px;font-weight:600;color:#E2E8F0" style-hover="color:#fff">+52 55 3165 0560</a><p style="margin:0;text-align:center;font-size:14px;line-height:1.6;color:#94A3B8">Te respondemos en horario laboral con preguntas concretas y una propuesta de primer paso.</p><a href="mailto:contacto@bubble-mesh.com" style="text-align:center;font-size:14px;color:#94A3B8;text-decoration:underline;text-underline-offset:3px" style-hover="color:#fff">o escríbenos a contacto@bubble-mesh.com</a></div>
   </div>
 </section>
 </main>
@@ -421,7 +405,7 @@ h1,h2,h3{overflow-wrap:break-word;hyphens:auto}
       <div style="display:flex;flex-direction:column;gap:10px">
         <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#64748B;margin-bottom:4px">Estudio</span>
         <a href="trabajo.html" style="color:#E2E8F0;font-size:14px">Trabajo</a>
-        <a href="estudio.html" style="color:#E2E8F0;font-size:14px">Estudio</a>
+        <a href="index.html#lo-que-hacemos" style="color:#E2E8F0;font-size:14px">Estudio</a>
         <a href="#cta-final" style="color:#E2E8F0;font-size:14px">Contacto</a>
       </div>
       <div style="display:flex;flex-direction:column;gap:10px">
@@ -432,7 +416,7 @@ h1,h2,h3{overflow-wrap:break-word;hyphens:auto}
       </div>
     </div>
     <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.06);font-size:13px;color:#94A3B8">
-      <span>Producción técnica en alianza con Mädi Films y R3State</span>
+      <span>BubbleMesh Studio · Ciudad de México</span>
       <div style="display:flex;gap:20px;flex-wrap:wrap"><a href="aviso-de-privacidad.html" style="color:#94A3B8">Aviso de privacidad</a><span>© 2026 BubbleMesh Studio</span></div>
     </div>
   </div>
@@ -441,7 +425,7 @@ h1,h2,h3{overflow-wrap:break-word;hyphens:auto}
 <sc-if value="{{ reelOpen }}" hint-placeholder-val="{{ false }}">
   <div role="dialog" aria-modal="true" aria-label="Demo reel" onClick="{{ closeReel }}" style="position:fixed;inset:0;z-index:100;background:rgba(6,9,17,0.92);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;padding:clamp(16px,4vw,48px)">
     <div onClick="{{ stop }}" style="position:relative;width:min(100%,1280px);aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:repeating-linear-gradient(135deg,#0F1525 0 14px,#131b2e 14px 28px);border:1px solid rgba(255,255,255,0.12);box-shadow:0 0 80px rgba(109,40,217,0.35);display:flex;align-items:center;justify-content:center">
-      <video data-reel data-src="media/showreel.mp4" poster="media/showreel.webp" controls playsinline preload="none" style="width:100%;height:100%;background:#000"></video>
+      <video data-reel data-src="media/showreel.mp4" data-hls="media/showreel-hls/master.m3u8" poster="media/showreel.webp" controls playsinline preload="none" style="width:100%;height:100%;background:#000"></video>
     </div>
     <button onClick="{{ closeReel }}" style="position:absolute;top:20px;right:20px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.16);color:#fff;font-weight:600;font-size:14px;padding:10px 18px;border-radius:9999px;cursor:pointer" style-hover="background:rgba(255,255,255,0.14)">Cerrar reel ✕</button>
   </div>
