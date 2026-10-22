@@ -42,7 +42,7 @@ input,select,textarea,button{font-family:inherit}
   function abrir(src){
     var lb=document.createElement('div'); lb.className='bm-lb'; lb.setAttribute('role','dialog'); lb.setAttribute('aria-modal','true');
     lb.innerHTML='<button type="button">Cerrar ✕</button><video controls autoplay playsinline></video>';
-    var v=lb.querySelector('video'); v.src=src; v.poster=src.replace(/\.mp4$/,'.webp');
+    var v=lb.querySelector('video'); v.src=src; v.poster=src.replace(/\.mp4$/,'.webp'); playAudio(v);
     function cerrar(){ v.pause(); lb.remove(); document.body.style.overflow=''; document.removeEventListener('keydown',tecla); }
     function tecla(e){ if(e.key==='Escape') cerrar(); }
     lb.addEventListener('click',function(e){ if(e.target===lb||e.target.tagName==='BUTTON') cerrar(); });
@@ -54,11 +54,30 @@ input,select,textarea,button{font-family:inherit}
     var src=t.getAttribute('data-video')||''; if(src.indexOf('media/')!==0) return;
     e.preventDefault(); e.stopPropagation(); abrir(src);
   },true);
-  // React no pone el atributo muted: sin él, iOS no reproduce el hero solo
-  // En pantallas grandes el hero cambia a la versión 1080p
-  var hd = window.innerWidth * (window.devicePixelRatio || 1) >= 1600;
-  function hero(){ document.querySelectorAll('video[data-hero]').forEach(function(v){ if(!v.muted){ v.muted=true; }
-    if(hd && !v.dataset.hd){ v.dataset.hd='1'; v.src='media/hero-1080.mp4'; } if(v.paused){ var p=v.play(); if(p&&p.catch) p.catch(function(){}); } }); }
+  function play(v){ var p=v.play(); if(p&&p.catch) p.catch(function(){}); }
+  // Con sonido; si el navegador lo bloquea, arranca sin sonido en vez de quedarse detenido
+  function playAudio(v){ var p=v.play(); if(p&&p.catch) p.catch(function(){ v.muted=true; play(v); }); }
+  function reel(){
+    document.querySelectorAll('video[data-reel]').forEach(function(v){
+      if(!v.getAttribute('src')){ v.src=v.dataset.src; playAudio(v); }
+    });
+  }
+  // El modal del reel lo pinta React justo después del clic: se busca dentro del
+  // mismo gesto para que el navegador permita el audio
+  document.addEventListener('click',function(){ reel(); setTimeout(reel,0); setTimeout(reel,60); setTimeout(reel,250); },true);
+  // Escritorio: hero 1080p; celular: 720p
+  var hd = window.innerWidth >= 1024;
+  function hero(){
+    // React no pone el atributo muted: sin él, iOS no reproduce el hero solo
+    document.querySelectorAll('video[data-hero]').forEach(function(v){
+      v.muted=true;
+      // Sin src en la plantilla: React no lo reescribe y solo se baja una versión
+      if(!v.getAttribute('src')){ v.src = hd ? 'media/hero-1080.mp4' : 'media/hero.mp4'; }
+      if(v.paused) play(v);
+    });
+    // El reel solo se descarga al abrirlo: sin src en la plantilla el navegador no lo pide antes
+    reel();
+  }
   new MutationObserver(hero).observe(document.documentElement,{childList:true,subtree:true});
   document.addEventListener('DOMContentLoaded',hero);
 })();
@@ -175,8 +194,8 @@ h1,h2,h3{overflow-wrap:break-word;hyphens:auto}
   <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,360px),1fr));gap:32px 20px">
     <sc-for list="{{ visibles }}" as="p" hint-placeholder-count="7">
       <article style="display:flex;flex-direction:column;gap:14px">
-        <a href="trabajo.html" style="position:relative;display:flex;align-items:center;justify-content:center;aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:repeating-linear-gradient(135deg,#0F1525 0 10px,#131b2e 10px 20px);border:1px solid rgba(255,255,255,0.06)" style-hover="border-color:rgba(168,85,247,0.5);box-shadow:0 0 40px rgba(109,40,217,0.25)">
-          <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#64748B;text-align:center;padding:0 24px">fotograma 16:9 · clip de 3 s al pasar el cursor</span>
+        <a href="trabajo.html" data-video="{{ p.video }}" style="position:relative;display:flex;align-items:center;justify-content:center;aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:repeating-linear-gradient(135deg,#0F1525 0 10px,#131b2e 10px 20px);border:1px solid rgba(255,255,255,0.06)" style-hover="border-color:rgba(168,85,247,0.5);box-shadow:0 0 40px rgba(109,40,217,0.25)">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#64748B;text-align:center;padding:0 24px"></span><div style="position:absolute;inset:0;background:{{ p.poster }} center/cover no-repeat"></div><span style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:64px;height:64px;border-radius:50%;background:rgba(255,255,255,0.92);display:flex;align-items:center;justify-content:center;box-shadow:0 0 40px rgba(124,58,237,0.5)"><svg width="22" height="22" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="#0B0F1A"></path></svg></span>
           <div style="position:absolute;left:12px;bottom:12px;display:flex;flex-wrap:wrap;gap:6px">
             <sc-for list="{{ p.tags }}" as="tag" hint-placeholder-count="2">
               <span style="white-space:var(--nw,nowrap);background:rgba(11,15,26,0.7);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.12);border-radius:9999px;padding:4px 10px;font-size:11px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;color:#E2E8F0">{{ tag }}</span>
@@ -189,7 +208,7 @@ h1,h2,h3{overflow-wrap:break-word;hyphens:auto}
           <span style="font-size:14px;color:#94A3B8">{{ p.credito }}</span>
           <sc-if value="{{ p.flag }}" hint-placeholder-val="{{ false }}"><span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.08em;color:#FBBF24">[SUPUESTO: {{ p.estado }}]</span></sc-if>
         </div>
-        <a href="trabajo.html" style="font-size:14px;font-weight:600;display:flex;align-items:center;gap:8px;width:fit-content">Ver cómo se hizo <span>→</span></a>
+        <a href="trabajo.html" data-video="{{ p.video }}" style="font-size:14px;font-weight:600;display:flex;align-items:center;gap:8px;width:fit-content">Ver video <span>▶</span></a>
       </article>
     </sc-for>
   </div>
@@ -335,7 +354,7 @@ h1,h2,h3{overflow-wrap:break-word;hyphens:auto}
 <sc-if value="{{ reelOpen }}" hint-placeholder-val="{{ false }}">
   <div role="dialog" aria-modal="true" aria-label="Demo reel" onClick="{{ closeReel }}" style="position:fixed;inset:0;z-index:100;background:rgba(6,9,17,0.92);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;padding:clamp(16px,4vw,48px)">
     <div onClick="{{ stop }}" style="position:relative;width:min(100%,1280px);aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:repeating-linear-gradient(135deg,#0F1525 0 14px,#131b2e 14px 28px);border:1px solid rgba(255,255,255,0.12);box-shadow:0 0 80px rgba(109,40,217,0.35);display:flex;align-items:center;justify-content:center">
-      <video src="media/showreel.mp4" poster="media/showreel.webp" controls autoplay playsinline style="width:100%;height:100%;background:#000"></video>
+      <video data-reel data-src="media/showreel.mp4" poster="media/showreel.webp" controls playsinline preload="none" style="width:100%;height:100%;background:#000"></video>
     </div>
     <button onClick="{{ closeReel }}" style="position:absolute;top:20px;right:20px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.16);color:#fff;font-weight:600;font-size:14px;padding:10px 18px;border-radius:9999px;cursor:pointer" style-hover="background:rgba(255,255,255,0.14)">Cerrar reel ✕</button>
   </div>
@@ -408,14 +427,18 @@ class Component extends DCLogic {
       sent: s.status === 'sent', notSent: s.status !== 'sent',
       ...(() => {
         const proyectos = [
-          { titulo: 'Video de arquitectura con IA', persona: 'Inmobiliario', tags: ['Video con IA', 'Edición'], credito: 'Equipo propio', estado: 'PEDIR PERMISO A LAZZA' },
-          { titulo: 'Loop o intro LED', persona: 'Artistas', tags: ['VFX'], credito: 'Equipo propio', estado: 'PRODUCIR PIEZA DE MUESTRA' },
-          { titulo: 'Spot híbrido con IA', persona: 'Marcas', tags: ['Video con IA', 'VFX'], credito: 'Equipo propio', estado: 'PRODUCIR O SELECCIONAR' },
-          { titulo: 'Cobertura de evento o aftermovie', persona: 'Eventos', tags: ['Cámara', 'Drone', 'Edición'], credito: 'Producción técnica: Mädi Films', estado: 'PEDIR PERMISO' },
-          { titulo: 'Video aéreo de desarrollo', persona: 'Inmobiliario', tags: ['Drone', '360°'], credito: 'Producción técnica: R3State', estado: 'PEDIR PERMISO' },
-          { titulo: 'Clips de entrevista', persona: 'Radio', tags: ['Edición'], credito: 'Equipo propio', estado: 'DEMOSTRACIÓN CON PERMISO' },
-          { titulo: 'Contenido de restaurante o taquería', persona: 'Recintos', tags: ['Cámara', 'Edición'], credito: 'Equipo propio', estado: 'CONFIRMAR PERMISO' }
-        ].map(p => ({ ...p, flag: sup }));
+          { titulo: 'Videoclip “Explosión” · Mily Alcubierre', persona: 'Artistas', tags: ['Cámara', 'Edición', 'VFX'], credito: 'BubbleMesh Studio', estado: '', video: 'media/mily-alcubierre-explosion.mp4', poster: 'url(media/mily-alcubierre-explosion.webp)' },
+          { titulo: 'Videoclip · Peña Negra', persona: 'Artistas', tags: ['Cámara', 'Edición'], credito: 'BubbleMesh Studio', estado: '', video: 'media/pena-negra.mp4', poster: 'url(media/pena-negra.webp)' },
+          { titulo: 'Cortinilla animada Bubble', persona: 'Artistas', tags: ['VFX'], credito: 'BubbleMesh Studio', estado: '', video: 'media/cortinilla.mp4', poster: 'url(media/cortinilla.webp)' },
+          { titulo: 'Jacarandas · recorrido cinematográfico', persona: 'Inmobiliario', tags: ['Cámara', 'Drone', 'Edición'], credito: 'BubbleMesh Studio', estado: '', video: 'media/jacarandas.mp4', poster: 'url(media/jacarandas.webp)' },
+          { titulo: 'Lazza Arquitectos · contenido con IA', persona: 'Inmobiliario', tags: ['Video con IA', 'Edición'], credito: 'BubbleMesh Studio', estado: '', video: 'media/lazza-reel.mp4', poster: 'url(media/lazza-reel.webp)' },
+          { titulo: 'Lazza Arquitectos · Teatro Nacional', persona: 'Inmobiliario', tags: ['Video con IA', 'Edición'], credito: 'BubbleMesh Studio', estado: '', video: 'media/lazza-teatro-nacional.mp4', poster: 'url(media/lazza-teatro-nacional.webp)' },
+          { titulo: 'Testimonio de compradora', persona: 'Inmobiliario', tags: ['Cámara', 'Edición'], credito: 'BubbleMesh Studio', estado: '', video: 'media/raquel-testimonio.mp4', poster: 'url(media/raquel-testimonio.webp)' },
+          { titulo: 'Lamzo · residencia de playa', persona: 'Inmobiliario', tags: ['Video con IA', 'Edición'], credito: 'BubbleMesh Studio', estado: '', video: 'media/lamzo-villa.mp4', poster: 'url(media/lamzo-villa.webp)' },
+          { titulo: 'Central Rock &amp; Mulch · spot con IA', persona: 'Marcas', tags: ['Video con IA', 'VFX'], credito: 'BubbleMesh Studio', estado: '', video: 'media/central-rock-spot-ia.mp4', poster: 'url(media/central-rock-spot-ia.webp)' },
+          { titulo: 'Central Rock &amp; Mulch · reel', persona: 'Marcas', tags: ['Video con IA', 'Edición'], credito: 'BubbleMesh Studio', estado: '', video: 'media/central-rock-05.mp4', poster: 'url(media/central-rock-05.webp)' },
+          { titulo: 'Lamzo · contenido de marca', persona: 'Marcas', tags: ['Cámara', 'Edición'], credito: 'BubbleMesh Studio', estado: '', video: 'media/lamzo-reel.mp4', poster: 'url(media/lamzo-reel.webp)' }
+        ].map(p => ({ ...p, flag: false }));
         const fp = s.fPersona, ft = s.fTecnica;
         const vis = proyectos.filter(p => (fp === 'Todo' || p.persona === fp) && (!ft || p.tags.includes(ft)));
         const mk = (label, active, onClick) => ({ label, active, onClick, bg: active ? 'rgba(124,58,237,0.22)' : 'rgba(255,255,255,0.03)', border: active ? 'rgba(168,85,247,0.7)' : 'rgba(255,255,255,0.12)', color: active ? '#fff' : '#CBD5E1' });
