@@ -156,11 +156,12 @@ h1,h2,h3{overflow-wrap:break-word}
   [data-r="nav"]{flex-wrap:nowrap!important}
   [data-r="logo"]{height:30px!important}
   [data-r="pegajoso"]{position:static!important}
+  [data-r="filtros"]{position:static!important}
 }
 @media (max-width:640px){
   :root{--nw:normal}
-  h1,h2,h3{hyphens:auto}
   [data-r="fondo"]{opacity:.35}
+  [data-r="modulo"]{grid-template-columns:1fr!important;gap:8px!important}
   main section{padding-left:16px!important;padding-right:16px!important}
   main section>div{padding-left:0!important;padding-right:0!important}
   [data-r="nav"]{padding-left:16px!important;padding-right:16px!important}
@@ -226,7 +227,7 @@ h1,h2,h3{overflow-wrap:break-word}
   </div>
 </section>
 
-<section id="filtros" data-screen-label="02 Filtros" aria-label="Filtrar proyectos por segmento y por técnica" style="position:sticky;top:69px;z-index:30;margin-top:48px;background:rgba(11,15,26,0.85);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,0.06);border-bottom:1px solid rgba(255,255,255,0.06)">
+<section id="filtros" data-r="filtros" data-screen-label="02 Filtros" aria-label="Filtrar proyectos por segmento y por técnica" style="position:sticky;top:69px;z-index:30;margin-top:48px;background:rgba(11,15,26,0.85);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,0.06);border-bottom:1px solid rgba(255,255,255,0.06)">
   <div style="max-width:1280px;margin:0 auto;padding:16px clamp(20px,4vw,32px);display:grid;gap:12px">
     <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px">
       <span style="font-size:13px;font-weight:600;color:#94A3B8;min-width:120px">¿Qué produces?</span>
@@ -428,7 +429,17 @@ class Component extends DCLogic {
           { titulo: 'Lamzo · residencia de playa', persona: 'Inmobiliario', tags: ['Video con IA', 'Edición'], credito: 'BubbleMesh Studio', estado: '', video: 'media/lamzo-villa.mp4', poster: 'url(media/lamzo-villa.webp)' },
           { titulo: 'Central Rock & Mulch · spot con IA', persona: 'Marcas', tags: ['Video con IA', 'VFX'], credito: 'BubbleMesh Studio', estado: '', video: 'media/central-rock-spot-ia.mp4', poster: 'url(media/central-rock-spot-ia.webp)' },
           { titulo: 'Central Rock & Mulch · reel', persona: 'Marcas', tags: ['Video con IA', 'Edición'], credito: 'BubbleMesh Studio', estado: '', video: 'media/central-rock-05.mp4', poster: 'url(media/central-rock-05.webp)' },
-          { titulo: 'Lamzo · contenido de marca', persona: 'Marcas', tags: ['Cámara', 'Edición'], credito: 'BubbleMesh Studio', estado: '', video: 'media/lamzo-reel.mp4', poster: 'url(media/lamzo-reel.webp)' }
+          { titulo: 'Lamzo · contenido de marca', persona: 'Marcas', tags: ['Cámara', 'Edición'], credito: 'BubbleMesh Studio', estado: '', video: 'media/lamzo-reel.mp4', poster: 'url(media/lamzo-reel.webp)' },
+          { titulo: 'Central Rock & Mulch · jardín', persona: 'Marcas', tags: ['Video con IA', 'Edición'], credito: 'BubbleMesh Studio', estado: '', video: 'media/central-rock-jardin.mp4', poster: 'url(media/central-rock-jardin.webp)' },
+          { titulo: 'Lamzo · tapicería', persona: 'Marcas', tags: ['Cámara', 'Edición'], credito: 'BubbleMesh Studio', estado: '', video: 'media/lamzo-tapiceria.mp4', poster: 'url(media/lamzo-tapiceria.webp)' },
+          { titulo: 'Lamzo · en la tienda', persona: 'Marcas', tags: ['Cámara', 'Edición'], credito: 'BubbleMesh Studio', estado: '', video: 'media/lamzo-tienda.mp4', poster: 'url(media/lamzo-tienda.webp)' },
+          { titulo: 'Lamzo · sala', persona: 'Marcas', tags: ['Cámara', 'Edición'], credito: 'BubbleMesh Studio', estado: '', video: 'media/lamzo-sala.mp4', poster: 'url(media/lamzo-sala.webp)' },
+          { titulo: 'Lamzo · cortinas', persona: 'Marcas', tags: ['Cámara', 'Edición'], credito: 'BubbleMesh Studio', estado: '', video: 'media/lamzo-cortinas.mp4', poster: 'url(media/lamzo-cortinas.webp)' },
+          { titulo: 'Lamzo · residencia', persona: 'Inmobiliario', tags: ['Cámara', 'Edición'], credito: 'BubbleMesh Studio', estado: '', video: 'media/lamzo-residencia.mp4', poster: 'url(media/lamzo-residencia.webp)' },
+          { titulo: 'Lamzo · garage y lounge', persona: 'Inmobiliario', tags: ['Cámara', 'Edición'], credito: 'BubbleMesh Studio', estado: '', video: 'media/lamzo-garage.mp4', poster: 'url(media/lamzo-garage.webp)' },
+          { titulo: 'Lazza Arquitectos · casa de las jacarandas', persona: 'Inmobiliario', tags: ['Video con IA', 'Edición'], credito: 'BubbleMesh Studio', estado: '', video: 'media/lazza-jacaranda.mp4', poster: 'url(media/lazza-jacaranda.webp)' },
+          { titulo: 'Raquel Besudo · departamento', persona: 'Inmobiliario', tags: ['Cámara', 'Edición'], credito: 'BubbleMesh Studio', estado: '', video: 'media/raquel-departamento.mp4', poster: 'url(media/raquel-departamento.webp)' },
+          { titulo: 'Testimonio · entrevista completa', persona: 'Inmobiliario', tags: ['Cámara', 'Edición'], credito: 'BubbleMesh Studio', estado: '', video: 'media/raquel-entrevista.mp4', poster: 'url(media/raquel-entrevista.webp)' }
         ].map(p => ({ ...p, flag: false }));
         const fp = s.fPersona, ft = s.fTecnica;
         const vis = proyectos.filter(p => (fp === 'Todo' || p.persona === fp) && (!ft || p.tags.includes(ft)));
