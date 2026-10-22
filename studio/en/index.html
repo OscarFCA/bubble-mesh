@@ -57,6 +57,7 @@ input,select,textarea,button{font-family:inherit}
 @media (prefers-reduced-motion:reduce){.bm-car{overflow-x:auto;-webkit-mask-image:none;mask-image:none}.bm-car-track{animation:none}}
 .bm-lb{position:fixed;inset:0;z-index:300;background:rgba(6,9,17,0.94);display:flex;align-items:center;justify-content:center;padding:56px 16px 16px}
 .bm-lb video{max-width:min(100%,1280px);max-height:100%;border-radius:12px;background:#000;box-shadow:0 0 80px rgba(109,40,217,0.35)}
+.bm-lb img{max-width:min(100%,1400px);max-height:100%;border-radius:12px;box-shadow:0 0 80px rgba(109,40,217,0.35);cursor:zoom-out}
 .bm-lb button{position:absolute;top:12px;right:16px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.16);color:#fff;font:600 14px Inter,system-ui,sans-serif;padding:10px 18px;border-radius:9999px;cursor:pointer}
 </style>
 <script>
@@ -101,8 +102,22 @@ input,select,textarea,button{font-family:inherit}
     document.addEventListener('keydown',tecla);
     document.body.appendChild(lb); document.body.style.overflow='hidden';
   }
+  // Visor de imágenes (storyboards y hojas de personaje): data-imagen="../assets/..."
+  function abririmg(src){
+    abierto='visor';
+    var lb=document.createElement('div'); lb.className='bm-lb'; lb.setAttribute('role','dialog'); lb.setAttribute('aria-modal','true');
+    lb.innerHTML='<button type="button">Close ✕</button><img alt="">';
+    lb.querySelector('img').src=src;
+    function cerrar(){ lb.remove(); document.body.style.overflow=''; document.removeEventListener('keydown',tecla); abierto=false; }
+    function tecla(e){ if(e.key==='Escape') cerrar(); }
+    lb.addEventListener('click',function(e){ if(e.target===lb||e.target.tagName==='BUTTON'||e.target.tagName==='IMG') cerrar(); });
+    document.addEventListener('keydown',tecla);
+    document.body.appendChild(lb); document.body.style.overflow='hidden';
+  }
   document.addEventListener('click',function(e){
     clic=Date.now();
+    var im=e.target.closest&&e.target.closest('[data-imagen]');
+    if(im){ e.preventDefault(); e.stopPropagation(); abririmg(im.getAttribute('data-imagen')); return; }
     var t=e.target.closest&&e.target.closest('[data-video]'); if(!t) return;
     var src=t.getAttribute('data-video')||''; if(!/^(\.\.\/)?media\//.test(src)) return;
     e.preventDefault(); e.stopPropagation(); abrir(src);
@@ -189,6 +204,29 @@ input,select,textarea,button{font-family:inherit}
 @keyframes bmTravel{0%{offset-distance:0%;opacity:0}10%{opacity:1}90%{opacity:1}100%{offset-distance:100%;opacity:0}}
 @keyframes bmBlink{0%,100%{opacity:1}50%{opacity:.15}}
 @media (prefers-reduced-motion:reduce){.bm-ia *{animation:none!important}}
+</style>
+
+<style>
+.bm-pro{position:relative;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px}
+.bm-pro::before{content:"";position:absolute;left:0;right:0;top:-14px;height:2px;border-radius:2px;background:rgba(255,255,255,0.08)}
+.bm-pro::after{content:"";position:absolute;left:0;right:0;top:-14px;height:2px;border-radius:2px;background:linear-gradient(90deg,#7C3AED,#EC4899,#14B8A6);transform-origin:left;animation:bmProFill 10s ease-in-out infinite;box-shadow:0 0 14px rgba(236,72,153,0.7)}
+@keyframes bmProFill{0%{transform:scaleX(0)}80%,100%{transform:scaleX(1)}}
+.bm-pro-paso{display:flex;flex-direction:column;gap:12px;animation:bmProOn 10s ease-in-out infinite}
+@keyframes bmProOn{0%,100%{opacity:.55}10%,30%{opacity:1}}
+.bm-pro-img{position:relative;aspect-ratio:3/4;border-radius:14px;overflow:hidden;background:#0B0F1A;border:1px solid rgba(255,255,255,0.10);cursor:zoom-in}
+.bm-pro-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.bm-pro-img:hover img{transform:scale(1.06)}
+.bm-pro-img .bm-doble{position:absolute;inset:0;animation:bmDoble 6s ease-in-out infinite}
+@keyframes bmDoble{0%,40%{opacity:0}50%,90%{opacity:1}100%{opacity:0}}
+.bm-gion text{font-family:'JetBrains Mono',monospace}
+.bm-gion .l{opacity:0;animation:bmLinea 10s steps(1) infinite}
+@keyframes bmLinea{0%{opacity:0}2%,92%{opacity:1}100%{opacity:0}}
+.bm-gion .cur{animation:bmCursor 1s steps(1) infinite}
+@keyframes bmCursor{50%{opacity:0}}
+.bm-pro-galeria{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));gap:12px}
+@media (max-width:1023px){.bm-pro{grid-template-columns:repeat(3,minmax(0,1fr))}.bm-pro::before,.bm-pro::after{display:none}}
+@media (max-width:640px){.bm-pro{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (prefers-reduced-motion:reduce){.bm-pro::after,.bm-pro-paso,.bm-pro-img .bm-doble,.bm-gion .l,.bm-gion .cur{animation:none!important;opacity:1!important}}
 </style>
 
 <style>
@@ -385,6 +423,19 @@ h1,h2,h3{overflow-wrap:break-word}
 </section>
 
 <!-- 6 DIGITAL -->
+
+<section id="guion-storyboard" data-screen-label="Del guion a la pantalla" style="max-width:1280px;margin:0 auto;padding:clamp(72px,10vw,128px) clamp(20px,4vw,32px) 0">
+  <div style="display:grid;gap:14px;margin-bottom:44px;max-width:780px">
+    <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#94A3B8">Scriptwriting · Storyboards · Character sheets</span>
+    <h2 style="margin:0;font-family:Montserrat,sans-serif;font-weight:700;font-size:clamp(2rem,4.5vw,3.2rem);letter-spacing:-0.02em;line-height:1.05;text-wrap:balance">From script to screen</h2>
+    <p style="margin:0;font-size:17px;line-height:1.6;color:#94A3B8;max-width:64ch;text-wrap:pretty">Before we generate or shoot anything, we write the script, draw the storyboard and define every character with a reference sheet. That way an AI and VFX piece keeps the same face, the same light and the same story from start to finish. This is the real process behind our Teatro Nacional piece.</p>
+  </div>
+  <div class="bm-pro"><div class="bm-pro-paso" style="animation-delay:0s"><div class="bm-pro-img" style="cursor:default;background:#F8F5EE"><svg class="bm-gion" viewBox="0 0 300 400" style="position:absolute;inset:0;width:100%;height:100%" aria-hidden="true"><rect width="300" height="400" fill="#111827"></rect><rect x="12" y="12" width="276" height="376" rx="6" fill="#0B0F1A" stroke="rgba(255,255,255,0.10)"></rect><text x="22" y="34" fill="#64748B" font-size="9" letter-spacing="2">SCRIPT · TEATRO NACIONAL</text><text class="l" x="22" y="54" fill="#F0ABFC" font-size="11.5" font-weight="700" style="animation-delay:0.00s">SC. 1 · EXT. ALAMEDA CENTRAL, 1909</text><text class="l" x="22" y="76" fill="#E2E8F0" font-size="11.5" font-weight="400" style="animation-delay:0.55s">The Teatro Nacional is still under construction.</text><text class="l" x="22" y="98" fill="#E2E8F0" font-size="11.5" font-weight="400" style="animation-delay:1.10s">Scaffolding, golden dust, morning.</text><text class="l" x="22" y="142" fill="#C4B5FD" font-size="11.5" font-weight="700" style="animation-delay:2.20s">ADAMO BOARI walks with AIDA.</text><text class="l" x="22" y="164" fill="#E2E8F0" font-size="11.5" font-weight="400" style="animation-delay:2.75s">He stops in front of the facade.</text><text class="l" x="22" y="208" fill="#F0ABFC" font-size="11.5" font-weight="700" style="animation-delay:3.85s">BOARI</text><text class="l" x="22" y="230" fill="#E2E8F0" font-size="11.5" font-weight="400" style="animation-delay:4.40s">It doesn't exist yet.</text><text class="l" x="22" y="252" fill="#E2E8F0" font-size="11.5" font-weight="400" style="animation-delay:4.95s">But you can already see it.</text><rect class="cur" x="22" y="262" width="7" height="13" fill="#EC4899"></rect></svg></div><div style="display:grid;gap:4px"><span style="display:flex;gap:8px;align-items:baseline;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#A855F7"><b style="color:#F0ABFC">01</b><span>Script</span></span><p style="margin:0;font-size:14px;line-height:1.55;color:#94A3B8;text-wrap:pretty">We write the scene: place, era, characters and what the viewer should feel.</p></div></div><div class="bm-pro-paso" style="animation-delay:2s"><div class="bm-pro-img" data-imagen="../assets/proceso/story-6paneles-b.webp" role="button" aria-label="Enlarge: Six-panel storyboard of the Teatro Nacional"><img src="../assets/proceso/story-6paneles-b-t.webp" alt="Six-panel storyboard of the Teatro Nacional" loading="lazy"></div><div style="display:grid;gap:4px"><span style="display:flex;gap:8px;align-items:baseline;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#A855F7"><b style="color:#F0ABFC">02</b><span>Storyboard</span></span><p style="margin:0;font-size:14px;line-height:1.55;color:#94A3B8;text-wrap:pretty">We draw every shot before production, so framing and pacing get approved without spending a single shoot day.</p></div></div><div class="bm-pro-paso" style="animation-delay:4s"><div class="bm-pro-img" data-imagen="../assets/proceso/boari-hoja.webp" role="button" aria-label="Enlarge: Adamo Boari character sheet"><img src="../assets/proceso/boari-hoja-t.webp" alt="Adamo Boari character sheet" loading="lazy"><div class="bm-doble"><img src="../assets/proceso/aida-hoja-t.webp" alt="" loading="lazy"></div></div><div style="display:grid;gap:4px"><span style="display:flex;gap:8px;align-items:baseline;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#A855F7"><b style="color:#F0ABFC">03</b><span>Character sheets</span></span><p style="margin:0;font-size:14px;line-height:1.55;color:#94A3B8;text-wrap:pretty">Every character gets a reference sheet, so it keeps the same face in every scene.</p></div></div><div class="bm-pro-paso" style="animation-delay:6s"><div class="bm-pro-img" data-imagen="../assets/proceso/keyframe-teatro1909.webp" role="button" aria-label="Enlarge: Keyframe of the Teatro Nacional under construction, 1909"><img src="../assets/proceso/keyframe-teatro1909-t.webp" alt="Keyframe of the Teatro Nacional under construction, 1909" loading="lazy"></div><div style="display:grid;gap:4px"><span style="display:flex;gap:8px;align-items:baseline;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#A855F7"><b style="color:#F0ABFC">04</b><span>Keyframe</span></span><p style="margin:0;font-size:14px;line-height:1.55;color:#94A3B8;text-wrap:pretty">We lock the visual world: the light, the era and the architecture of every location.</p></div></div><div class="bm-pro-paso" style="animation-delay:8s"><div data-video="../media/lazza-teatro-nacional.mp4" role="button" aria-label="Watch video: Final piece · Teatro Nacional" style="position:relative;aspect-ratio:3/4;border-radius:16px;overflow:hidden;cursor:pointer;background:#0B0F1A;border:1px solid rgba(255,255,255,0.06)" style-hover="border-color:rgba(168,85,247,0.5)"><img src="../media/lazza-teatro-nacional.webp" alt="" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"><div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(11,15,26,0.88),transparent 55%)"></div><span style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:64px;height:64px;border-radius:50%;background:rgba(255,255,255,0.92);display:flex;align-items:center;justify-content:center;box-shadow:0 0 40px rgba(124,58,237,0.5)"><svg width="22" height="22" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="#0B0F1A"></path></svg></span><span style="position:absolute;left:16px;right:16px;bottom:14px;font-size:15px;font-weight:600;line-height:1.35;color:#fff;text-align:left">Final piece · Teatro Nacional</span></div><div style="display:grid;gap:4px"><span style="display:flex;gap:8px;align-items:baseline;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#A855F7"><b style="color:#F0ABFC">05</b><span>Final piece</span></span><p style="margin:0;font-size:14px;line-height:1.55;color:#94A3B8;text-wrap:pretty">Once everything is approved, we generate, animate and edit the piece with sound.</p></div></div></div>
+  <div style="margin-top:44px;display:grid;gap:16px">
+    <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#94A3B8">More character sheets and storyboards</span>
+    <div class="bm-pro-galeria"><figure style="margin:0;display:grid;gap:8px"><div class="bm-pro-img" data-imagen="../assets/proceso/bubble-turnaround.webp" role="button" aria-label="Enlarge: Bubble turnaround sheet: views, expressions and poses"><img src="../assets/proceso/bubble-turnaround-t.webp" alt="Bubble turnaround sheet: views, expressions and poses" loading="lazy"></div><figcaption style="font-size:12.5px;line-height:1.4;color:#94A3B8">Bubble turnaround sheet: views, expressions and poses</figcaption></figure><figure style="margin:0;display:grid;gap:8px"><div class="bm-pro-img" data-imagen="../assets/proceso/catrina-hoja.webp" role="button" aria-label="Enlarge: La Catrina character sheet"><img src="../assets/proceso/catrina-hoja-t.webp" alt="La Catrina character sheet" loading="lazy"></div><figcaption style="font-size:12.5px;line-height:1.4;color:#94A3B8">La Catrina character sheet</figcaption></figure><figure style="margin:0;display:grid;gap:8px"><div class="bm-pro-img" data-imagen="../assets/proceso/zapata-hoja.webp" role="button" aria-label="Enlarge: Emiliano Zapata character sheet"><img src="../assets/proceso/zapata-hoja-t.webp" alt="Emiliano Zapata character sheet" loading="lazy"></div><figcaption style="font-size:12.5px;line-height:1.4;color:#94A3B8">Emiliano Zapata character sheet</figcaption></figure><figure style="margin:0;display:grid;gap:8px"><div class="bm-pro-img" data-imagen="../assets/proceso/hoja-carton.webp" role="button" aria-label="Enlarge: Cutout sheet for cardboard animation"><img src="../assets/proceso/hoja-carton-t.webp" alt="Cutout sheet for cardboard animation" loading="lazy"></div><figcaption style="font-size:12.5px;line-height:1.4;color:#94A3B8">Cutout sheet for cardboard animation</figcaption></figure><figure style="margin:0;display:grid;gap:8px"><div class="bm-pro-img" data-imagen="../assets/proceso/story-paseo76.webp" role="button" aria-label="Enlarge: Vertical reel storyboard · Paseo 76"><img src="../assets/proceso/story-paseo76-t.webp" alt="Vertical reel storyboard · Paseo 76" loading="lazy"></div><figcaption style="font-size:12.5px;line-height:1.4;color:#94A3B8">Vertical reel storyboard · Paseo 76</figcaption></figure><figure style="margin:0;display:grid;gap:8px"><div class="bm-pro-img" data-imagen="../assets/proceso/story-mimbres.webp" role="button" aria-label="Enlarge: Vertical reel storyboard · Mimbres 26"><img src="../assets/proceso/story-mimbres-t.webp" alt="Vertical reel storyboard · Mimbres 26" loading="lazy"></div><figcaption style="font-size:12.5px;line-height:1.4;color:#94A3B8">Vertical reel storyboard · Mimbres 26</figcaption></figure></div>
+  </div>
+</section>
 <section id="digital" data-screen-label="06 Del video al cliente" style="max-width:1280px;margin:0 auto;padding:clamp(72px,10vw,128px) clamp(20px,4vw,32px) 0">
   <div style="display:grid;gap:14px;margin-bottom:48px;max-width:760px">
     <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#94A3B8">06 · Digital transformation</span>
