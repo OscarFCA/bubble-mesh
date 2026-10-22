@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://bubble-mesh.com/studio/</loc><lastmod>2026-10-21</lastmod><priority>1.0</priority></url>
-  <url><loc>https://bubble-mesh.com/studio/artistas.html</loc><lastmod>2026-10-21</lastmod><priority>0.8</priority></url>
-  <url><loc>https://bubble-mesh.com/studio/radio.html</loc><lastmod>2026-10-21</lastmod><priority>0.8</priority></url>
-  <url><loc>https://bubble-mesh.com/studio/eventos.html</loc><lastmod>2026-10-21</lastmod><priority>0.8</priority></url>
-  <url><loc>https://bubble-mesh.com/studio/recintos.html</loc><lastmod>2026-10-21</lastmod><priority>0.8</priority></url>
-  <url><loc>https://bubble-mesh.com/studio/marcas.html</loc><lastmod>2026-10-21</lastmod><priority>0.8</priority></url>
-  <url><loc>https://bubble-mesh.com/studio/inmobiliario.html</loc><lastmod>2026-10-21</lastmod><priority>0.8</priority></url>
-  <url><loc>https://bubble-mesh.com/studio/trabajo.html</loc><lastmod>2026-10-21</lastmod><priority>0.8</priority></url>
+  <url><loc>https://bubble-mesh.com/studio/</loc><lastmod>2026-10-22</lastmod><priority>1.0</priority></url>
+  <url><loc>https://bubble-mesh.com/studio/artistas.html</loc><lastmod>2026-10-22</lastmod><priority>0.8</priority></url>
+  <url><loc>https://bubble-mesh.com/studio/radio.html</loc><lastmod>2026-10-22</lastmod><priority>0.8</priority></url>
+  <url><loc>https://bubble-mesh.com/studio/eventos.html</loc><lastmod>2026-10-22</lastmod><priority>0.8</priority></url>
+  <url><loc>https://bubble-mesh.com/studio/recintos.html</loc><lastmod>2026-10-22</lastmod><priority>0.8</priority></url>
+  <url><loc>https://bubble-mesh.com/studio/marcas.html</loc><lastmod>2026-10-22</lastmod><priority>0.8</priority></url>
+  <url><loc>https://bubble-mesh.com/studio/inmobiliario.html</loc><lastmod>2026-10-22</lastmod><priority>0.8</priority></url>
+  <url><loc>https://bubble-mesh.com/studio/trabajo.html</loc><lastmod>2026-10-22</lastmod><priority>0.8</priority></url>
+  <url><loc>https://bubble-mesh.com/studio/en/</loc><lastmod>2026-10-22</lastmod><priority>1.0</priority></url>
+  <url><loc>https://bubble-mesh.com/studio/en/artistas.html</loc><lastmod>2026-10-22</lastmod><priority>0.8</priority></url>
+  <url><loc>https://bubble-mesh.com/studio/en/radio.html</loc><lastmod>2026-10-22</lastmod><priority>0.8</priority></url>
+  <url><loc>https://bubble-mesh.com/studio/en/eventos.html</loc><lastmod>2026-10-22</lastmod><priority>0.8</priority></url>
+  <url><loc>https://bubble-mesh.com/studio/en/recintos.html</loc><lastmod>2026-10-22</lastmod><priority>0.8</priority></url>
+  <url><loc>https://bubble-mesh.com/studio/en/marcas.html</loc><lastmod>2026-10-22</lastmod><priority>0.8</priority></url>
+  <url><loc>https://bubble-mesh.com/studio/en/inmobiliario.html</loc><lastmod>2026-10-22</lastmod><priority>0.8</priority></url>
+  <url><loc>https://bubble-mesh.com/studio/en/trabajo.html</loc><lastmod>2026-10-22</lastmod><priority>0.8</priority></url>
 </urlset>

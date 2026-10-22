@@ -7,6 +7,9 @@
 <meta name="description" content="Portafolio de video, VFX y plataformas digitales de BubbleMesh Studio.">
 <meta name="robots" content="index, follow, max-image-preview:large, max-video-preview:-1">
 <link rel="canonical" href="https://bubble-mesh.com/studio/trabajo.html">
+<link rel="alternate" hreflang="es-MX" href="https://bubble-mesh.com/studio/trabajo.html">
+<link rel="alternate" hreflang="en" href="https://bubble-mesh.com/studio/en/trabajo.html">
+<link rel="alternate" hreflang="x-default" href="https://bubble-mesh.com/studio/trabajo.html">
 <meta name="theme-color" content="#0B0F1A">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_MX">
@@ -100,7 +103,7 @@ input,select,textarea,button{font-family:inherit}
   document.addEventListener('click',function(e){
     clic=Date.now();
     var t=e.target.closest&&e.target.closest('[data-video]'); if(!t) return;
-    var src=t.getAttribute('data-video')||''; if(src.indexOf('media/')!==0) return;
+    var src=t.getAttribute('data-video')||''; if(!/^(\.\.\/)?media\//.test(src)) return;
     e.preventDefault(); e.stopPropagation(); abrir(src);
   },true);
 
@@ -236,7 +239,7 @@ h1,h2,h3{overflow-wrap:break-word}
       <a href="trabajo.html" aria-current="page" style="color:#fff;font-weight:600;font-size:15px;padding:10px 14px" style-hover="color:#fff">Trabajo</a>
       <a href="index.html#lo-que-hacemos" style="color:#E2E8F0;font-weight:500;font-size:15px;padding:10px 14px" style-hover="color:#fff">Estudio</a>
     </div>
-    <a data-r="navcta" href="#cta-final" style="background:linear-gradient(135deg,#EC4899,#7C3AED);color:#fff;font-weight:700;font-size:15px;padding:11px 22px;border-radius:9999px;box-shadow:0 0 24px rgba(236,72,153,0.30);white-space:var(--nw,nowrap)" style-hover="color:#fff;box-shadow:0 0 32px rgba(236,72,153,0.5)">Cotiza tu producción</a>
+    <div data-r="idioma" role="group" aria-label="Idioma / Language" style="display:flex;align-items:center;gap:2px;border:1px solid rgba(255,255,255,0.14);border-radius:9999px;padding:3px;font-size:12px;font-weight:700;letter-spacing:0.06em;flex-shrink:0"><a data-r="lang-es" href="trabajo.html" hreflang="es" lang="es" style="padding:6px 10px;border-radius:9999px;background:rgba(124,58,237,0.38);color:#fff">ES</a><a data-r="lang-en" href="en/trabajo.html" hreflang="en" lang="en" style="padding:6px 10px;border-radius:9999px;color:#94A3B8">EN</a></div><a data-r="navcta" href="#cta-final" style="background:linear-gradient(135deg,#EC4899,#7C3AED);color:#fff;font-weight:700;font-size:15px;padding:11px 22px;border-radius:9999px;box-shadow:0 0 24px rgba(236,72,153,0.30);white-space:var(--nw,nowrap)" style-hover="color:#fff;box-shadow:0 0 32px rgba(236,72,153,0.5)">Cotiza tu producción</a>
   
     <button data-r="burger" onClick="{{ toggleMenu }}" aria-label="Abrir menú" style="display:none;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:10px;width:44px;height:44px;align-items:center;justify-content:center;cursor:pointer;color:#fff;padding:0">
       <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></sc-if>

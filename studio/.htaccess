@@ -18,3 +18,4 @@ AddType image/webp .webp
 # Estudio ya no es página: vive como sección de la portada
 RewriteEngine On
 RewriteRule ^estudio\.html$ /studio/#lo-que-hacemos [R=301,NE,L]
+RewriteRule ^en/estudio\.html$ /studio/en/#lo-que-hacemos [R=301,NE,L]
