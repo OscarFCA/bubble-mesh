@@ -140,8 +140,10 @@ input,select,textarea,button{font-family:inherit}
     // React no pone el atributo muted: sin él, iOS no reproduce el hero solo
     document.querySelectorAll('video[data-hero]').forEach(function(v){
       v.muted=true;
-      // Sin src en la plantilla: React no lo reescribe y solo se baja una versión
-      if(!v.getAttribute('src') && !v.dataset.prev){ v.src = hd ? 'media/hero-1080.mp4' : 'media/hero.mp4'; }
+      // Sin src en la plantilla: React no lo reescribe y solo se baja una versión.
+      // Espera a que cargue la página: HostGator sirve todo por una conexión HTTP/2
+      // y el hero, si arranca antes, deja formadas las imágenes y el video que se abra
+      if(document.readyState==='complete' && !v.getAttribute('src') && !v.dataset.prev){ v.src = hd ? 'media/hero-1080.mp4' : 'media/hero.mp4'; }
       if(v.paused && v.getAttribute('src')) play(v);
     });
     // Loops silenciosos de fondo (tarjetas grandes)
@@ -150,6 +152,7 @@ input,select,textarea,button{font-family:inherit}
   }
   new MutationObserver(revisar).observe(document.documentElement,{childList:true,subtree:true});
   document.addEventListener('DOMContentLoaded',revisar);
+  window.addEventListener('load',function(){ setTimeout(revisar,300); });
 })();
 </script>
 
