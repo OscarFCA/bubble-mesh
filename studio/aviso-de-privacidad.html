@@ -50,25 +50,52 @@ input,select,textarea,button{font-family:inherit}
 </style>
 <script>
 (function(){
+  // Nombres en minúscula: support.js toma "<espacio>camelCase=" por atributo y rompe el script
+  var abierto=false, clic=0, hlsvivo=null, cola=null;
+  var hd = window.innerWidth >= 1024;  // escritorio: hero 1080p; celular: 720p
+  function play(v){ var p=v.play(); if(p&&p.catch) p.catch(function(){}); }
+  // Con sonido; si el navegador lo bloquea, arranca sin sonido en vez de quedarse detenido
+  function playaudio(v){ var p=v.play(); if(p&&p.catch) p.catch(function(){ v.muted=true; play(v); }); }
+
+  // HostGator limita las descargas simultáneas por visitante: al abrir un video se
+  // corta la descarga del hero y de los loops, y al cerrarlo siguen donde iban
+  function pausar(){
+    document.querySelectorAll('video[data-hero],video[data-loop]').forEach(function(v){
+      if(!v.getAttribute('src')) return;
+      v.dataset.prev=v.getAttribute('src'); v.dataset.t=v.currentTime;
+      v.pause(); v.removeAttribute('src'); v.load();
+    });
+  }
+  function reanudar(){
+    abierto=false;
+    document.querySelectorAll('video[data-hero],video[data-loop]').forEach(function(v){
+      if(!v.dataset.prev) return;
+      v.src=v.dataset.prev; var t=+v.dataset.t||0; delete v.dataset.prev;
+      v.addEventListener('loadedmetadata',function(){ try{ v.currentTime=t; }catch(e){} },{once:true});
+      v.muted=true; play(v);
+    });
+  }
+
   // Visor de video: cualquier elemento con data-video="media/..." lo abre
   function abrir(src){
+    abierto='visor'; pausar();
     var lb=document.createElement('div'); lb.className='bm-lb'; lb.setAttribute('role','dialog'); lb.setAttribute('aria-modal','true');
     lb.innerHTML='<button type="button">Cerrar ✕</button><video controls autoplay playsinline></video>';
-    var v=lb.querySelector('video'); v.src=src; v.poster=src.replace(/\.mp4$/,'.webp'); playAudio(v);
-    function cerrar(){ v.pause(); lb.remove(); document.body.style.overflow=''; document.removeEventListener('keydown',tecla); }
+    var v=lb.querySelector('video'); v.src=src; v.poster=src.replace(/\.mp4$/,'.webp'); playaudio(v);
+    function cerrar(){ v.pause(); v.removeAttribute('src'); v.load(); lb.remove(); document.body.style.overflow=''; document.removeEventListener('keydown',tecla); reanudar(); }
     function tecla(e){ if(e.key==='Escape') cerrar(); }
     lb.addEventListener('click',function(e){ if(e.target===lb||e.target.tagName==='BUTTON') cerrar(); });
     document.addEventListener('keydown',tecla);
     document.body.appendChild(lb); document.body.style.overflow='hidden';
   }
   document.addEventListener('click',function(e){
+    clic=Date.now();
     var t=e.target.closest&&e.target.closest('[data-video]'); if(!t) return;
     var src=t.getAttribute('data-video')||''; if(src.indexOf('media/')!==0) return;
     e.preventDefault(); e.stopPropagation(); abrir(src);
   },true);
-  // Sin identificadores camelCase seguidos de '=': support.js los toma por atributos
-  var cola=null;
-  function cargarHls(cb){
+
+  function cargarhls(cb){
     if(window.Hls) return cb();
     if(cola) return cola.push(cb);
     cola=[cb]; var sc=document.createElement('script');
@@ -76,40 +103,45 @@ input,select,textarea,button{font-family:inherit}
     sc.onload=sc.onerror=function(){ cola.forEach(function(f){ f(); }); };
     document.head.appendChild(sc);
   }
-  function play(v){ var p=v.play(); if(p&&p.catch) p.catch(function(){}); }
-  // Con sonido; si el navegador lo bloquea, arranca sin sonido en vez de quedarse detenido
-  function playAudio(v){ var p=v.play(); if(p&&p.catch) p.catch(function(){ v.muted=true; play(v); }); }
+  // Reel: solo se descarga tras el clic que lo abre (la plantilla sin hidratar también
+  // trae el <video>, y sin esta guarda se pedía al cargar la página)
   function reel(){
+    if(Date.now()-clic>2000) return;
     document.querySelectorAll('video[data-reel]').forEach(function(v){
       if(v.dataset.on) return; v.dataset.on='1';
+      abierto='reel'; pausar();
       // HLS adaptativo: la calidad sube o baja según la conexión del visitante
-      if(v.canPlayType('application/vnd.apple.mpegurl')){ v.src=v.dataset.hls; playAudio(v); return; }
-      cargarHls(function(){
-        if(window.Hls && window.Hls.isSupported()){ var h=new window.Hls({capLevelToPlayerSize:true}); h.loadSource(v.dataset.hls); h.attachMedia(v); v.hls=h; playAudio(v); }
-        else { v.src=v.dataset.src; playAudio(v); }
+      if(v.canPlayType('application/vnd.apple.mpegurl')){ v.src=v.dataset.hls; playaudio(v); return; }
+      cargarhls(function(){
+        if(window.Hls && window.Hls.isSupported()){ var h=new window.Hls({capLevelToPlayerSize:true}); h.loadSource(v.dataset.hls); h.attachMedia(v); hlsvivo=h; playaudio(v); }
+        else { v.src=v.dataset.src; playaudio(v); }
       });
     });
   }
   // El modal del reel lo pinta React justo después del clic: se busca dentro del
   // mismo gesto para que el navegador permita el audio
   document.addEventListener('click',function(){ reel(); setTimeout(reel,0); setTimeout(reel,60); setTimeout(reel,250); },true);
-  // Escritorio: hero 1080p; celular: 720p
-  var hd = window.innerWidth >= 1024;
-  function hero(){
+
+  function revisar(){
+    // React cerró el modal del reel: se libera HLS y vuelve el hero
+    if(abierto==='reel' && !document.querySelector('video[data-reel][data-on]')){
+      if(hlsvivo){ hlsvivo.destroy(); hlsvivo=null; }
+      reanudar();
+    }
+    if(abierto) return reel();
     // React no pone el atributo muted: sin él, iOS no reproduce el hero solo
     document.querySelectorAll('video[data-hero]').forEach(function(v){
       v.muted=true;
       // Sin src en la plantilla: React no lo reescribe y solo se baja una versión
-      if(!v.getAttribute('src')){ v.src = hd ? 'media/hero-1080.mp4' : 'media/hero.mp4'; }
-      if(v.paused) play(v);
+      if(!v.getAttribute('src') && !v.dataset.prev){ v.src = hd ? 'media/hero-1080.mp4' : 'media/hero.mp4'; }
+      if(v.paused && v.getAttribute('src')) play(v);
     });
     // Loops silenciosos de fondo (tarjetas grandes)
-    document.querySelectorAll('video[data-loop]').forEach(function(v){ v.muted=true; if(v.paused) play(v); });
-    // El reel solo se descarga al abrirlo: sin src en la plantilla el navegador no lo pide antes
+    document.querySelectorAll('video[data-loop]').forEach(function(v){ v.muted=true; if(v.paused && v.getAttribute('src')) play(v); });
     reel();
   }
-  new MutationObserver(hero).observe(document.documentElement,{childList:true,subtree:true});
-  document.addEventListener('DOMContentLoaded',hero);
+  new MutationObserver(revisar).observe(document.documentElement,{childList:true,subtree:true});
+  document.addEventListener('DOMContentLoaded',revisar);
 })();
 </script>
 
