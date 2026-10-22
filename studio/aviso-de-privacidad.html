@@ -68,6 +68,7 @@ input,select,textarea,button{font-family:inherit}
   // corta la descarga del hero y de los loops, y al cerrarlo siguen donde iban
   function pausar(){
     document.querySelectorAll('video[data-hero],video[data-loop]').forEach(function(v){
+      if(v.bmhls){ v.pause(); v.bmhls.stopLoad(); v.dataset.parado='1'; return; }
       if(!v.getAttribute('src')) return;
       v.dataset.prev=v.getAttribute('src'); v.dataset.t=v.currentTime;
       v.pause(); v.removeAttribute('src'); v.load();
@@ -76,6 +77,7 @@ input,select,textarea,button{font-family:inherit}
   function reanudar(){
     abierto=false;
     document.querySelectorAll('video[data-hero],video[data-loop]').forEach(function(v){
+      if(v.bmhls && v.dataset.parado){ delete v.dataset.parado; v.bmhls.startLoad(); v.muted=true; play(v); return; }
       if(!v.dataset.prev) return;
       v.src=v.dataset.prev; var t=+v.dataset.t||0; delete v.dataset.prev;
       v.addEventListener('loadedmetadata',function(){ try{ v.currentTime=t; }catch(e){} },{once:true});
@@ -118,9 +120,9 @@ input,select,textarea,button{font-family:inherit}
       if(v.dataset.on) return; v.dataset.on='1';
       abierto='reel'; pausar();
       // HLS adaptativo: la calidad sube o baja según la conexión del visitante
-      if(v.canPlayType('application/vnd.apple.mpegurl')){ v.src=v.dataset.hls; playaudio(v); return; }
       cargarhls(function(){
         if(window.Hls && window.Hls.isSupported()){ var h=new window.Hls({capLevelToPlayerSize:true}); h.loadSource(v.dataset.hls); h.attachMedia(v); hlsvivo=h; playaudio(v); }
+        else if(v.canPlayType('application/vnd.apple.mpegurl')){ v.src=v.dataset.hls; playaudio(v); }
         else { v.src=v.dataset.src; playaudio(v); }
       });
     });
@@ -129,6 +131,17 @@ input,select,textarea,button{font-family:inherit}
   // mismo gesto para que el navegador permita el audio
   document.addEventListener('click',function(){ reel(); setTimeout(reel,0); setTimeout(reel,60); setTimeout(reel,250); },true);
 
+  function iniciarhero(v){
+    cargarhls(function(){
+      if(window.Hls && window.Hls.isSupported()){
+        var h=new window.Hls({maxBufferLength:8,maxMaxBufferLength:12,capLevelToPlayerSize:true});
+        h.loadSource('media/hero-hls/master.m3u8'); h.attachMedia(v); v.bmhls=h;
+        if(abierto){ h.stopLoad(); v.dataset.parado='1'; } else play(v);
+      }
+      else if(v.canPlayType('application/vnd.apple.mpegurl')){ v.src='media/hero-hls/master.m3u8'; play(v); }
+      else { v.src = hd ? 'media/hero-1080.mp4' : 'media/hero.mp4'; play(v); }
+    });
+  }
   function revisar(){
     // React cerró el modal del reel: se libera HLS y vuelve el hero
     if(abierto==='reel' && !document.querySelector('video[data-reel][data-on]')){
@@ -139,11 +152,10 @@ input,select,textarea,button{font-family:inherit}
     // React no pone el atributo muted: sin él, iOS no reproduce el hero solo
     document.querySelectorAll('video[data-hero]').forEach(function(v){
       v.muted=true;
-      // Sin src en la plantilla: React no lo reescribe y solo se baja una versión.
-      // Espera a que cargue la página: HostGator sirve todo por una conexión HTTP/2
-      // y el hero, si arranca antes, deja formadas las imágenes y el video que se abra
-      if(document.readyState==='complete' && !v.getAttribute('src') && !v.dataset.prev){ v.src = hd ? 'media/hero-1080.mp4' : 'media/hero.mp4'; }
-      if(v.paused && v.getAttribute('src')) play(v);
+      // Espera a que cargue la página y baja por segmentos con buffer corto (8-12 s):
+      // HostGator sirve todo por una conexión HTTP/2 y un MP4 completo la acapararía
+      if(document.readyState==='complete' && !v.dataset.on){ v.dataset.on='1'; iniciarhero(v); }
+      else if(v.paused && (v.bmhls || v.getAttribute('src'))) play(v);
     });
     // Loops silenciosos de fondo (tarjetas grandes)
     document.querySelectorAll('video[data-loop]').forEach(function(v){ v.muted=true; if(v.paused && v.getAttribute('src')) play(v); });
@@ -168,12 +180,16 @@ h1,h2,h3{overflow-wrap:break-word}
   [data-r="pegajoso"]{position:static!important}
   [data-r="filtros"]{position:static!important}
 }
+/* Tablet: las cuadrículas de 3 elementos caían en 2 columnas y dejaban el tercero
+   solo con un hueco al lado; aquí van en 3. Se excluyen las de número + texto. */
+@media (min-width:700px) and (max-width:1023px){
+  :root{--nw:normal}
+  [style*="grid-template-columns"]:not([style*="auto 1fr"]):not([style*="110px"]):has(> :nth-child(3):last-child){grid-template-columns:repeat(3,minmax(0,1fr))!important}
+}
 @media (max-width:640px){
   :root{--nw:normal}
   [data-r="fondo"]{opacity:.35}
   [data-r="modulo"]{grid-template-columns:1fr!important;gap:8px!important}
-  main section{padding-left:16px!important;padding-right:16px!important}
-  main section>div{padding-left:0!important;padding-right:0!important}
   [data-r="nav"]{padding-left:16px!important;padding-right:16px!important}
   footer>div{padding-left:16px!important;padding-right:16px!important}
   input,select,textarea{font-size:16px!important}
@@ -502,7 +518,7 @@ class Component extends DCLogic {
         { n: '03', titulo: 'Entrega, publicación y medición acordada', texto: 'Recibes las piezas listas para publicar en cada red y revisamos juntos los resultados contra lo que pactamos.' }
       ],
       objeciones: [
-        { titulo: 'Cada pieza conectada a un resultado', texto: 'No entregamos videos para que se queden en una carpeta. Cada pieza llega con su página, su enlace medible o su flujo de contacto, para que sepas qué te trajo seguidores, reservas o clientes.' },
+        { titulo: 'Cada pieza conectada a un resultado', texto: 'No entregamos videos para que se queden en una carpeta. Cada pieza puede llegar con su página, su enlace medible o su flujo de contacto, para que sepas qué te trajo seguidores, reservas o clientes. Eso depende del presupuesto: nos adaptamos a cada proyecto y ajustamos el alcance a todo presupuesto.' },
         { titulo: 'Tu imagen y tus derechos, cuidados', texto: 'Antes de producir revisamos permisos de música, nombres e imágenes, y pedimos tu autorización por escrito para cualquier uso especial de tu rostro o tu voz.' },
         { titulo: 'Empiezas con un piloto medible', texto: 'Arrancamos con un proyecto acotado, entregables definidos y métricas acordadas por escrito, para que decidas con datos si conviene seguir antes de firmar algo más largo.' },
         { titulo: 'Equipo especialista propio, producción de gran escala', texto: 'Postproducción, VFX y desarrollo los hace nuestro equipo especialista; rodamos con el equipo técnico de productoras aliadas. Tu proyecto recibe gran escala sin pagar la estructura de una casa productora.' },
