@@ -59,11 +59,20 @@ window.BMPRE=(function(){ var l=document.querySelector('link[href$="studio.css"]
 
   // HubSpot: endpoint legacy (acepta formularios del editor nuevo y CORS). Sin IDs → WhatsApp.
   function cookie(n){ var m=document.cookie.match('(?:^|; )'+n+'=([^;]*)'); return m?decodeURIComponent(m[1]):''; }
+  // Primero la API v3 que recomienda HubSpot (JSON); si responde 404 —pasa con formularios del editor nuevo,
+  // como en APC— se reintenta en el endpoint legacy. Éxito solo cuando HubSpot confirma.
   function hubspot(portal,formid,campos,listo,falla){
-    var b=new URLSearchParams(); Object.keys(campos).forEach(function(k){ if(campos[k]) b.append(k,campos[k]); });
-    b.append('hs_context',JSON.stringify({pageUrl:location.href,pageName:document.title,hutk:cookie('hubspotutk')}));
-    fetch('https://forms.hubspot.com/uploads/form/v2/'+portal+'/'+formid,{method:'POST',body:b,mode:'cors'})
-      .then(function(r){ if(r.ok) listo(); else falla(); }).catch(falla);
+    var hutk=cookie('hubspotutk'), llenos=Object.keys(campos).filter(function(k){ return campos[k]; });
+    var v3={fields:llenos.map(function(k){ return {objectTypeId:'0-1',name:k,value:campos[k]}; }),context:{pageUri:location.href,pageName:document.title}};
+    if(hutk) v3.context.hutk=hutk;
+    var legacy=function(){
+      var b=new URLSearchParams(); llenos.forEach(function(k){ b.append(k,campos[k]); });
+      b.append('hs_context',JSON.stringify({pageUrl:location.href,pageName:document.title,hutk:hutk}));
+      fetch('https://forms.hubspot.com/uploads/form/v2/'+portal+'/'+formid,{method:'POST',body:b,mode:'cors'})
+        .then(function(r){ if(r.ok) listo(); else falla(); }).catch(falla);
+    };
+    fetch('https://api.hsforms.com/submissions/v3/integration/submit/'+portal+'/'+formid,{method:'POST',mode:'cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(v3)})
+      .then(function(r){ if(r.ok) listo(); else if(r.status===404) legacy(); else falla(); }).catch(legacy);
   }
   document.querySelectorAll('form.bm-hs').forEach(function(f){
     f.addEventListener('submit',function(e){ e.preventDefault();
