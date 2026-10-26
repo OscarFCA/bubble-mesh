@@ -130,7 +130,10 @@ window.BMPRE=(function(){ var l=document.querySelector('link[href$="studio.css"]
     abierto='visor';
     var lb=document.createElement('div'); lb.className='bm-lb'; lb.setAttribute('role','dialog'); lb.setAttribute('aria-modal','true');
     lb.innerHTML='<button type="button">'+(document.documentElement.lang==='en'?'Close':'Cerrar')+' ✕</button><img alt="">';
-    lb.querySelector('img').src=src;
+    // Primero la miniatura (ya está en caché) y después la versión grande cuando termine de bajar
+    var im=lb.querySelector('img'), chica=src.replace(/\.webp$/,'-t.webp'), grande=new Image();
+    im.src=chica; im.onerror=function(){ im.onerror=null; im.src=src; };
+    grande.onload=function(){ im.src=src; }; grande.src=src;
     function cerrar(){ lb.remove(); document.body.style.overflow=''; document.removeEventListener('keydown',tecla); abierto=false; }
     function tecla(e){ if(e.key==='Escape') cerrar(); }
     lb.addEventListener('click',function(e){ if(e.target===lb||e.target.tagName==='BUTTON'||e.target.tagName==='IMG') cerrar(); });
