@@ -99,11 +99,13 @@ details>summary::-webkit-details-marker{display:none}
 .bm-prod-acc a.bm-link{font-weight:600;font-size:15px}
 /* incluye */
 .bm-incluye{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:12px}
+@media (min-width:641px){.bm-incluye:not([style])>li:last-child:nth-child(odd){grid-column:1/-1}}
 .bm-incluye li{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;background:var(--card);border:1px solid var(--borde);border-radius:14px;padding:16px 18px;font-size:15px;line-height:1.55;color:var(--suave)}
 .bm-incluye strong{color:#fff;font-weight:600}
 .bm-check{color:#14B8A6;font-weight:800}
 /* paquetes */
 .bm-paqs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:18px;align-items:stretch}
+@media (min-width:641px) and (max-width:1023px){.bm-paqs{grid-template-columns:1fr 1fr}.bm-paqs>.bm-paq:last-child:nth-child(odd){grid-column:1/-1}}
 .bm-paq{background:var(--card);border:1px solid var(--borde);border-radius:20px;padding:26px 24px;display:flex;flex-direction:column;gap:12px}
 .bm-paq-rec{background:linear-gradient(rgba(17,24,39,0.96),rgba(17,24,39,0.96)) padding-box,linear-gradient(135deg,var(--rosa),var(--violeta)) border-box;border:1.5px solid transparent;box-shadow:0 0 50px rgba(109,40,217,0.3)}
 .bm-paq h3{margin:0;font-size:20px;font-weight:600}
@@ -137,11 +139,23 @@ details>summary::-webkit-details-marker{display:none}
 /* temporada */
 .bm-temp{background:linear-gradient(90deg,rgba(236,72,153,0.22),rgba(124,58,237,0.28));border-top:1px solid rgba(236,72,153,0.4);border-bottom:1px solid rgba(236,72,153,0.4)}
 .bm-temp[hidden]{display:none}
+#temporada{margin-top:clamp(56px,8vw,96px)}
+#temporada:not(:has(.bm-temp:not([hidden]))){display:none}
 .bm-temp-in{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;padding-top:18px;padding-bottom:18px}
 .bm-temp-in div{display:grid;gap:4px}.bm-temp-in strong{font-size:18px}.bm-temp-in span{font-size:15px;color:var(--texto)}
 /* arma tu paquete */
 .bm-arma{display:grid;gap:20px}
-.bm-casillas{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:12px}
+.bm-casillas{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+@media (max-width:900px){.bm-casillas{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}}
+@media (max-width:640px){.bm-casilla{padding:12px 12px!important;font-size:14px!important}}
+/* Sitios: el primero (Yabem) ocupa dos lugares para que la cuadrícula cierre pareja */
+.bm-sitios{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+.bm-sitios>a:first-child{grid-column:span 2}
+.bm-sitios>a:first-child img{aspect-ratio:auto!important;height:0!important;min-height:200px;flex:1 1 0}
+@media (max-width:1099px){.bm-sitios{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.bm-sitios{grid-template-columns:1fr;gap:16px}.bm-sitios>a:first-child{grid-column:auto}.bm-sitios>a:first-child img{aspect-ratio:16/10!important;height:auto!important}}
+/* Proceso: en celular el último paso (la pieza final) ocupa todo el ancho */
+@media (max-width:640px){.bm-pro>.bm-pro-paso:last-child{grid-column:1/-1}.bm-pro>.bm-pro-paso:last-child [data-video]>div,.bm-pro>.bm-pro-paso:last-child [data-video]{aspect-ratio:16/10!important}}
 .bm-casilla{display:flex;gap:12px;align-items:center;background:var(--card);border:1px solid var(--borde);border-radius:14px;padding:16px 18px;cursor:pointer;font-size:15.5px;font-weight:500}
 .bm-casilla input{width:20px;height:20px;accent-color:var(--violeta)}
 .bm-casilla:has(input:checked){border-color:rgba(168,85,247,0.7);background:rgba(124,58,237,0.12)}
@@ -151,7 +165,9 @@ details>summary::-webkit-details-marker{display:none}
 .bm-filtros{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px}
 .bm-filtros button{font:600 14px Inter,system-ui,sans-serif;padding:9px 16px;border-radius:9999px;border:1px solid rgba(255,255,255,0.14);background:rgba(255,255,255,0.03);color:#CBD5E1;cursor:pointer}
 .bm-filtros button[aria-pressed="true"]{background:rgba(124,58,237,0.24);border-color:rgba(168,85,247,0.75);color:#fff}
-.bm-trab{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,320px),1fr));gap:28px 20px}
+.bm-trab{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px 20px}
+@media (max-width:1023px){.bm-trab{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:600px){.bm-trab{grid-template-columns:1fr}}
 .bm-trab-item{display:grid;gap:10px;align-content:start}
 .bm-trab-item[hidden]{display:none}
 .bm-trab-media .bm-trab-vis{display:block;position:relative;aspect-ratio:4/3;border-radius:16px;overflow:hidden;border:1px solid var(--borde)}
@@ -176,6 +192,7 @@ details>summary::-webkit-details-marker{display:none}
 .bm-f{background:#060911;border-top:1px solid rgba(255,255,255,0.06);margin-top:clamp(64px,9vw,112px)}
 .bm-f-in{max-width:1280px;margin:0 auto;padding:60px clamp(20px,4vw,32px) 28px;display:grid;gap:40px}
 .bm-f-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));gap:36px}
+@media (max-width:640px){.bm-f-grid{grid-template-columns:1fr 1fr;gap:32px 20px}.bm-f-grid>.bm-f-col:first-child,.bm-f-grid>.bm-f-col:last-child{grid-column:1/-1}}
 .bm-f-col{display:flex;flex-direction:column;gap:10px;font-size:14px}
 .bm-f-col a{color:var(--texto)}.bm-f-col a:hover{color:#fff}
 .bm-f-col p{margin:0;font-size:14px;line-height:1.6;color:var(--suave);max-width:32ch}
