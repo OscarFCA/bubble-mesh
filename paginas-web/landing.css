@@ -197,7 +197,8 @@ img{max-width:100%;height:auto}
 .lp-paq .lp-paq-precio{margin-top:12px;color:#fff}
 .lp-paq-precio strong{font-family:Montserrat,sans-serif;font-size:34px;font-weight:800}
 .lp-paq-precio span{font-size:13.5px;color:var(--suave)}
-.lp-paq .lp-lista{margin:20px 0 24px;flex:1}
+.lp-paq .lp-lista{margin:20px 0 24px;flex:1;align-content:start}
+.lp-paq-precio>span{display:block;margin-top:2px}
 .lp-paq .lp-lista li{font-size:15px}
 .lp-paq-reco{border-color:rgba(236,72,153,0.55);background:linear-gradient(180deg,rgba(124,58,237,0.22),var(--panel) 60%);box-shadow:0 24px 70px rgba(124,58,237,0.3)}
 .lp-paq-badge{position:absolute;top:-13px;left:24px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;padding:5px 12px;border-radius:999px;background:linear-gradient(135deg,#EC4899,#7C3AED)}
@@ -234,6 +235,23 @@ img{max-width:100%;height:auto}
 @media (max-width:1023px){.lp-paqs{grid-template-columns:1fr;max-width:620px;margin:0 auto}.lp-piezas{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:600px){.lp-piezas{grid-template-columns:1fr 1fr;gap:12px}.lp-pieza figcaption{padding:30px 12px 12px}.lp-pieza strong{font-size:14.5px}.lp-pieza span{font-size:9.5px}}
 .lp-agenda{margin:40px auto 28px;max-width:900px;padding:32px 28px;border-radius:24px;border:1px solid rgba(168,85,247,0.35);background:linear-gradient(160deg,rgba(124,58,237,0.16),rgba(20,184,166,0.08))}
+
+.lp-medidor{margin:22px 0 4px;max-width:440px}
+.lp-medidor-barra{display:grid;grid-template-columns:repeat(10,1fr);gap:5px}
+.lp-medidor-barra i{height:12px;border-radius:4px}
+.lp-medidor-barra i.tomada{background:rgba(255,255,255,0.16)}
+.lp-medidor-barra i.libre{background:linear-gradient(135deg,#EC4899,#7C3AED);box-shadow:0 0 10px rgba(236,72,153,0.55);animation:lpLatido 2.2s ease-in-out infinite}
+.lp-medidor-barra i.libre:nth-child(even){animation-delay:.3s}
+.lp-medidor p{margin:8px 0 0;font-size:14px;color:var(--suave)}
+.lp-medidor p strong{color:#fff}
+.lp-medidor-mini{margin:12px 0}
+.lp-cupo .lp-medidor{margin-left:auto;margin-right:auto}
+.lp-paq-precio s,.lp-promo-precio s,.lp-sub s{color:var(--suave);font-weight:500}
+.lp-paq-precio s{font-size:18px;margin-right:4px}
+.lp-promo-precio{margin:0 0 6px}
+.lp-promo-precio s{font-size:24px}
+.lp-promo-precio strong{font-family:Montserrat,sans-serif;font-size:clamp(44px,8vw,64px);font-weight:800;background:linear-gradient(135deg,#F472B6,#A855F7);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lp-promo-precio span{color:var(--suave)}
 
 /* Aparición al hacer scroll */
 .js .lp-rev{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1);transition-delay:calc(var(--i,0) * 90ms)}
