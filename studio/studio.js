@@ -1,6 +1,14 @@
 
 window.BMPRE=(function(){ var l=document.querySelector('link[href$="studio.css"]'); return l? l.getAttribute('href').replace('studio.css','') : ''; })();
 (function(){
+  // Videos que solo bajan cuando se ven (data-src)
+  var vs=document.querySelectorAll('video[data-src]'); if(!vs.length||!('IntersectionObserver' in window)) return;
+  var io=new IntersectionObserver(function(es){ es.forEach(function(e){ var v=e.target;
+    if(e.isIntersecting){ if(!v.src){ var ds=v.getAttribute('data-src'); v.src=/^\.\.\//.test(ds)?ds:window.BMPRE+ds; } v.muted=true; var p=v.play(); if(p&&p.catch) p.catch(function(){}); }
+    else if(v.src) v.pause(); }); },{rootMargin:'200px'});
+  vs.forEach(function(v){ io.observe(v); });
+})();
+(function(){
   // Menús del header
   function cerrarmenus(salvo){ document.querySelectorAll('.bm-drop-btn').forEach(function(b){ if(b!==salvo){ b.setAttribute('aria-expanded','false'); var p=document.getElementById(b.getAttribute('aria-controls')); if(p) p.hidden=true; } }); }
   document.addEventListener('click',function(e){
