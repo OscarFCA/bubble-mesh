@@ -21,6 +21,8 @@
   window.addEventListener('scroll',function(){ revs.forEach(function(r){ if(!r.classList.contains('on') && r.getBoundingClientRect().top<innerHeight) r.classList.add('on'); }); },{passive:true});
 
   // Video de la burbuja: baja cuando la página ya cargó y solo corre en pantalla
+  var vp=document.querySelector('.lp-pantalla');
+  if(vp){ window.addEventListener('load',function(){ vp.src=vp.dataset.src; vp.muted=true; var p=vp.play(); if(p&&p.catch) p.catch(function(){}); }); }
   var vb=document.querySelector('.lp-burbuja');
   if(vb){ window.addEventListener('load',function(){ vb.src=vb.dataset.src; vb.muted=true; var p=vb.play(); if(p&&p.catch) p.catch(function(){}); });
     if('IntersectionObserver' in window) new IntersectionObserver(function(es){ es.forEach(function(e){ if(!vb.src) return; if(e.isIntersecting){ var p=vb.play(); if(p&&p.catch) p.catch(function(){}); } else vb.pause(); }); }).observe(vb); }

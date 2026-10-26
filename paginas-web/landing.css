@@ -230,6 +230,8 @@ img{max-width:100%;height:auto}
 .lp-vfx .lp-escena-1{animation-delay:1.3s}.lp-vfx .lp-escena-2{animation-delay:2.6s}
 @keyframes lpEscena{0%{opacity:0}1%,100%{opacity:1}}
 .lp-vfx .lp-escena-0{opacity:1;animation:none}
+.lp-pantalla{position:absolute;left:9.1667%;top:10.6667%;width:26.6667%;height:76%;object-fit:cover;border-radius:4.5% / 2.6%;background:#151B2E;
+  animation:lpCapaA 16s ease-in-out infinite;transform-origin:153.125% 51.75%}
 .lp-voz{transform-origin:center;animation:lpIcB .7s ease-in-out infinite}
 .lp-cabezal{animation:lpCabezal 5s linear infinite;filter:drop-shadow(0 0 4px #fff)}
 @keyframes lpCabezal{from{transform:translateX(0)}to{transform:translateX(186px)}}
