@@ -46,16 +46,38 @@ window.BMPRE=(function(){ var l=document.querySelector('link[href$="studio.css"]
   if(banner && !galleta) banner.hidden=false;
   document.addEventListener('click',function(e){ var c=e.target.closest('[data-cookies]'); if(!c) return; var v=c.dataset.cookies; try{ localStorage.setItem('bm-cookies',v); }catch(er){} banner.hidden=true; if(v==='si') medir(); });
 
+  // CTA → formulario de cotización (si la página no lo tiene, Contacto)
+  function irACotiza(interes,detalle,reiniciar){
+    var t=document.getElementById('cotiza'); if(!t){ location.href='contacto.html#cotiza'; return; }
+    var f=t.tagName==='FORM'?t:t.querySelector('form'); if(!f) return;
+    var sel=f.querySelector('select[name=interes],select[name=producto]');
+    if(sel && reiniciar) sel.value='';
+    if(sel && interes){ [].forEach.call(sel.options,function(o){ if(o.text===interes||o.value===interes) sel.value=o.value; }); }
+    var d=f.querySelector('input[name=detalle]'), pd=f.querySelector('.bm-hs-detalle');
+    if(d){ d.value=detalle||''; } if(pd){ pd.textContent=detalle||''; pd.hidden=!detalle; }
+    t.scrollIntoView({behavior:'smooth',block:'start'});
+    var n=f.querySelector('input:not([type=hidden])'); if(n) setTimeout(function(){ n.focus({preventScroll:true}); },600);
+    evento('cta_cotiza',{producto:interes||'',seccion:detalle||''});
+  }
+  document.addEventListener('click',function(e){
+    var a=e.target.closest&&e.target.closest('[data-cotiza]'); if(!a) return;
+    e.preventDefault(); var m=document.getElementById('bm-movil'); if(m&&!m.hidden){ m.hidden=true; var g=document.querySelector('.bm-burger'); if(g) g.setAttribute('aria-expanded','false'); }
+    irACotiza(a.dataset.cotiza,a.dataset.detalle);
+  });
+  if(location.hash==='#cotiza') setTimeout(function(){ irACotiza('',''); },300);
+
   // Banda de temporada según la fecha del visitante
   var hoy=new Date(); var iso=hoy.getFullYear()+'-'+String(hoy.getMonth()+1).padStart(2,'0')+'-'+String(hoy.getDate()).padStart(2,'0');
   document.querySelectorAll('[data-desde][data-hasta]').forEach(function(el){ el.hidden=!(iso>=el.dataset.desde && iso<=el.dataset.hasta); });
 
-  // Arma tu paquete → mensaje de WhatsApp
+  // Arma tu paquete → formulario con las opciones marcadas
   var arma=document.getElementById('bm-arma');
   if(arma) arma.addEventListener('submit',function(e){ e.preventDefault(); var ops=[].slice.call(arma.querySelectorAll('input:checked')).map(function(i){return i.value;});
     var err=arma.querySelector('.bm-arma-error'); if(!ops.length){ err.hidden=false; return; } err.hidden=true;
     evento('arma_paquete_enviar',{opciones:ops.join(', ')});
-    window.open('https://wa.me/'+arma.dataset.wa+'?text='+encodeURIComponent((arma.dataset.pre||'Hola, me interesa: ')+ops.join(', ')+(arma.dataset.post||'. Mi negocio es: ')),'_blank','noopener'); });
+    var mapa={'Comercial con IA':'Comercial con IA','Campaña en Google':'Comercial con IA','Videoclip':'Videoclip','Video inmobiliario':'Video inmobiliario'};
+    var ints=ops.map(function(o){ return mapa[o]||'Página web con WhatsApp'; }).filter(function(v,i,a){ return a.indexOf(v)===i; });
+    irACotiza(ints.length===1?ints[0]:'', (arma.dataset.lpaq||'Paquete')+': '+ops.join(', '), true); });
 
   // HubSpot: endpoint legacy (acepta formularios del editor nuevo y CORS). Sin IDs → WhatsApp.
   function cookie(n){ var m=document.cookie.match('(?:^|; )'+n+'=([^;]*)'); return m?decodeURIComponent(m[1]):''; }
@@ -79,11 +101,11 @@ window.BMPRE=(function(){ var l=document.querySelector('link[href$="studio.css"]
       var d={}; new FormData(f).forEach(function(v,k){ d[k]=String(v).trim(); });
       var mal=!d.firstname || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(d.email); f.querySelector('.bm-err').hidden=!mal; if(mal) return;
       evento('form_submit',{producto:d.interes||'',origen:'formulario_corto'});
-      var porWA=function(){ window.open('https://wa.me/'+f.dataset.wa+'?text='+encodeURIComponent(f.dataset.pre+'\n'+f.dataset.lnom+': '+d.firstname+'\n'+f.dataset.lcor+': '+d.email+(d.phone?'\nWhatsApp: '+d.phone:'')+'\n'+f.dataset.lint+': '+d.interes),'_blank','noopener'); };
+      var porWA=function(){ window.open('https://wa.me/'+f.dataset.wa+'?text='+encodeURIComponent(f.dataset.pre+'\n'+f.dataset.lnom+': '+d.firstname+'\n'+f.dataset.lcor+': '+d.email+(d.phone?'\nWhatsApp: '+d.phone:'')+(d.interes?'\n'+f.dataset.lint+': '+d.interes:'')+(d.detalle?'\n'+d.detalle:'')),'_blank','noopener'); };
       var hecho=function(){ f.removeAttribute('data-enviando'); f.querySelector('.bm-form-ok').hidden=false; f.querySelector('.bm-hs-campos').hidden=true; f.querySelector('button').hidden=true; };
       if(!f.dataset.hsPortal||!f.dataset.hsForm){ porWA(); hecho(); return; }
       f.setAttribute('data-enviando','');
-      hubspot(f.dataset.hsPortal,f.dataset.hsForm,{firstname:d.firstname,email:d.email,phone:d.phone,message:f.dataset.lint+': '+d.interes+' · '+document.title},hecho,function(){ porWA(); hecho(); });
+      hubspot(f.dataset.hsPortal,f.dataset.hsForm,{firstname:d.firstname,email:d.email,phone:d.phone,message:[d.interes&&f.dataset.lint+': '+d.interes,d.detalle,document.title].filter(Boolean).join(' · ')},hecho,function(){ porWA(); hecho(); });
     });
   });
 
@@ -99,7 +121,7 @@ window.BMPRE=(function(){ var l=document.querySelector('link[href$="studio.css"]
     if(!form.dataset.hsPortal||!form.dataset.hsForm){ porWA(); return; }
     var okHS=form.querySelector('.bm-form-ok'); okHS.textContent=okHS.dataset.hs||okHS.textContent;
     hubspot(form.dataset.hsPortal,form.dataset.hsForm,{firstname:d.nombre,email:d.email,phone:d.whatsapp,company:d.negocio,
-      message:[form.dataset.lpro+': '+d.producto,d.presupuesto&&form.dataset.lpre+': '+d.presupuesto,d.fecha&&form.dataset.lfec+': '+d.fecha].filter(Boolean).join(' · ')},ok2,porWA); });
+      message:[form.dataset.lpro+': '+d.producto,d.presupuesto&&form.dataset.lpre+': '+d.presupuesto,d.fecha&&form.dataset.lfec+': '+d.fecha,d.detalle].filter(Boolean).join(' · ')},ok2,porWA); });
 
   // Filtros de Trabajo
   document.addEventListener('click',function(e){ var f=e.target.closest('[data-filtro]'); if(!f) return; var v=f.dataset.filtro;
