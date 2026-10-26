@@ -232,6 +232,16 @@ img{max-width:100%;height:auto}
 .lp-vfx .lp-escena-0{opacity:1;animation:none}
 .lp-pantalla{position:absolute;left:9.1667%;top:10.6667%;width:26.6667%;height:76%;object-fit:cover;border-radius:4.5% / 2.6%;background:#151B2E;
   animation:lpCapaA 16s ease-in-out infinite;transform-origin:153.125% 51.75%}
+.lp-plantillas{margin-top:clamp(36px,5vw,56px);overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.lp-plantillas-pista{display:flex;gap:16px;width:max-content;animation:lpMarq 70s linear infinite}
+.lp-plantillas:hover .lp-plantillas-pista{animation-play-state:paused}
+.lp-plant{flex:none;width:clamp(150px,16vw,210px);aspect-ratio:3/4;border-radius:16px;overflow:hidden;border:1px solid var(--borde);background:#0B0F1A;transform:rotate(-1.5deg)}
+.lp-plant:nth-child(even){transform:rotate(1.5deg) translateY(10px)}
+.lp-plant img{width:100%;height:100%;object-fit:cover;display:block}
+.lp-plant-guion{display:flex;flex-direction:column;justify-content:center;gap:3px;padding:16px;font:500 clamp(8.5px,.8vw,10.5px)/1.45 'JetBrains Mono',monospace;color:#CBD5E1;border-color:rgba(168,85,247,0.45)}
+.lp-plant-guion .g0{color:#64748B;letter-spacing:.12em;margin-bottom:6px}
+.lp-plant-guion .g1,.lp-plant-guion .g8{color:#F0ABFC;font-weight:700}
+.lp-plant-guion .g5{color:#C4B5FD;font-weight:700}
 .lp-voz{transform-origin:center;animation:lpIcB .7s ease-in-out infinite}
 .lp-cabezal{animation:lpCabezal 5s linear infinite;filter:drop-shadow(0 0 4px #fff)}
 @keyframes lpCabezal{from{transform:translateX(0)}to{transform:translateX(186px)}}
