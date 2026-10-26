@@ -132,6 +132,21 @@ details>summary::-webkit-details-marker{display:none}
 /* cierre */
 .bm-cierre{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.10);border-radius:24px;box-shadow:0 8px 40px rgba(0,0,0,0.5),0 0 60px rgba(109,40,217,0.22);padding:clamp(26px,5vw,60px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:clamp(28px,5vw,56px);align-items:center;margin-bottom:clamp(64px,9vw,112px)}
 .bm-cierre>div:first-child{display:grid;gap:16px}
+.bm-hs{display:grid;gap:12px;margin-top:8px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.10)}
+.bm-hs-t{font-size:15px;font-weight:600;color:var(--texto)}
+.bm-hs-campos{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.bm-hs label{display:grid;gap:5px}
+.bm-hs label span{font-size:12px;font-weight:600;color:var(--suave)}
+.bm-hs input,.bm-hs select{width:100%;background:rgba(11,15,26,0.6);border:1px solid rgba(255,255,255,0.14);border-radius:10px;padding:11px 13px;color:#fff;font:15px Inter,system-ui,sans-serif;outline:none}
+.bm-hs input:focus,.bm-hs select:focus{border-color:var(--lila);box-shadow:0 0 0 3px rgba(168,85,247,0.25)}
+.bm-hs .bm-btn{width:fit-content}
+.bm-hs small{font-size:12px;color:var(--suave)}
+.bm-hs .bm-err{color:#F87171;font-size:13px}
+.bm-hs[data-enviando] .bm-btn{opacity:.6;pointer-events:none}
+@media (max-width:520px){.bm-hs-campos{grid-template-columns:1fr}.bm-hs .bm-btn{width:100%}}
+@media (max-width:760px){.bm-cierre>div:first-child{display:contents}.bm-cierre{gap:18px}.bm-cierre-acc{order:1;margin:6px 0}.bm-cierre .bm-hs{order:2}}
+.bm-hs-legado{max-width:1280px;margin:0 auto;padding:0 clamp(20px,4vw,32px) clamp(48px,7vw,80px)}
+.bm-hs-legado .bm-hs{max-width:760px;border-top:0;padding:clamp(20px,3vw,28px);background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.10);border-radius:20px}
 .bm-cierre-acc{display:flex;flex-direction:column;gap:14px;text-align:center}
 .bm-cierre-tel{font-size:17px;font-weight:600;color:var(--texto)}
 .bm-cierre-h,.bm-cierre-mail{font-size:14px;color:var(--suave)}

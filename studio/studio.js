@@ -57,14 +57,40 @@ window.BMPRE=(function(){ var l=document.querySelector('link[href$="studio.css"]
     evento('arma_paquete_enviar',{opciones:ops.join(', ')});
     window.open('https://wa.me/'+arma.dataset.wa+'?text='+encodeURIComponent((arma.dataset.pre||'Hola, me interesa: ')+ops.join(', ')+(arma.dataset.post||'. Mi negocio es: ')),'_blank','noopener'); });
 
-  // Formulario de contacto → WhatsApp con los datos (y evento form_submit)
+  // HubSpot: endpoint legacy (acepta formularios del editor nuevo y CORS). Sin IDs → WhatsApp.
+  function cookie(n){ var m=document.cookie.match('(?:^|; )'+n+'=([^;]*)'); return m?decodeURIComponent(m[1]):''; }
+  function hubspot(portal,formid,campos,listo,falla){
+    var b=new URLSearchParams(); Object.keys(campos).forEach(function(k){ if(campos[k]) b.append(k,campos[k]); });
+    b.append('hs_context',JSON.stringify({pageUrl:location.href,pageName:document.title,hutk:cookie('hubspotutk')}));
+    fetch('https://forms.hubspot.com/uploads/form/v2/'+portal+'/'+formid,{method:'POST',body:b,mode:'cors'})
+      .then(function(r){ if(r.ok) listo(); else falla(); }).catch(falla);
+  }
+  document.querySelectorAll('form.bm-hs').forEach(function(f){
+    f.addEventListener('submit',function(e){ e.preventDefault();
+      var d={}; new FormData(f).forEach(function(v,k){ d[k]=String(v).trim(); });
+      var mal=!d.firstname || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(d.email); f.querySelector('.bm-err').hidden=!mal; if(mal) return;
+      evento('form_submit',{producto:d.interes||'',origen:'formulario_corto'});
+      var porWA=function(){ window.open('https://wa.me/'+f.dataset.wa+'?text='+encodeURIComponent(f.dataset.pre+'\n'+f.dataset.lnom+': '+d.firstname+'\n'+f.dataset.lcor+': '+d.email+(d.phone?'\nWhatsApp: '+d.phone:'')+'\n'+f.dataset.lint+': '+d.interes),'_blank','noopener'); };
+      var hecho=function(){ f.removeAttribute('data-enviando'); f.querySelector('.bm-form-ok').hidden=false; f.querySelector('.bm-hs-campos').hidden=true; f.querySelector('button').hidden=true; };
+      if(!f.dataset.hsPortal||!f.dataset.hsForm){ porWA(); hecho(); return; }
+      f.setAttribute('data-enviando','');
+      hubspot(f.dataset.hsPortal,f.dataset.hsForm,{firstname:d.firstname,email:d.email,phone:d.phone,message:f.dataset.lint+': '+d.interes+' · '+document.title},hecho,function(){ porWA(); hecho(); });
+    });
+  });
+
+  // Formulario de contacto → HubSpot (o WhatsApp con los datos mientras no haya IDs)
   var form=document.getElementById('bm-contacto');
   if(form) form.addEventListener('submit',function(e){ e.preventDefault(); var ok=true;
-    form.querySelectorAll('[data-req]').forEach(function(c){ var v=c.value.trim(); var mal=!v || (c.name==='whatsapp' && v.replace(/\D/g,'').length!==10); var m=form.querySelector('[data-err="'+c.name+'"]'); if(m) m.hidden=!mal; if(mal) ok=false; });
+    form.querySelectorAll('[data-req]').forEach(function(c){ var v=c.value.trim(); var mal=!v || (c.name==='whatsapp' && v.replace(/\D/g,'').length!==10) || (c.name==='email' && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)); var m=form.querySelector('[data-err="'+c.name+'"]'); if(m) m.hidden=!mal; if(mal) ok=false; });
     if(!ok) return; var d={}; new FormData(form).forEach(function(v,k){ d[k]=v; });
     evento('form_submit',{producto:d.producto||'',presupuesto:d.presupuesto||''});
     var txt=form.dataset.pre+'\n'+form.dataset.lnom+': '+d.nombre+'\n'+form.dataset.lneg+': '+d.negocio+'\n'+form.dataset.lpro+': '+d.producto+(d.presupuesto?'\n'+form.dataset.lpre+': '+d.presupuesto:'')+(d.fecha?'\n'+form.dataset.lfec+': '+d.fecha:'');
-    window.open('https://wa.me/'+form.dataset.wa+'?text='+encodeURIComponent(txt),'_blank','noopener'); form.querySelector('.bm-form-ok').hidden=false; });
+    var ok2=function(){ form.querySelector('.bm-form-ok').hidden=false; };
+    var porWA=function(){ window.open('https://wa.me/'+form.dataset.wa+'?text='+encodeURIComponent(txt),'_blank','noopener'); ok2(); };
+    if(!form.dataset.hsPortal||!form.dataset.hsForm){ porWA(); return; }
+    var okHS=form.querySelector('.bm-form-ok'); okHS.textContent=okHS.dataset.hs||okHS.textContent;
+    hubspot(form.dataset.hsPortal,form.dataset.hsForm,{firstname:d.nombre,email:d.email,phone:d.whatsapp,company:d.negocio,
+      message:[form.dataset.lpro+': '+d.producto,d.presupuesto&&form.dataset.lpre+': '+d.presupuesto,d.fecha&&form.dataset.lfec+': '+d.fecha].filter(Boolean).join(' · ')},ok2,porWA); });
 
   // Filtros de Trabajo
   document.addEventListener('click',function(e){ var f=e.target.closest('[data-filtro]'); if(!f) return; var v=f.dataset.filtro;
