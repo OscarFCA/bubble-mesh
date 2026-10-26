@@ -1,6 +1,6 @@
 # HostGator no manda Cache-Control: el HTML y el JS se revalidan en cada visita
 # para que un deploy se vea de inmediato; imágenes y video se guardan una semana.
-<FilesMatch "\.(html|js)$">
+<FilesMatch "\.(html|js|css)$">
   Header set Cache-Control "no-cache"
 </FilesMatch>
 <FilesMatch "\.(webp|jpg|png|svg|mp4|ts)$">
