@@ -38,11 +38,34 @@
   var q=new URLSearchParams(location.search); ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','gclid'].forEach(function(k){ if(q.get(k)) utm[k]=q.get(k); });
   try{ sessionStorage.setItem('lp-utm',JSON.stringify(utm)); }catch(e){}
 
+  // Selector de servicio (landing unificada): ?servicio= y los botones lo preseleccionan; form_start y anchor_view para medición
+  var fs=document.getElementById('cotiza'), selS=fs&&fs.querySelector('select[name=servicio]');
+  function elegir(k){ if(!selS) return; [].forEach.call(selS.options,function(o){ if(o.dataset.k===k) selS.value=o.value; }); }
+  function servicio(){ var o=selS&&selS.selectedOptions[0]; return o&&o.dataset.k||''; }
+  var QS={web:'web',paginas:'web','paginas-web':'web',empresas:'web',tienda:'tienda',tiendas:'tienda',crm:'crm',combinado:'combinado'};
+  var qsv=new URLSearchParams(location.search).get('servicio'); if(qsv&&QS[qsv]) elegir(QS[qsv]);
+  if(fs){ var empezo=false; fs.addEventListener('focusin',function(){ if(empezo) return; empezo=true; evento('form_start',servicio()?{servicio:servicio()}:{}); }); }
+  var anclas=document.querySelectorAll('[data-ancla]');
+  if(anclas.length&&'IntersectionObserver' in window){ var ioa=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ evento('anchor_view',{seccion:e.target.id}); ioa.unobserve(e.target); } }); },{threshold:.35}); anclas.forEach(function(a){ ioa.observe(a); }); }
+
+  // Contador de la esquina: se minimiza, y se esconde junto al formulario y al pie para no tapar campos
+  var esq=document.getElementById('lp-esquina');
+  if(esq){ var cerca={}, pill=esq.querySelector('.lp-esq-pill');
+    try{ if(sessionStorage.getItem('lp-esq-min')) esq.classList.add('min'); }catch(e){}
+    function minimizar(m){ esq.classList.toggle('min',m); pill.setAttribute('aria-expanded',String(!m)); try{ m?sessionStorage.setItem('lp-esq-min','1'):sessionStorage.removeItem('lp-esq-min'); }catch(e){} }
+    esq.querySelector('.lp-esq-min').addEventListener('click',function(){ minimizar(true); });
+    pill.addEventListener('click',function(){ minimizar(false); });
+    function ver(){ esq.classList.toggle('arriba',scrollY<320); esq.classList.toggle('fuera',!!(cerca.cierre||cerca.pie)); }
+    if('IntersectionObserver' in window){ var ioe=new IntersectionObserver(function(es){ es.forEach(function(e){ cerca[e.target.dataset.esq]=e.isIntersecting; }); ver(); },{rootMargin:'0px 0px -10% 0px'});
+      [['cierre','#cierre .lp-form'],['pie','.lp-pie']].forEach(function(x){ var el=document.querySelector(x[1]); if(el){ el.dataset.esq=x[0]; ioe.observe(el); } }); }
+    addEventListener('scroll',ver,{passive:true}); ver(); }
+
   // CTA → formulario
   document.addEventListener('click',function(e){
     var a=e.target.closest&&e.target.closest('[data-cta]');
-    if(a){ e.preventDefault(); var pq=a.dataset.paquete; evento('cta_click',pq?{ubicacion:a.dataset.cta,paquete:pq}:{ubicacion:a.dataset.cta}); var f=document.getElementById('cotiza'); var sel=f&&f.querySelector('select[name=paquete]'); if(sel&&pq) sel.value=pq; if(f){ f.scrollIntoView({behavior:'smooth',block:'center'}); var i=f.querySelector('input'); setTimeout(function(){ if(i) i.focus({preventScroll:true}); },650); } return; }
-    var w=e.target.closest&&e.target.closest('[data-wa]'); if(w) evento('whatsapp_click',{});
+    if(a){ e.preventDefault(); var pq=a.dataset.paquete, sv=a.dataset.servicio, ev={ubicacion:a.dataset.cta}; if(pq) ev.paquete=pq; if(sv){ elegir(sv); ev.servicio=sv; } evento('cta_click',ev); var f=document.getElementById('cotiza'); var sel=f&&f.querySelector('select[name=paquete]'); if(sel&&pq) sel.value=pq; if(f){ f.scrollIntoView({behavior:'smooth',block:'center'}); var i=f.querySelector('input'); setTimeout(function(){ if(i) i.focus({preventScroll:true}); },650); } return; }
+    var cs=e.target.closest&&e.target.closest('[data-cta-sec]'); if(cs) evento('cta_click',{ubicacion:cs.dataset.ctaSec,destino:cs.getAttribute('href')});
+    var w=e.target.closest&&e.target.closest('a[data-wa]'); if(w) evento('whatsapp_click',w.dataset.wa?{ubicacion:w.dataset.wa}:{});
     if(e.target.closest&&e.target.closest('[data-agenda]')) evento('agenda_click',{});
   });
 
@@ -58,18 +81,18 @@
     fetch('https://api.hsforms.com/submissions/v3/integration/submit/'+portal+'/'+formid,{method:'POST',mode:'cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(cuerpo)})
       .then(function(r){ if(r.ok) listo(); else if(r.status===404) legacy(); else falla(); }).catch(legacy);
   }
-  var NOMBRES={ciudad:'Ciudad',vendes:'Vende',productos:'Productos aprox.',website:'Sitio actual',anunciar:'Quiere anunciar',paquete:'Paquete'};
+  var NOMBRES={servicio:'Servicio',ciudad:'Ciudad',vendes:'Vende',productos:'Productos aprox.',website:'Sitio actual',anunciar:'Quiere anunciar',paquete:'Paquete'};
   var f=document.getElementById('cotiza');
   if(f) f.addEventListener('submit',function(e){ e.preventDefault(); var ok=true, d={};
     f.querySelectorAll('input').forEach(function(c){ var v=c.value.trim(); d[c.name]=v;
-      var mal=!v || (c.type==='email' && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)) || (c.type==='tel' && v.replace(/\D/g,'').length<10) || (c.type==='url' && v.indexOf('.')<0);
+      var mal=(!v && c.required) || (v && (c.type==='email' && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)) || (c.type==='tel' && v.replace(/\D/g,'').length<10) || (c.type==='url' && v.indexOf('.')<0));
       c.closest('label').classList.toggle('lp-mal',mal); if(mal) ok=false; });
-    f.querySelectorAll('select').forEach(function(c){ d[c.name]=c.value; });
-    f.querySelector('.lp-err').hidden=ok; if(!ok){ var m=f.querySelector('.lp-mal input'); if(m) m.focus(); return; }
+    f.querySelectorAll('select').forEach(function(c){ d[c.name]=c.value; var mal=c.required&&!c.value; c.closest('label').classList.toggle('lp-mal',mal); if(mal) ok=false; });
+    f.querySelector('.lp-err').hidden=ok; if(!ok){ var m=f.querySelector('.lp-mal input,.lp-mal select'); if(m) m.focus(); return; }
     var extra=Object.keys(NOMBRES).filter(function(k){ return d[k]; }).map(function(k){ return NOMBRES[k]+': '+d[k]; });
     var u=Object.keys(utm).map(function(k){ return k+'='+utm[k]; }).join(' · ');
     var mensaje=['Landing: '+seg,'Me interesa: '+f.dataset.interes].concat(extra).concat(u?['UTM: '+u]:[]).join(' · ');
-    var gracias=function(){ evento('form_submit',{}); location.href='/paginas-web/gracias/?s='+encodeURIComponent(seg); };
+    var gracias=function(){ evento('form_submit',servicio()?{servicio:servicio()}:{}); location.href='/paginas-web/gracias/?s='+encodeURIComponent(seg); };
     var porWA=function(){ f.removeAttribute('data-enviando'); window.open('https://wa.me/'+f.dataset.wa+'?text='+encodeURIComponent(f.dataset.waMsg+(d.company||d.vendes||d.website||'')+'\n'+mensaje+'\nNombre: '+d.firstname+' · '+d.email),'_blank','noopener'); f.querySelector('.lp-ok').hidden=false; };
     if(!f.dataset.hsPortal||!f.dataset.hsForm){ porWA(); return; }
     f.setAttribute('data-enviando','');

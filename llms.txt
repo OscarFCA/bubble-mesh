@@ -5,6 +5,7 @@
 ## Sitios
 - [BubbleMesh](https://bubble-mesh.com/): agentes de IA conectados a CRM, bases de datos y canales de comunicación.
 - [BubbleMesh Studio](https://bubble-mesh.com/studio/): comerciales y videoclips con IA, producción audiovisual para marcas, video inmobiliario y páginas web con asistente de WhatsApp.
+- [Páginas web, tiendas en línea y CRM](https://bubble-mesh.com/paginas-web/): diseño sin anticipo con mensualidad fija, conectado con WhatsApp, CRM y asistentes con IA.
 - [Comerciales con IA](https://bubble-mesh.com/studio/video-con-ia.html): desde MXN 8,900, entrega en 5 días hábiles.
 - [Páginas web con WhatsApp](https://bubble-mesh.com/studio/paginas-web.html): sitio, Google Maps y asistente de WhatsApp.
 - [Trabajo](https://bubble-mesh.com/studio/trabajo.html): portafolio.
