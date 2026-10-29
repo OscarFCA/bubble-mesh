@@ -429,6 +429,7 @@ img{max-width:100%;height:auto}
   .lp-esq-cta{grid-column:2;grid-row:1/3;width:auto;padding:12px 14px;font-size:14px;white-space:nowrap}
   .lp-con-esquina .lp-flota{padding:13px;bottom:92px;right:12px;transition:bottom .4s}.lp-con-esquina:has(.lp-esquina.arriba) .lp-flota,.lp-con-esquina:has(.lp-esquina.fuera) .lp-flota{bottom:18px}.lp-con-esquina .lp-flota span{display:none}.lp-con-esquina .lp-pie{padding-bottom:110px}}
 @media (max-width:380px){.lp-esquina .lp-cuenta b{font-size:12.5px;min-width:24px;padding:1px 3px}.lp-esq-cta{padding:11px 12px;font-size:13.5px}}
+@media (min-width:901px){.lp-con-esquina .lp-hero-in{align-items:start}.lp-con-esquina .lp-escena{margin-top:clamp(48px,4.5vw,64px)}}
 .lp-con-esquina .lp-hero h1{font-size:clamp(2.3rem,4.2vw,3.5rem)}
 @media (max-width:600px){.lp-sitios-4,.lp-sitios-2,.lp-sitios-1{grid-template-columns:1fr}.lp-sitio-ancho{grid-column:auto}.lp-sitio-ancho img{aspect-ratio:16/10}}
 @media (prefers-reduced-motion:reduce){.js .lp-vs .lp-vs-despues{opacity:1;transform:none}.lp-esquina{animation:none}}
