@@ -109,8 +109,8 @@ details>summary::-webkit-details-marker{display:none}
 .bm-paq{background:var(--card);border:1px solid var(--borde);border-radius:20px;padding:26px 24px;display:flex;flex-direction:column;gap:12px}
 .bm-paq-rec{background:linear-gradient(rgba(17,24,39,0.96),rgba(17,24,39,0.96)) padding-box,linear-gradient(135deg,var(--rosa),var(--violeta)) border-box;border:1.5px solid transparent;box-shadow:0 0 50px rgba(109,40,217,0.3)}
 .bm-paq h3{margin:0;font-size:20px;font-weight:600}
-.bm-paq ul{margin:0;padding:0 0 0 18px;display:grid;gap:7px;font-size:14.5px;line-height:1.5;color:var(--suave);flex:1}
-.bm-paq-para{margin:0;font-size:13.5px;color:#C4B5FD}
+.bm-paq ul{margin:0;padding:0 0 0 18px;display:grid;gap:7px;font-size:14.5px;line-height:1.5;color:var(--suave);flex:1;align-content:start}
+.bm-paq-para{margin:0;font-size:14.5px;line-height:1.5;color:#C4B5FD}
 .bm-paq .bm-btn{margin-top:8px;width:100%;white-space:normal}
 .bm-nota{margin:22px 0 0;font-size:14px;line-height:1.6;color:var(--suave)}
 /* pasos, objeciones, faq */
