@@ -206,6 +206,16 @@ img{max-width:100%;height:auto}
 .lp-paq .lp-lista li{font-size:15px}
 .lp-paq-reco{border-color:rgba(236,72,153,0.55);background:linear-gradient(180deg,rgba(124,58,237,0.22),var(--panel) 60%);box-shadow:0 24px 70px rgba(124,58,237,0.3)}
 .lp-paq-badge{position:absolute;top:-13px;left:24px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;padding:5px 12px;border-radius:999px;background:linear-gradient(135deg,#EC4899,#7C3AED)}
+.lp-express{margin-top:22px;display:grid;grid-template-columns:1.3fr 1fr;gap:28px;align-items:center;padding:26px 28px;border-radius:20px;background:rgba(255,255,255,0.045);border:1px solid rgba(255,255,255,0.14)}
+.lp-express-eye{display:inline-block;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#5EEAD4;margin-bottom:8px}
+.lp-express h3{margin:0 0 8px;font-size:21px;color:#fff}
+.lp-express-txt p{margin:0;color:var(--suave);font-size:15.5px;line-height:1.6}
+.lp-express-txt .lp-express-nota{margin-top:12px;font-size:14px;color:#CBD5E1}
+.lp-express-lado{display:grid;gap:12px}
+.lp-express-precio{margin:0;color:var(--suave);font-size:15px}
+.lp-express-precio strong{font-size:28px;color:#fff;font-weight:800;margin-right:4px}
+.lp-express .lp-lista{margin:0}
+@media (max-width:820px){.lp-express{grid-template-columns:1fr;padding:22px 20px;gap:18px}}
 .lp-extras{margin:24px 0 0;font-size:14.5px;color:var(--suave);max-width:900px}
 .lp-extras strong{color:#E2E8F0}
 .lp-piezas{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}

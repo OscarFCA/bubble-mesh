@@ -227,7 +227,11 @@ details>summary::-webkit-details-marker{display:none}
 .bm-vs tbody tr{border-bottom:1px solid var(--borde)}.bm-vs tbody tr:last-child{border-bottom:0}
 .bm-vs tbody th{width:auto;padding-bottom:4px;border:0}.bm-vs td{border:0;padding-top:10px}
 .bm-vs td::before{content:attr(data-l);display:block;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#94A3B8;margin-bottom:2px}
-.bm-vs td.bm-vs-ia::before{color:#C4B5FD}}
+.bm-vs td.bm-vs-ia::before{color:#C4B5FD}
+.bm-vs tfoot tr{display:grid;gap:10px;padding:16px 20px}.bm-vs tfoot td{padding:0}.bm-vs tfoot td:first-child{display:none}.bm-vs tfoot td.bm-vs-ia{background:none}}
+.bm-vs tfoot td{border-bottom:0;border-top:1px solid var(--borde)}
+.bm-vs tfoot .bm-btn{display:flex;width:100%;box-sizing:border-box;justify-content:center}
+@media (max-width:640px){.bm-vs tfoot td{border:0}}
 /* pie, flotante, cookies */
 .bm-f{background:#060911;border-top:1px solid rgba(255,255,255,0.06);margin-top:clamp(64px,9vw,112px)}
 .bm-f-in{max-width:1280px;margin:0 auto;padding:60px clamp(20px,4vw,32px) 28px;display:grid;gap:40px}
