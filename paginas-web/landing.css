@@ -617,6 +617,21 @@ img{max-width:100%;height:auto}
 @media (max-width:1100px){.lp-hechos{grid-template-columns:repeat(5,1fr)}}
 @media (max-width:900px){.lp-hechos{grid-template-columns:repeat(5,minmax(120px,1fr));overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:10px}.lp-hecho{scroll-snap-align:start}}
 @media (prefers-reduced-motion:reduce){.lp-hecho-libre,.lp-hecho-mas,.lp-hecho-spin{animation:none}}
+.lp-marq{position:relative;z-index:3;height:150px;margin:-75px 0;overflow:hidden;pointer-events:none}
+.lp-marq-cinta{position:absolute;left:-5%;right:-5%;top:50%;height:50px;display:flex;align-items:center;overflow:hidden;box-shadow:0 6px 18px rgba(0,0,0,0.35)}
+.lp-marq-cinta.a{transform:translateY(-50%) rotate(-2.2deg);background:linear-gradient(90deg,#DB2777,#7C3AED,#DB2777);background-size:200% 100%;animation:lpBanda 6s linear infinite;z-index:2}
+.lp-marq-cinta.b{transform:translateY(-50%) rotate(2deg);background:#5EEAD4;opacity:.92}
+.lp-marq-pista{display:flex;align-items:center;gap:22px;width:max-content;padding-left:22px;animation:lpMarq 30s linear infinite}
+.lp-marq-cinta.b .lp-marq-pista{animation-direction:reverse;animation-duration:36s}
+.lp-marq span{font:800 19px Montserrat,sans-serif;text-transform:uppercase;letter-spacing:.02em;white-space:nowrap;color:#fff}
+.lp-marq-cinta.b span{color:#04211D}
+.lp-marq i{font-style:normal;font-size:16px;color:#FDE68A;animation:lpGira 4s linear infinite;display:inline-block}
+.lp-marq-cinta.b i{color:#7C3AED}
+.lp-marq-inv .lp-marq-cinta.a{transform:translateY(-50%) rotate(2.2deg)}.lp-marq-inv .lp-marq-cinta.b{transform:translateY(-50%) rotate(-2deg)}
+.lp-sec:has(+ .lp-marq){padding-bottom:calc(clamp(56px,8vw,96px) + 75px)}
+.lp-marq + .lp-sec{padding-top:calc(clamp(56px,8vw,96px) + 75px)}
+@media (max-width:600px){.lp-marq{height:120px;margin:-60px 0}.lp-marq-cinta{height:40px}.lp-marq span{font-size:15px}}
+@media (prefers-reduced-motion:reduce){.lp-marq-pista,.lp-marq-cinta.a,.lp-marq i{animation:none}}
 @media (prefers-reduced-motion:reduce){.lp-f::before,.lp-f-precio strong,.lp-f-cinta,.lp-vis-spot i,.lp-vis-cierre>span,.lp-toma-cab,.lp-vis-pack img{animation:none}}
 .lp-reel{position:relative;max-width:980px;margin:0 auto}
 .lp-reel-halo{position:absolute;inset:6% 3%;border-radius:32px;background:conic-gradient(from var(--lpa),#EC4899,#7C3AED,#14B8A6,#F59E0B,#EC4899);filter:blur(50px);opacity:.5;animation:lpBorde 10s linear infinite}
