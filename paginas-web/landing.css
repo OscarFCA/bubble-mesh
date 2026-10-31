@@ -552,7 +552,7 @@ img{max-width:100%;height:auto}
 .lp-form-temp label:last-of-type{grid-column:1/-1}
 .lp-gracias-temp{min-height:auto;padding-top:56px;display:block;text-align:center}
 .lp-gracias-temp .lp-dif{text-align:left}
-@media (max-width:900px){.lp-prueba-in{grid-template-columns:1fr}.lp-prueba-video{display:none}.lp-cierres{grid-template-columns:1fr 1fr}.lp-cierre-c::before{display:none}.lp-hero-media{width:min(100%,320px)}}
+@media (max-width:900px){.lp-prueba-in{grid-template-columns:1fr}.lp-prueba-video{max-width:320px;margin:0 auto;width:100%}.lp-cierres{grid-template-columns:1fr 1fr}.lp-cierre-c::before{display:none}.lp-hero-media{width:min(100%,320px)}}
 @media (max-width:600px){.lp-pista{grid-template-columns:1fr}.lp-cards-2{grid-template-columns:1fr}.lp-oferta .lp-lista{grid-template-columns:1fr}.lp-hero-chip{font-size:12px}.lp-hero-chip.c1{left:0}.lp-hero-chip.c2{right:0}}
 @media (prefers-reduced-motion:reduce){.lp-hero-halo,.lp-hero-chip{animation:none}}
 @media (prefers-reduced-motion:reduce){.js .lp-vs .lp-vs-despues{opacity:1;transform:none}.lp-esquina{animation:none}}
