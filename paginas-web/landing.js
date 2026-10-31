@@ -1,6 +1,9 @@
 
 (function(){
   document.documentElement.classList.add('js');
+  // Safari (Mac, iPhone, iPad) y todo navegador de iOS usan WebKit: versión ligera de los efectos para no agotar la memoria
+  var ua=navigator.userAgent;
+  if(/iPhone|iPad|iPod/.test(ua)||(/Macintosh/.test(ua)&&navigator.maxTouchPoints>1)||(/Safari\//.test(ua)&&!/Chrome|Chromium|CriOS|FxiOS|Edg|OPR|Firefox|Android/.test(ua))) document.documentElement.classList.add('lp-ligero');
   var MED={"ga4": "", "google_ads": "", "meta_pixel": ""}, seg=document.body.dataset.seg||'';
   window.dataLayer=window.dataLayer||[];
   function evento(n,p){ p=p||{}; p.segmento=seg; if(window.lpCtx) Object.keys(window.lpCtx).forEach(function(k){ if(!(k in p)) p[k]=window.lpCtx[k]; }); window.dataLayer.push(Object.assign({event:n},p)); if(window.gtag) window.gtag('event',n,p); }
@@ -22,7 +25,8 @@
 
   // Video de la burbuja: baja cuando la página ya cargó y solo corre en pantalla
   var vp=document.querySelector('.lp-pantalla');
-  if(vp){ window.addEventListener('load',function(){ vp.src=vp.dataset.src; vp.muted=true; var p=vp.play(); if(p&&p.catch) p.catch(function(){}); }); }
+  if(vp){ window.addEventListener('load',function(){ vp.src=vp.dataset.src; vp.muted=true; var p=vp.play(); if(p&&p.catch) p.catch(function(){}); });
+    if('IntersectionObserver' in window) new IntersectionObserver(function(es){ es.forEach(function(e){ if(!vp.src) return; if(e.isIntersecting){ var p=vp.play(); if(p&&p.catch) p.catch(function(){}); } else vp.pause(); }); }).observe(vp); }
   var vb=document.querySelector('.lp-burbuja');
   if(vb){ window.addEventListener('load',function(){ vb.src=vb.dataset.src; vb.muted=true; var p=vb.play(); if(p&&p.catch) p.catch(function(){}); });
     if('IntersectionObserver' in window) new IntersectionObserver(function(es){ es.forEach(function(e){ if(!vb.src) return; if(e.isIntersecting){ var p=vb.play(); if(p&&p.catch) p.catch(function(){}); } else vb.pause(); }); }).observe(vb); }
@@ -59,6 +63,7 @@
     function ver(){ esq.classList.toggle('arriba',hero?hero.getBoundingClientRect().bottom>80:scrollY<320); esq.classList.toggle('fuera',!!(cerca.cierre||cerca.pie||(!hero&&(cerca.promos||cerca.oferta||cerca.reel||cerca.hechos)))); }
     if('IntersectionObserver' in window){ var ioe=new IntersectionObserver(function(es){ es.forEach(function(e){ cerca[e.target.dataset.esq]=e.isIntersecting; }); ver(); },{rootMargin:'0px 0px -10% 0px'});
       [['cierre','#cierre .lp-form'],['pie','.lp-pie'],['promos','#promos .lp-promos'],['oferta','#oferta .lp-fs'],['reel','#reel .lp-reel'],['hechos','#hechos .lp-hechos']].forEach(function(x){ var el=document.querySelector(x[1]); if(el){ el.dataset.esq=x[0]; ioe.observe(el); } }); }
+    if('ResizeObserver' in window){ new ResizeObserver(function(){ document.body.style.setProperty('--lp-esq-h',esq.offsetHeight+'px'); }).observe(esq); }
     addEventListener('scroll',ver,{passive:true}); ver(); }
 
   // CTA → formulario

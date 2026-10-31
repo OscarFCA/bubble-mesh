@@ -453,7 +453,7 @@ img{max-width:100%;height:auto}
   .lp-esq-tag,.lp-esq-t,.lp-esquina .lp-medidor-barra,.lp-esq-min,.lp-esq-q span,.lp-esq-cierra>span:first-child{display:none}
   .lp-esq-q{margin:0;font-size:12.5px}.lp-esq-cierra{margin:0}
   .lp-esq-cta{grid-column:2;grid-row:1/3;width:auto;padding:12px 14px;font-size:14px;white-space:nowrap}
-  .lp-con-esquina .lp-flota{padding:13px;bottom:92px;right:12px;transition:bottom .4s}.lp-con-esquina:has(.lp-esquina.arriba) .lp-flota,.lp-con-esquina:has(.lp-esquina.fuera) .lp-flota{bottom:18px}.lp-con-esquina .lp-flota span{display:none}.lp-con-esquina .lp-pie{padding-bottom:110px}}
+  .lp-con-esquina .lp-flota{z-index:46;padding:13px;bottom:calc(var(--lp-esq-h,150px) + 20px);right:12px;transition:bottom .4s}.lp-con-esquina:has(.lp-esquina.arriba) .lp-flota,.lp-con-esquina:has(.lp-esquina.fuera) .lp-flota{bottom:18px}.lp-con-esquina .lp-flota span{display:none}.lp-con-esquina .lp-pie{padding-bottom:110px}}
 @media (max-width:380px){.lp-esquina .lp-cuenta b{font-size:12.5px;min-width:24px;padding:1px 3px}.lp-esq-cta{padding:11px 12px;font-size:13.5px}}
 @media (min-width:901px){.lp-con-esquina .lp-hero-in{align-items:start}.lp-con-esquina .lp-escena{margin-top:clamp(48px,4.5vw,64px)}}
 .lp-con-esquina .lp-hero h1{font-size:clamp(2.3rem,4.2vw,3.5rem)}
@@ -652,6 +652,21 @@ img{max-width:100%;height:auto}
 .lp-prueba-media .lp-prueba-video{position:relative;border-radius:22px;box-shadow:0 40px 90px -30px rgba(0,0,0,0.9)}
 @media (max-width:900px){.lp-prueba-media{max-width:340px;margin:0 auto;width:100%}}
 @media (max-width:600px){.lp-fx i{filter:blur(60px);opacity:.42}.lp-fx .o3{display:none}}
+/* En celular y tabletas las luces se pintan con degradado fijo: los blur animados agotan la memoria de Safari en iPhone */
+@media (max-width:900px),(hover:none){
+  .lp-fx i,.lp-promos-fx i{filter:none;animation:none;will-change:auto;opacity:.5;-webkit-mask:radial-gradient(closest-side,#000,transparent);mask:radial-gradient(closest-side,#000,transparent)}
+  .lp-fx .lp-promos-chispas,.lp-promos-chispas{animation:none}
+  .lp-hero-halo,.lp-reel-halo{animation:none;filter:blur(30px)}
+  .lp-temp .lp-card,.lp-temp .lp-cond,.lp-temp .lp-paso,.lp-temp .lp-cierre-c{-webkit-backdrop-filter:none;backdrop-filter:none;background:rgba(13,17,30,0.9)}
+  .lp-esq-caja,.lp-esq-pill{-webkit-backdrop-filter:none;backdrop-filter:none;background:rgba(15,20,36,0.97)}
+  .lp-form,.lp-promo,.lp-f,.lp-hero-chip{-webkit-backdrop-filter:none;backdrop-filter:none}}
+/* Safari (Mac, iPhone, iPad) y cualquier navegador de iOS: misma versión ligera aunque la pantalla sea grande */
+html.lp-ligero .lp-fx i,html.lp-ligero .lp-promos-fx i{filter:none;animation:none;will-change:auto;opacity:.5;-webkit-mask:radial-gradient(closest-side,#000,transparent);mask:radial-gradient(closest-side,#000,transparent)}
+html.lp-ligero .lp-fx .lp-promos-chispas,html.lp-ligero .lp-promos-chispas{animation:none}
+html.lp-ligero .lp-hero-halo,html.lp-ligero .lp-reel-halo{animation:none;filter:blur(30px)}
+html.lp-ligero .lp-temp .lp-card,html.lp-ligero .lp-temp .lp-cond,html.lp-ligero .lp-temp .lp-paso,html.lp-ligero .lp-temp .lp-cierre-c{-webkit-backdrop-filter:none;backdrop-filter:none;background:rgba(13,17,30,0.9)}
+html.lp-ligero .lp-esq-caja,html.lp-ligero .lp-esq-pill{-webkit-backdrop-filter:none;backdrop-filter:none;background:rgba(15,20,36,0.97)}
+html.lp-ligero .lp-form,html.lp-ligero .lp-promo,html.lp-ligero .lp-f,html.lp-ligero .lp-hero-chip{-webkit-backdrop-filter:none;backdrop-filter:none}
 @media (prefers-reduced-motion:reduce){.lp-fx i,.lp-fx .lp-promos-chispas,.lp-temp .lp-h2,.lp-temp .lp-hero-acc .lp-btn-pri,.lp-temp .lp-hero .lp-escena::after{animation:none}}
 .lp-hero-precios{list-style:none;margin:22px 0 0;padding:0;display:grid;gap:8px;max-width:520px}
 .lp-hero-precios a{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:12px;padding:10px 14px;border-radius:14px;text-decoration:none;color:#E2E8F0;background:rgba(13,17,30,0.6);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.1);transition:transform .25s,border-color .25s,background .25s}
