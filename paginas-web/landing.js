@@ -3,7 +3,7 @@
   document.documentElement.classList.add('js');
   var MED={"ga4": "", "google_ads": "", "meta_pixel": ""}, seg=document.body.dataset.seg||'';
   window.dataLayer=window.dataLayer||[];
-  function evento(n,p){ p=p||{}; p.segmento=seg; window.dataLayer.push(Object.assign({event:n},p)); if(window.gtag) window.gtag('event',n,p); }
+  function evento(n,p){ p=p||{}; p.segmento=seg; if(window.lpCtx) Object.keys(window.lpCtx).forEach(function(k){ if(!(k in p)) p[k]=window.lpCtx[k]; }); window.dataLayer.push(Object.assign({event:n},p)); if(window.gtag) window.gtag('event',n,p); }
 
   // Contador de la campaña (banner y versión chica del cierre)
   var cajas=document.querySelectorAll('[data-fin]');
@@ -81,18 +81,18 @@
     fetch('https://api.hsforms.com/submissions/v3/integration/submit/'+portal+'/'+formid,{method:'POST',mode:'cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(cuerpo)})
       .then(function(r){ if(r.ok) listo(); else if(r.status===404) legacy(); else falla(); }).catch(legacy);
   }
-  var NOMBRES={servicio:'Servicio',ciudad:'Ciudad',vendes:'Vende',productos:'Productos aprox.',website:'Sitio actual',anunciar:'Quiere anunciar',paquete:'Paquete'};
+  var NOMBRES={servicio:'Servicio',ciudad:'Ciudad',vendes:'Vende',productos:'Productos aprox.',website:'Sitio actual',anunciar:'Quiere anunciar',paquete:'Paquete',fecha:'Fecha',rubro:'Rubro'};
   var f=document.getElementById('cotiza');
   if(f) f.addEventListener('submit',function(e){ e.preventDefault(); var ok=true, d={};
     f.querySelectorAll('input').forEach(function(c){ var v=c.value.trim(); d[c.name]=v;
       var mal=(!v && c.required) || (v && (c.type==='email' && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)) || (c.type==='tel' && v.replace(/\D/g,'').length<10) || (c.type==='url' && v.indexOf('.')<0));
-      c.closest('label').classList.toggle('lp-mal',mal); if(mal) ok=false; });
+      var lb=c.closest('label'); if(lb) lb.classList.toggle('lp-mal',mal); if(mal) ok=false; });
     f.querySelectorAll('select').forEach(function(c){ d[c.name]=c.value; var mal=c.required&&!c.value; c.closest('label').classList.toggle('lp-mal',mal); if(mal) ok=false; });
     f.querySelector('.lp-err').hidden=ok; if(!ok){ var m=f.querySelector('.lp-mal input,.lp-mal select'); if(m) m.focus(); return; }
     var extra=Object.keys(NOMBRES).filter(function(k){ return d[k]; }).map(function(k){ return NOMBRES[k]+': '+d[k]; });
     var u=Object.keys(utm).map(function(k){ return k+'='+utm[k]; }).join(' · ');
     var mensaje=['Landing: '+seg,'Me interesa: '+f.dataset.interes].concat(extra).concat(u?['UTM: '+u]:[]).join(' · ');
-    var gracias=function(){ evento('form_submit',servicio()?{servicio:servicio()}:{}); location.href='/paginas-web/gracias/?s='+encodeURIComponent(seg); };
+    var gracias=function(){ evento('form_submit',servicio()?{servicio:servicio()}:{}); location.href=(f.dataset.gracias||'/paginas-web/gracias/')+'?s='+encodeURIComponent(seg); };
     var porWA=function(){ f.removeAttribute('data-enviando'); window.open('https://wa.me/'+f.dataset.wa+'?text='+encodeURIComponent(f.dataset.waMsg+(d.company||d.vendes||d.website||'')+'\n'+mensaje+'\nNombre: '+d.firstname+' · '+d.email),'_blank','noopener'); f.querySelector('.lp-ok').hidden=false; };
     if(!f.dataset.hsPortal||!f.dataset.hsForm){ porWA(); return; }
     f.setAttribute('data-enviando','');
