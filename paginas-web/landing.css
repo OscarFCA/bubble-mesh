@@ -621,6 +621,7 @@ img{max-width:100%;height:auto}
 .lp-esq-gratis{display:flex;align-items:center;gap:8px;margin:10px 0 0;padding:8px 10px;border-radius:12px;text-decoration:none;color:#E2E8F0;font-size:13px;background:rgba(45,212,191,0.1);border:1px solid rgba(45,212,191,0.4);transition:border-color .2s}
 .lp-esq-gratis:hover{border-color:#2DD4BF}
 .lp-esq-gratis em{font-style:normal}
+.lp-esq-gratis span{white-space:nowrap;font-size:12.5px}
 @media (max-width:760px){.lp-esq-gratis em{display:none}.lp-esq-gratis{white-space:nowrap}}
 .lp-esq-gratis b{font:800 11px Montserrat,sans-serif;padding:3px 7px;border-radius:7px;color:#04211D;background:linear-gradient(110deg,#5EEAD4 30%,#fff 50%,#5EEAD4 70%);background-size:250% 100%;animation:lpBrillo 3s linear infinite}
 @media (max-width:760px){.lp-esquina .lp-esq-gratis{grid-column:1;margin:2px 0 0;padding:4px 8px;font-size:11.5px}.lp-esquina .lp-esq-cta{grid-row:1/4}}
