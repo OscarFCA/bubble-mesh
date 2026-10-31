@@ -463,4 +463,20 @@ img{max-width:100%;height:auto}
 @media (min-width:901px){.lp-con-esquina .lp-hero-in{align-items:start}.lp-con-esquina .lp-escena{margin-top:clamp(48px,4.5vw,64px)}}
 .lp-con-esquina .lp-hero h1{font-size:clamp(2.3rem,4.2vw,3.5rem)}
 @media (max-width:600px){.lp-sitios-4,.lp-sitios-2,.lp-sitios-1{grid-template-columns:1fr}.lp-sitio-ancho{grid-column:auto}.lp-sitio-ancho img{aspect-ratio:16/10}}
+.lp-banner-temp .lp-banner-txt{font-size:14px;font-weight:500}
+.lp-banner-temp .lp-banner-txt strong{font-weight:700}
+@media (max-width:1400px){.lp-banner-temp .lp-banner-tag{display:none}}
+@media (max-width:1100px){.lp-banner-temp .lp-banner-txt{display:none}.lp-banner-temp .lp-banner-corto{display:block;width:auto}}
+@media (max-width:720px){.lp-banner-temp .lp-banner-in{padding:8px 10px;gap:6px 10px}.lp-banner-temp .lp-banner-corto{width:100%;font-size:12.5px}
+  .lp-banner-temp .lp-cuenta b{font-size:13px;min-width:26px;padding:2px 4px}.lp-banner-temp .lp-cuenta i{font-size:10px;margin-right:2px}
+  .lp-banner-temp .lp-banner-cta{font-size:12.5px;padding:6px 11px}}
+.lp-esquina-temp .lp-esq-promo{margin-top:12px}
+.lp-esquina-temp .lp-esq-q{display:flex;align-items:center;gap:8px;margin:0 0 7px}
+.lp-esq-chip{font:800 11.5px Montserrat,sans-serif;padding:3px 7px;border-radius:7px;background:linear-gradient(135deg,#EC4899,#7C3AED);color:#fff}
+.lp-esq-promo-ecom .lp-esq-chip{background:linear-gradient(135deg,#14B8A6,#0284C7)}
+.lp-esquina-temp .lp-medidor{margin:0;max-width:none}
+.lp-esquina-temp .lp-medidor p{display:none}
+.lp-esquina-temp .lp-esq-cierra{margin-top:14px}
+@media (max-width:760px){.lp-esquina-temp .lp-esq-promo{margin:0}.lp-esquina-temp .lp-esq-q{margin:0;font-size:12px}.lp-esq-chip{font-size:10px;padding:2px 5px}
+  .lp-esquina-temp .lp-esq-cta{grid-row:1/4}}
 @media (prefers-reduced-motion:reduce){.js .lp-vs .lp-vs-despues{opacity:1;transform:none}.lp-esquina{animation:none}}
