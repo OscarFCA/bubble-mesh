@@ -277,6 +277,21 @@ img{max-width:100%;height:auto}
 .lp-medidor p{margin:8px 0 0;font-size:14px;color:var(--suave)}
 .lp-medidor p strong{color:#fff}
 .lp-medidor-mini{margin:12px 0}
+.lp-medidor-ecom .lp-medidor-barra i.libre{background:linear-gradient(135deg,#2DD4BF,#0EA5E9);box-shadow:0 0 10px rgba(45,212,191,0.5)}
+.lp-hero-promos{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:24px 0 4px;max-width:620px}
+.lp-hpromo{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;align-items:start;padding:14px 16px 4px;border-radius:16px;text-decoration:none;color:inherit;background:linear-gradient(135deg,rgba(236,72,153,0.16),rgba(124,58,237,0.12));border:1px solid rgba(236,72,153,0.45);transition:transform .2s,border-color .2s}
+.lp-hpromo:hover{transform:translateY(-2px);border-color:#EC4899}
+.lp-hpromo-ecom{background:linear-gradient(135deg,rgba(45,212,191,0.14),rgba(14,165,233,0.10));border-color:rgba(45,212,191,0.45)}
+.lp-hpromo-ecom:hover{border-color:#2DD4BF}
+.lp-hpromo-tag{font-family:Montserrat,sans-serif;font-weight:800;font-size:15px;padding:6px 10px;border-radius:10px;background:linear-gradient(135deg,#EC4899,#7C3AED);color:#fff}
+.lp-hpromo-ecom .lp-hpromo-tag{background:linear-gradient(135deg,#14B8A6,#0284C7)}
+.lp-hpromo-t{display:grid;gap:2px}
+.lp-hpromo-t strong{font-size:15.5px;color:#fff;line-height:1.25}
+.lp-hpromo-t span{font-size:13.5px;color:var(--suave)}
+.lp-hpromo .lp-medidor{grid-column:1/-1;margin:10px 0 8px}
+.lp-hpromo .lp-medidor-barra i{height:8px}
+.lp-hpromo .lp-medidor p{font-size:12.5px;margin-top:6px}
+@media (max-width:600px){.lp-hero-promos{grid-template-columns:1fr}}
 .lp-cupo .lp-medidor{margin-left:auto;margin-right:auto}
 .lp-paq-precio s,.lp-promo-precio s,.lp-sub s{color:var(--suave);font-weight:500}
 .lp-paq-precio s{font-size:18px;margin-right:4px}
